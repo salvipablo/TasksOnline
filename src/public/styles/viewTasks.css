@@ -1,0 +1,82 @@
+/* Generales */
+
+* {
+margin: 0;
+padding: 0;
+}
+
+body {
+    background-color: #333333;
+    color: #faebd7;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+/* Tasks */
+
+.cntTareas {
+    display: flex;
+    justify-content: center;
+    height: 780px;
+}
+
+.tareasPendientes, .tareasEjecucion, .tareasFinalizadas {
+    width: 500px;
+    padding: 0.8em;
+}
+
+.tareasPendientes--task, .tareasEjecucion--task, .tareasFinalizadas--task {
+    padding: 2em 0 2em 1em;
+    margin-bottom: 1em;
+    border: 2px solid #757474;
+    border-radius: 0 0.5em 0.5em 0;
+}
+
+.iconTask {
+    width: 20px;
+    margin-right: 0.5em;
+}
+
+.tareasPendientes--task {
+    border-left: 8px solid red;
+}
+
+.tareasEjecucion--task {
+    border-left: 8px solid orange;
+}
+
+.tareasFinalizadas--task {
+    border-left: 8px solid green;
+}
+
+.despcrTask {
+    font-size: 0.9em;
+}
+
+.titleTask {
+    margin-bottom: 0.8em;
+}
+
+/* Pagination */
+
+.cntPagination {
+    display: flex;
+    justify-content: center;
+}
+
+.cntPagination a {
+    /* margin-right: 1em; */
+    padding: 1em;
+    color: #000000;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.cntPagination a:hover {
+    background-color: #6262df;
+    color: #ffffff;
+}
