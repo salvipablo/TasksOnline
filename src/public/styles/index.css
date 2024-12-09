@@ -2,45 +2,66 @@ ul {
   list-style-type: none;
 }
 
-body {
-  font-family: Verdana, sans-serif;
-  padding: 0 1em;
-}
-
 .cntMain {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
+.cntFormAddTask {
+  width: 40%;
+}
+
+.cntCalendar {
+  width: 60%;
+  height: 100px;
+}
+
 form {
-  width: 100%;
+  width: 600px;
+  margin: auto;
 }
 
-
-
-label, input, select {
+.lblFrmAddTask, .inpFrmAddTask {
   display: block;
-  padding: 0.5em;
   width: 100%;
 }
+
+.lblFrmAddTask {
+  padding: 0.8em 0 0.8em 0;
+}
+
+.inpFrmAddTask {
+  padding: 0.8em 0 0.8em 0.5em;
+}
+
+.submitFrmAddTask {
+  width: 100%;
+  padding: 1em 0;
+  margin-top: 2em;
+  background: transparent;
+  background-color: #5353b9;
+  border: 1px solid #423b3b;
+  border-radius: 0.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.submitFrmAddTask:hover {
+  background-color: #333333;
+}
+
 
 /* Month header */
-.month {
-  padding: 70px 25px;
+.header-calendar {
+  display: flex;
+  justify-content: space-between;
   background: #1abc9c;
-  text-align: center;
-}
-
-/* Month list */
-.month ul {
-  margin: 0;
-  padding: 0;
-}
-
-.month ul li {
-  color: white;
-  font-size: 20px;
+  padding: 70px 25px;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
@@ -51,18 +72,42 @@ label, input, select {
   padding-top: 10px;
 }
 
-/* Next button */
-.month .next {
-  float: right;
-  padding-top: 10px;
+/* Weekdays (Mon-Sun) */
+.weekdays-calendar, .days-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
-/* Weekdays (Mon-Sun) */
-.weekdays {
-  margin: 0;
-  padding: 10px 0;
-  background-color:#ddd;
+.th-grid {
+  text-align: center;
+  background-color: #918f8f;
+  color: #ffffff;
 }
+
+.td-grid {
+  text-align: center;
+  background-color: #eeeeee;
+  padding: 1em 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .weekdays li {
   display: inline-block;

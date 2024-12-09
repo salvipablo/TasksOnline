@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, sans-serif;
+  padding: 0 1em;
+}
+
+.mt-1 {
+  margin-top: 1em;
+}
+
+.ml-05 {
+  margin-left: 0.5em;
+}
