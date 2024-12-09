@@ -4,4 +4,5 @@ G#001 - Initial commit - OK.
 ** Tickets **
 T#001 - First route that returns the base page - OK.
 T#002 - Task view page - OK.
-T#002 - Task management page - .
+T#002 - Task management page - OK.
+T#003 - Change month with arrows - OK.

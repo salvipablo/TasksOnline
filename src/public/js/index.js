@@ -3,6 +3,9 @@ const TitleCalendar = document.getElementById('titleCalendar')
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+const btnPrev = document.getElementById('btnPrev')
+const btnNext = document.getElementById('btnNext')
+
 const daysSinceMonday = (day) => {
   const daysOfTheWeek = {
     'Monday': 1,
@@ -32,8 +35,10 @@ const HowManyDaysOfWeek = (day) => {
 }
 
 const renderMonth = (year, month) => {
+  DaysCalendar.innerHTML = ''
+  TitleCalendar.innerHTML = `${Months[currentMonth]} - ${currentYear}`
+
   let daysMonth = new Date(year, month + 1, 0).getDate()
-  
 
   let index = new Date(year, month, 1).getDay()
   let firstDay = daysOfTheWeek[index]
@@ -66,7 +71,6 @@ const renderMonth = (year, month) => {
 
   let indexLastDay = HowManyDaysOfWeek(lastDay)
   HowManyDaysAreLeft = 7 - indexLastDay
-  
 
   for (let i = 0; i < HowManyDaysAreLeft; i++) {
     nuevoElemento = document.createElement("p")
@@ -76,10 +80,26 @@ const renderMonth = (year, month) => {
   }
 }
 
-let currentMonth = new Date().getMonth()
+btnNext.addEventListener('click', () => {
+  let nextMonth = currentMonth + 1 === 12 ? 0 : currentMonth + 1
+  let nextYear = currentMonth + 1 === 12 ? currentYear + 1 : currentYear
+  currentMonth = nextMonth
+  currentYear = nextYear
+  renderMonth(currentYear, currentMonth)
+})
+
+btnPrev.addEventListener('click', () => {
+  let nextMonth = currentMonth - 1 === -1 ? 11 : currentMonth - 1
+  let nextYear = currentMonth - 1 === -1 ? currentYear - 1 : currentYear
+  currentMonth = nextMonth
+  currentYear = nextYear
+  renderMonth(currentYear, currentMonth)
+})
+
+
+let currentMonth = new Date().getMonth() - 2
 let currentYear = new Date().getFullYear()
 
-TitleCalendar.innerHTML = `${Months[currentMonth]} - ${currentYear}`
 renderMonth(currentYear, currentMonth)
 
 // <span class="active">5</span>
