@@ -63,9 +63,11 @@ form {
   text-transform: uppercase;
   letter-spacing: 3px;
 }
+
 .prev, .next {
   cursor: pointer;
 }
+
 .weekdays-calendar, .days-calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -84,4 +86,11 @@ form {
   text-align: center;
   background-color: #eeeeee;
   padding: 1em 0;
+  cursor: pointer;
+}
+
+.active {
+  background-color: aquamarine;
+  color: #000000;
+  border: 1px solid #000000;
 }

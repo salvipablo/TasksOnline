@@ -6,3 +6,4 @@ T#001 - First route that returns the base page - OK.
 T#002 - Task view page - OK.
 T#002 - Task management page - OK.
 T#003 - Change month with arrows - OK.
+T#004 - Select day and save date for event - OK.

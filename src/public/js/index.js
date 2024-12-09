@@ -34,6 +34,25 @@ const HowManyDaysOfWeek = (day) => {
   return daysOfTheWeek[day];
 }
 
+const getElementDay = (day) => {
+  let createPlace = document.createElement("p")
+  createPlace.textContent = `${day}` 
+  createPlace.classList.add("td-grid")
+
+  createPlace.addEventListener('click', (e) => {
+    const elementActive = document.getElementsByClassName('active')
+    elementActive[0].classList.remove("active")
+
+    e.target.classList .add('active')
+
+    currentDate = new Date(currentYear, currentMonth, e.target.textContent)
+    console.log(currentDate);
+  })
+
+  if (day === 1) createPlace.classList.add('active')
+  return createPlace
+}
+
 const renderMonth = (year, month) => {
   DaysCalendar.innerHTML = ''
   TitleCalendar.innerHTML = `${Months[currentMonth]} - ${currentYear}`
@@ -43,8 +62,6 @@ const renderMonth = (year, month) => {
   let index = new Date(year, month, 1).getDay()
   let firstDay = daysOfTheWeek[index]
   let HowManyDaysPassed = daysSinceMonday(firstDay)
-
-  let createPlace;
 
   // Agrego los vacios.
   for (let i = 0; i < HowManyDaysPassed; i++) {
@@ -56,10 +73,7 @@ const renderMonth = (year, month) => {
 
   // Agrego los numeros
   for (var day = 1; day <= daysMonth; day++) {
-    createPlace = document.createElement("p")
-    createPlace.textContent = `${day}` 
-    createPlace.classList.add("td-grid")
-    DaysCalendar.appendChild(createPlace)
+    DaysCalendar.appendChild(getElementDay(day))
   }
 
   // Ultimo dia del mes
@@ -96,8 +110,8 @@ btnPrev.addEventListener('click', () => {
   renderMonth(currentYear, currentMonth)
 })
 
-
-let currentMonth = new Date().getMonth() - 2
+let currentDate = new Date();
+let currentMonth = new Date().getMonth()
 let currentYear = new Date().getFullYear()
 
 renderMonth(currentYear, currentMonth)
