@@ -21,11 +21,12 @@ export const ViewTasks = (_req, res) => {
 
 export const CreateTask = (req, res) => {
   try {
-    const { affair, description, mails } = req.body
+    const { affair, description, noticeDate, mails } = req.body
 
     let newTaskToSave = {
       affair,
       description,
+      noticeDate,
       mails
     }
 

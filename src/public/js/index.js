@@ -44,7 +44,7 @@ const HowManyDaysOfWeek = (day) => {
   return daysOfTheWeek[day];
 }
 
-const getElementDay = (day) => {
+const getElementDay = (day, currentDay) => {
   let createPlace = document.createElement("p")
   createPlace.textContent = `${day}` 
   createPlace.classList.add("td-grid")
@@ -53,16 +53,16 @@ const getElementDay = (day) => {
     const elementActive = document.getElementsByClassName('active')
     elementActive[0].classList.remove("active")
 
-    e.target.classList .add('active')
+    e.target.classList.add('active')
 
-    currentDate = new Date(currentYear, currentMonth, e.target.textContent)
+    chosenDate = new Date(currentYear, currentMonth, e.target.textContent)
   })
 
-  if (day === 1) createPlace.classList.add('active')
+  if (day === currentDay) createPlace.classList.add('active')
   return createPlace
 }
 
-const renderMonth = (year, month) => {
+const renderMonth = (year, month, currentDay) => {
   DaysCalendar.innerHTML = ''
   TitleCalendar.innerHTML = `${Months[currentMonth]} - ${currentYear}`
 
@@ -82,7 +82,7 @@ const renderMonth = (year, month) => {
 
   // Agrego los numeros
   for (var day = 1; day <= daysMonth; day++) {
-    DaysCalendar.appendChild(getElementDay(day))
+    DaysCalendar.appendChild(getElementDay(day, currentDay))
   }
 
   // Ultimo dia del mes
@@ -103,7 +103,7 @@ const renderMonth = (year, month) => {
   }
 }
 
-const saveTask = async (affair, description, mailsToSend) => {
+const saveTask = async (affair, description, noticeDate, mailsToSend) => {
   let mails = []
 
   for (let i = 0; i < mailsToSend.length; i++) {
@@ -113,6 +113,7 @@ const saveTask = async (affair, description, mailsToSend) => {
   let newTask = {
     affair,
     description,
+    noticeDate,
     mails
   }
 
@@ -139,7 +140,7 @@ BtnNext.addEventListener('click', () => {
   let nextYear = currentMonth + 1 === 12 ? currentYear + 1 : currentYear
   currentMonth = nextMonth
   currentYear = nextYear
-  renderMonth(currentYear, currentMonth)
+  renderMonth(currentYear, currentMonth, 1)
 })
 
 BtnPrev.addEventListener('click', () => {
@@ -147,13 +148,15 @@ BtnPrev.addEventListener('click', () => {
   let nextYear = currentMonth - 1 === -1 ? currentYear - 1 : currentYear
   currentMonth = nextMonth
   currentYear = nextYear
-  renderMonth(currentYear, currentMonth)
+  renderMonth(currentYear, currentMonth, 1)
 })
 
 SubmitFrmAddTask.addEventListener('submit', async (e) => {
   e.preventDefault()
 
-  let opStatus = await saveTask(Affair.value, Description.value, Checkboxes)
+  let ChosenDateConverted = chosenDate.toISOString().split('T')[0]
+
+  let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, Checkboxes)
 
   alert(opStatus)
 })
@@ -161,8 +164,9 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
 /* Eventos */
 
 // Programa.
-let currentDate = new Date();
+let chosenDate = new Date()
+let currentDay = chosenDate.getDate()
 let currentMonth = new Date().getMonth()
 let currentYear = new Date().getFullYear()
 
-renderMonth(currentYear, currentMonth)
+renderMonth(currentYear, currentMonth, currentDay)

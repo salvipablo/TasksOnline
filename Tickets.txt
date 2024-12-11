@@ -9,3 +9,4 @@ T#003 - Change month with arrows - OK.
 T#004 - Select day and save date for event - OK.
 T#005 - Save task without database - OK.
 T#006 - Save task from form - OK.
+T#007 - Add date as a field to the tasks table - OK.
