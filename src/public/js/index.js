@@ -1,10 +1,20 @@
+// Elementos
 const DaysCalendar = document.getElementById('daysCalendar')
 const TitleCalendar = document.getElementById('titleCalendar')
+const BtnPrev = document.getElementById('btnPrev')
+const BtnNext = document.getElementById('btnNext')
+const SubmitFrmAddTask = document.getElementById('submitFrmAddTask')
+
+// Elementos Form
+const Affair = document.getElementById('affair')
+const Description = document.getElementById('description')
+const Checkboxes = document.getElementsByClassName('checks')
+
+// Arrays para calendario
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const btnPrev = document.getElementById('btnPrev')
-const btnNext = document.getElementById('btnNext')
+/* Funciones */
 
 const daysSinceMonday = (day) => {
   const daysOfTheWeek = {
@@ -46,7 +56,6 @@ const getElementDay = (day) => {
     e.target.classList .add('active')
 
     currentDate = new Date(currentYear, currentMonth, e.target.textContent)
-    console.log(currentDate);
   })
 
   if (day === 1) createPlace.classList.add('active')
@@ -94,7 +103,38 @@ const renderMonth = (year, month) => {
   }
 }
 
-btnNext.addEventListener('click', () => {
+const saveTask = async (affair, description, mailsToSend) => {
+  let mails = []
+
+  for (let i = 0; i < mailsToSend.length; i++) {
+    if (mailsToSend[i].checked) mails.push(mailsToSend[i].value)
+  }
+
+  let newTask = {
+    affair,
+    description,
+    mails
+  }
+
+  const Request = await fetch('http://localhost:3002/', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newTask)
+  })
+
+  const Response = await Request.json()
+
+  return Response.message
+}
+
+/* Funciones */
+
+/* Eventos */
+
+BtnNext.addEventListener('click', () => {
   let nextMonth = currentMonth + 1 === 12 ? 0 : currentMonth + 1
   let nextYear = currentMonth + 1 === 12 ? currentYear + 1 : currentYear
   currentMonth = nextMonth
@@ -102,7 +142,7 @@ btnNext.addEventListener('click', () => {
   renderMonth(currentYear, currentMonth)
 })
 
-btnPrev.addEventListener('click', () => {
+BtnPrev.addEventListener('click', () => {
   let nextMonth = currentMonth - 1 === -1 ? 11 : currentMonth - 1
   let nextYear = currentMonth - 1 === -1 ? currentYear - 1 : currentYear
   currentMonth = nextMonth
@@ -110,10 +150,19 @@ btnPrev.addEventListener('click', () => {
   renderMonth(currentYear, currentMonth)
 })
 
+SubmitFrmAddTask.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  let opStatus = await saveTask(Affair.value, Description.value, Checkboxes)
+
+  alert(opStatus)
+})
+
+/* Eventos */
+
+// Programa.
 let currentDate = new Date();
 let currentMonth = new Date().getMonth()
 let currentYear = new Date().getFullYear()
 
 renderMonth(currentYear, currentMonth)
-
-// <span class="active">5</span>

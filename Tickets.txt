@@ -8,3 +8,4 @@ T#002 - Task management page - OK.
 T#003 - Change month with arrows - OK.
 T#004 - Select day and save date for event - OK.
 T#005 - Save task without database - OK.
+T#006 - Save task from form - OK.
