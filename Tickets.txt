@@ -13,4 +13,4 @@ T#007 - Add date as a field to the tasks table - OK.
 T#008 - Sending emails - OK.
 
 ** Refactor **
-R#001 - Password email in environment variable - .
+R#001 - Password email in environment variable - OK.

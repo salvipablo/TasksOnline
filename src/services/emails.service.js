@@ -1,12 +1,14 @@
 import nodemailer from 'nodemailer'
 
+import { PASS_EMAIL } from '../config.js'
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   secure: false, // use SSL
   port: 25, // port for secure SMTP
   auth: {
     user: 'salvipablo@gmail.com',
-    pass: ''
+    pass: PASS_EMAIL
   },
   tls: {
     rejectUnauthorized: false

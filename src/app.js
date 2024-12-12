@@ -33,6 +33,6 @@ const checkTasksAndSendEmails = async () => {
   }
 }
 
-setInterval(checkTasksAndSendEmails, 20000);
+//setInterval(checkTasksAndSendEmails, 20000);
 
 export default app
