@@ -11,3 +11,6 @@ T#005 - Save task without database - OK.
 T#006 - Save task from form - OK.
 T#007 - Add date as a field to the tasks table - OK.
 T#008 - Sending emails - OK.
+
+** Refactor **
+R#001 - Password email in environment variable - .
