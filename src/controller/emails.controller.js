@@ -2,18 +2,20 @@ import {
   ServiceSendingEmail
 } from "../services/emails.service.js"
 
-export const SendEmail = () => {
-  // TODO: Aqui se deberia ir a buscar a la base de datos si existem eventos para el dia actual.
+import {
+  ReturnTasksAccordingDate
+} from "../model/tasks.model.js"
 
-  // Simulo data de email
-  let data = {
-    affair: 'Asunto',
-    description: 'Descripcion',
-    noticeTask: '2025-01-20',
-    emails: [ 'salvipablo@gmail.com', 'pepeargento@yahoo.com.ar' ]
+export const SendEmail = async () => {
+  let ChosenDateConverted = new Date().toISOString().split('T')[0]
+  let data = ReturnTasksAccordingDate(ChosenDateConverted)
+
+  if (data.length !== 0) {
+    let opStatus;
+
+    data.forEach(async element => {
+      if (ChosenDateConverted === element.noticeDate) opStatus = await ServiceSendingEmail(element)
+      console.log(opStatus);
+    });
   }
-
-  let opStatus = ServiceSendingEmail(data)
-
-  console.log(opStatus);
 }

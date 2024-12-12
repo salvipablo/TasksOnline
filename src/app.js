@@ -25,15 +25,14 @@ app.use(express.static(join(__dirname, 'public')))
 app.use('/', TasksRouter)
 
 // Simulación de la verificación de tareas y envío de correos
-const checkTasksAndSendEmails = () => {
+const checkTasksAndSendEmails = async () => {
   try {
-    SendEmail()
+    await SendEmail()
   } catch (error) {
     console.log(error.message);
   }
 }
 
-// Llamar a la función cada minuto (60000 ms)
-setInterval(checkTasksAndSendEmails, 60000);  // Ejecuta la cada 60 segundos
+setInterval(checkTasksAndSendEmails, 20000);
 
 export default app

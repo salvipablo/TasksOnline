@@ -14,10 +14,10 @@ const Tasks = [
     id: 2,
     affair: "Bridas AC101 6'",
     description: 'Verificar con sensor optico, la corrosion de las caras internas',
-    noticeDate: '2025-02-01',
+    noticeDate: '2024-12-12',
     mails: [
-      "psalvi@semapi.com.ar",
-      "psalvi@semapi.com"
+      "psalvi@semapi.com",
+      "pepeargento@yahoo.com.ar"
     ]
   }
 ]
@@ -35,4 +35,14 @@ export const SaveTask = (task) => {
 
 export const ReturnTasks = () => {
   return Tasks;
+}
+
+export const ReturnTasksAccordingDate = (currentDate) => {
+  let tasksToBeSent = []
+
+  Tasks.forEach(element => {
+    if (element.noticeDate === currentDate) tasksToBeSent.push(element)
+  });
+
+  return tasksToBeSent
 }

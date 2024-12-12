@@ -10,4 +10,4 @@ T#004 - Select day and save date for event - OK.
 T#005 - Save task without database - OK.
 T#006 - Save task from form - OK.
 T#007 - Add date as a field to the tasks table - OK.
-T#008 - Envio de emails - Agregar proceso que se ejecute cada un tiempo para el envio de email - .
+T#008 - Sending emails - OK.
