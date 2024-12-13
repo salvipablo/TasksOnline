@@ -8,17 +8,19 @@ const Tasks = [
       "psalvi@semapi.com.ar",
       "psalvi@semapi.com",
       "salvipablo@gmail.com"
-    ]
+    ],
+    emailsSent: false
   },
   {
     id: 2,
     affair: "Bridas AC101 6'",
     description: 'Verificar con sensor optico, la corrosion de las caras internas',
-    noticeDate: '2024-12-23',
+    noticeDate: '2024-12-13',
     mails: [
-      "psalvi@semapi.com.ar",
+      "psalvi@semapi.com",
       "soportesemapi@gmail.com"
-    ]
+    ],
+    emailsSent: false
   }
 ]
 
@@ -45,4 +47,11 @@ export const ReturnTasksAccordingDate = (currentDate) => {
   });
 
   return tasksToBeSent
+}
+
+export const CloseTaskNotice = (emailsStatus) => {
+  emailsStatus.forEach(element => {
+    let task = Tasks.find(e => e.id === element.id)
+    if (task && element.shippingStatus) task.emailsSent = true
+  })
 }

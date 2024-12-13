@@ -3,30 +3,52 @@ import {
 } from "../services/emails.service.js"
 
 import {
-  ReturnTasksAccordingDate
+  ReturnTasksAccordingDate,
+  CloseTaskNotice
 } from "../model/tasks.model.js"
 
-export const SendEmail = async () => {
-  let ChosenDateConverted = new Date().toISOString().split('T')[0]
-  let tasksToSend = ReturnTasksAccordingDate(ChosenDateConverted)
+const emailSendingStatus = []
 
-  if (tasksToSend.length !== 0) {
-    tasksToSend.forEach(task => {
-      let affair = task.affair
-      let description = task.description
+const SendEmailForTask = (task) => {
+  let affair = task.affair
+  let description = task.description
+  let satisfactoryDelivery = true;
 
-      task.mails.forEach(async mail  => {
-        let dataEmail = {
-          affair,
-          description,
-          mail
-        }
+  task.mails.forEach(async mail => {
+    let dataEmail = {
+      affair,
+      description,
+      mail
+    }
 
-        let opStatus = await ServiceSendingEmail(dataEmail)
-        console.log(opStatus)
-      });
-    });
+    let opStatus = await ServiceSendingEmail(dataEmail)
+
+    if(opStatus.message === 'The email could not be sent correctly') satisfactoryDelivery = false
+    console.log(opStatus)
+  })
+
+  let sendingEmailByTask = {
+    id: task.id,
+    shippingStatus: satisfactoryDelivery
   }
 
-  if (tasksToSend.length === 0) console.log("There are no assignments to submit on this date")
+  emailSendingStatus.push(sendingEmailByTask)
+}
+
+export const SendEmails = async () => {
+  let ChosenDateConverted = new Date().toISOString().split('T')[0]
+  let tasksToSend = ReturnTasksAccordingDate(ChosenDateConverted)
+  
+  if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
+
+  tasksToSend.forEach(task => {
+    
+    // TODO: Aqui verificar si la tarea ya fue enviada o en model no devolverla porque esta en true emailsSent
+    
+    SendEmailForTask(task)
+  })
+
+  CloseTaskNotice(emailSendingStatus)
+
+  return "The email sending task completed successfully"
 }

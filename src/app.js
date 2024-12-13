@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 import TasksRouter from './routes/tasks.routes.js'
 
 // import services
-import { SendEmail } from './controller/emails.controller.js'
+import { SendEmails } from './controller/emails.controller.js'
 
 const app = express()
 
@@ -27,12 +27,13 @@ app.use('/', TasksRouter)
 // Simulación de la verificación de tareas y envío de correos
 const checkTasksAndSendEmails = async () => {
   try {
-    await SendEmail()
+    let opStatus = await SendEmails()
+    console.log(opStatus)
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
 }
 
-setInterval(checkTasksAndSendEmails, 20000);
+setInterval(checkTasksAndSendEmails, 5000)
 
 export default app
