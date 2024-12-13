@@ -14,10 +14,10 @@ const Tasks = [
     id: 2,
     affair: "Bridas AC101 6'",
     description: 'Verificar con sensor optico, la corrosion de las caras internas',
-    noticeDate: '2024-12-12',
+    noticeDate: '2024-12-23',
     mails: [
-      "psalvi@semapi.com",
-      "pepeargento@yahoo.com.ar"
+      "psalvi@semapi.com.ar",
+      "soportesemapi@gmail.com"
     ]
   }
 ]

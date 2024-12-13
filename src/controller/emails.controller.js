@@ -8,14 +8,25 @@ import {
 
 export const SendEmail = async () => {
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
-  let data = ReturnTasksAccordingDate(ChosenDateConverted)
+  let tasksToSend = ReturnTasksAccordingDate(ChosenDateConverted)
 
-  if (data.length !== 0) {
-    let opStatus;
+  if (tasksToSend.length !== 0) {
+    tasksToSend.forEach(task => {
+      let affair = task.affair
+      let description = task.description
 
-    data.forEach(async element => {
-      if (ChosenDateConverted === element.noticeDate) opStatus = await ServiceSendingEmail(element)
-      console.log(opStatus);
+      task.mails.forEach(async mail  => {
+        let dataEmail = {
+          affair,
+          description,
+          mail
+        }
+
+        let opStatus = await ServiceSendingEmail(dataEmail)
+        console.log(opStatus)
+      });
     });
   }
+
+  if (tasksToSend.length === 0) console.log("There are no assignments to submit on this date")
 }

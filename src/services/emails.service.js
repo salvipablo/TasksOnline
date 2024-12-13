@@ -17,11 +17,13 @@ const transporter = nodemailer.createTransport({
 
 export const ServiceSendingEmail = async (dataForEmail) => {
   try {
+    const { affair, description, mail } = dataForEmail
+
     const mailOptions = {
       from: 'salvipablo@gmail.com',
-      to: dataForEmail.mails[0],
-      subject: dataForEmail.affair,
-      text: dataForEmail.description
+      to: mail,
+      subject: affair,
+      text: description
     }
 
     await transporter.sendMail(mailOptions)
