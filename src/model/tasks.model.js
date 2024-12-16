@@ -1,28 +1,4 @@
-const Tasks = [
-  {
-    id: 1,
-    affair: 'ISO 9001 Valvulas',
-    description: 'Realizar inspeccion de valvulas para ISO 9001 y control de funcionamiento',
-    noticeDate: '2025-01-15',
-    mails: [
-      "psalvi@semapi.com.ar",
-      "psalvi@semapi.com",
-      "salvipablo@gmail.com"
-    ],
-    emailsSent: false
-  },
-  {
-    id: 2,
-    affair: "Bridas AC101 6'",
-    description: 'Verificar con sensor optico, la corrosion de las caras internas',
-    noticeDate: '2024-12-13',
-    mails: [
-      "psalvi@semapi.com",
-      "soportesemapi@gmail.com"
-    ],
-    emailsSent: false
-  }
-]
+const Tasks = []
 
 export const SaveTask = (task) => {
   if (!task) throw new Error('You have not submitted a task to save')
@@ -39,11 +15,11 @@ export const ReturnTasks = () => {
   return Tasks;
 }
 
-export const ReturnTasksAccordingDate = (currentDate) => {
+export const GetTasksByCondition = (currentDate) => {
   let tasksToBeSent = []
 
   Tasks.forEach(element => {
-    if (element.noticeDate === currentDate) tasksToBeSent.push(element)
+    if (element.noticeDate === currentDate && !element.emailsSent) tasksToBeSent.push(element)
   });
 
   return tasksToBeSent

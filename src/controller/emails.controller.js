@@ -3,7 +3,7 @@ import {
 } from "../services/emails.service.js"
 
 import {
-  ReturnTasksAccordingDate,
+  GetTasksByCondition,
   CloseTaskNotice
 } from "../model/tasks.model.js"
 
@@ -37,14 +37,11 @@ const SendEmailForTask = (task) => {
 
 export const SendEmails = async () => {
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
-  let tasksToSend = ReturnTasksAccordingDate(ChosenDateConverted)
+  let tasksToSend = GetTasksByCondition(ChosenDateConverted)
   
   if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
 
   tasksToSend.forEach(task => {
-    
-    // TODO: Aqui verificar si la tarea ya fue enviada o en model no devolverla porque esta en true emailsSent
-    
     SendEmailForTask(task)
   })
 
