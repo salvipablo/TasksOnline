@@ -35,6 +35,6 @@ const checkTasksAndSendEmails = async () => {
 }
 
 // 300.000 -> 5 Minutos.
-setInterval(checkTasksAndSendEmails, 300000)
+//setInterval(checkTasksAndSendEmails, 300000)
 
 export default app

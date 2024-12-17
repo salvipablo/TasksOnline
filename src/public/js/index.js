@@ -118,7 +118,7 @@ const saveTask = async (affair, description, noticeDate, mailsToSend) => {
     emailsSent: false
   }
 
-  const Request = await fetch('http://localhost:3002/', {
+  const Request = await fetch('./', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
