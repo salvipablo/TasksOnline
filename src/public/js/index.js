@@ -114,7 +114,8 @@ const saveTask = async (affair, description, noticeDate, mailsToSend) => {
     affair,
     description,
     noticeDate,
-    mails
+    mails,
+    emailsSent: false
   }
 
   const Request = await fetch('http://localhost:3002/', {
