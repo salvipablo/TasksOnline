@@ -22,7 +22,7 @@ form {
   margin: auto;
 }
 
-.lblFrmAddTask, .inpFrmAddTask {
+.lblFrmAddTask, .inpFrmAddTask, .selMails {
   display: block;
   width: 100%;
 }
@@ -93,4 +93,8 @@ form {
   background-color: aquamarine;
   color: #000000;
   border: 1px solid #000000;
+}
+
+.inpTimeRepet, .selTime {
+  padding: 0.5em 0;
 }

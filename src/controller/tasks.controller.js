@@ -21,14 +21,15 @@ export const ViewTasks = (_req, res) => {
 
 export const CreateTask = (req, res) => {
   try {
-    const { affair, description, noticeDate, mails, emailsSent } = req.body
+    const { affair, description, noticeDate, mails, emailsSent, timeRepetTask } = req.body
 
     let newTaskToSave = {
       affair,
       description,
       noticeDate,
       mails,
-      emailsSent
+      emailsSent,
+      timeRepetTask
     }
 
     let opStatus = SaveTask(newTaskToSave)

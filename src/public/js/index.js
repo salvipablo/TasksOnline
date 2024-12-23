@@ -8,7 +8,9 @@ const SubmitFrmAddTask = document.getElementById('submitFrmAddTask')
 // Elementos Form
 const Affair = document.getElementById('affair')
 const Description = document.getElementById('description')
-const Checkboxes = document.getElementsByClassName('checks')
+const OptionMails = document.getElementsByClassName('opMails')
+const Times = document.getElementById('times')
+const NumbRepet = document.getElementById('numbRepet')
 
 // Arrays para calendario
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -103,11 +105,12 @@ const renderMonth = (year, month, currentDay) => {
   }
 }
 
-const saveTask = async (affair, description, noticeDate, mailsToSend) => {
+const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet, numRepet) => {
+  let timeRepetTask = `${numRepet} ${timeRepet}`
   let mails = []
 
   for (let i = 0; i < mailsToSend.length; i++) {
-    if (mailsToSend[i].checked) mails.push(mailsToSend[i].value)
+    if (mailsToSend[i].selected) mails.push(mailsToSend[i].value)
   }
 
   let newTask = {
@@ -115,7 +118,8 @@ const saveTask = async (affair, description, noticeDate, mailsToSend) => {
     description,
     noticeDate,
     mails,
-    emailsSent: false
+    emailsSent: false,
+    timeRepetTask
   }
 
   const Request = await fetch('./', {
@@ -157,7 +161,7 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
 
   let ChosenDateConverted = chosenDate.toISOString().split('T')[0]
 
-  let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, Checkboxes)
+  let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
 
   alert(opStatus)
 })
