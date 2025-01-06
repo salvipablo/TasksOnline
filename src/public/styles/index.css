@@ -93,6 +93,7 @@ form {
 .td-grid {
   text-align: center;
   background-color: #eeeeee;
+  color: #000000;
   padding: 1em 0;
   cursor: pointer;
 }
