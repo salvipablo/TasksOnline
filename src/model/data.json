@@ -1,0 +1,24 @@
+[
+  {
+    "affair": "Tarea prueba 1.",
+    "description": "Descripcion tarea prueba 1.",
+    "noticeDate": "2025-01-13",
+    "mails": [
+      "albertoaranda48@hotmail.com",
+      "bonicamboriu@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "2 meses"
+  },
+  {
+    "affair": "Tarea prueba 2.",
+    "description": "Descripcion tarea prueba 2.",
+    "noticeDate": "2025-01-13",
+    "mails": [
+      "albertoaranda48@hotmail.com",
+      "salvipablo@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "3 meses"
+  }
+]
