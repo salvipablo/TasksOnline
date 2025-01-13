@@ -7,9 +7,8 @@
 body {
   font-family: Verdana, sans-serif;
   padding: 0 0.5em;
-  background: rgb(63, 106, 115);
-  background: linear-gradient(90deg, rgba(63,106,115,1) 0%, rgba(9,9,121,1) 35%, rgba(2,0,36,1) 100%);
-  color: #faebd7;
+  background-color: #264653;
+  color: #e9c46a;
 }
 
 .mt-1 {

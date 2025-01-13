@@ -38,12 +38,12 @@ form {
   padding: 1em 0;
   margin-top: 2em;
   background: transparent;
-  background-color: #5353b9;
+  background-color: #e76f51;
   border: 1px solid #423b3b;
   border-radius: 0.5em;
   text-transform: uppercase;
   font-weight: bold;
-  color: #ffffff;
+  color: #e9c46a;
   cursor: pointer;
   transition: all 1s;
 }
@@ -65,11 +65,12 @@ form {
 .header-calendar {
   display: flex;
   justify-content: space-between;
-  background: #1abc9c;
+  background: #2a9d8f;
   padding: 70px 25px;
-  color: #ffffff;
+  color: #e9c46a;
   text-transform: uppercase;
   letter-spacing: 3px;
+  font-weight: bold;
 }
 
 .prev, .next {
@@ -86,13 +87,13 @@ form {
 
 .th-grid {
   text-align: center;
-  background-color: #918f8f;
+  background-color: #497080;
   color: #ffffff;
 }
 
 .td-grid {
   text-align: center;
-  background-color: #eeeeee;
+  background-color: #b2babd;
   color: #000000;
   padding: 1em 0;
   cursor: pointer;
