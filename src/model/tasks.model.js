@@ -1,4 +1,10 @@
+import path from 'path'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import fs from 'fs'
+
+// Define the system path.
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 let Tasks = []
 
@@ -48,8 +54,10 @@ export const CloseTaskNotice = (emailsStatus) => {
 }
 
 export const UpdateTasks = () => {
+  const filePath = path.join(__dirname, 'data.json');
+
   // Lee el archivo JSON
-  fs.readFile('./src/model/data.json', 'utf8', (err, data) => {
+  fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error al leer el archivo:', err);
       return;

@@ -8,14 +8,14 @@ import TasksRouter from './routes/tasks.routes.js'
 // import services
 import { SendEmails } from './controller/emails.controller.js'
 
+// Define the system path.
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 // Actializar tareas.
 import { UpdateTasks } from './model/tasks.model.js'
 UpdateTasks()
 
 const app = express()
-
-// Define the system path.
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // Settings
 app.set('views', join(__dirname, 'views'))
