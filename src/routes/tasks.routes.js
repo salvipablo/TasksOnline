@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Router } from "express"
 
 import {
   ManageTasks,
   ViewTasks,
   CreateTask,
   GetTasks
-} from "../controller/tasks.controller.js";
+} from "../controller/tasks.controller.js"
 
 
 const TasksRouter = Router()

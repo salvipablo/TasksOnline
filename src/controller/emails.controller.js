@@ -12,7 +12,7 @@ const emailSendingStatus = []
 const SendEmailForTask = (task) => {
   let affair = task.affair
   let description = task.description
-  let satisfactoryDelivery = true;
+  let satisfactoryDelivery = true
 
   task.mails.forEach(async mail => {
     let dataEmail = {

@@ -20,5 +20,15 @@
     ],
     "emailsSent": false,
     "timeRepetTask": "3 meses"
+  },
+  {
+    "affair": "wewe",
+    "description": "loco",
+    "noticeDate": "2025-01-13",
+    "mails": [
+      "andres_grappa@talleresati.com.ar"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "2 meses"
   }
 ]

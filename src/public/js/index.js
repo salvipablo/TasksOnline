@@ -14,7 +14,7 @@ const NumbRepet = document.getElementById('numbRepet')
 
 // Arrays para calendario
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 /* Funciones */
 
@@ -27,9 +27,9 @@ const daysSinceMonday = (day) => {
     'Friday': 5,
     'Saturday': 6,
     'Sunday': 7
-  };
+  }
 
-  return daysOfTheWeek[day] - 1;
+  return daysOfTheWeek[day] - 1
 }
 
 const HowManyDaysOfWeek = (day) => {
@@ -41,9 +41,9 @@ const HowManyDaysOfWeek = (day) => {
     'Friday': 5,
     'Saturday': 6,
     'Sunday': 7
-  };
+  }
 
-  return daysOfTheWeek[day];
+  return daysOfTheWeek[day]
 }
 
 const getElementDay = (day, currentDay) => {
