@@ -63,5 +63,5 @@ export const UpdateTasks = () => {
     }
   });
 
-  console.log("tareas actualizadas")
+  console.log("** Tareas actualizadas **")
 }

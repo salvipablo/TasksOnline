@@ -164,6 +164,8 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
   let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
 
   alert(opStatus)
+
+  SubmitFrmAddTask.reset()
 })
 
 /* Eventos */
