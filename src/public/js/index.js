@@ -136,7 +136,6 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
 
   return Response.message
 }
-
 //#endregion
 
 //#region Eventos
@@ -164,18 +163,16 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
   e.preventDefault()
 
   let ChosenDateConverted = chosenDate.toISOString().split('T')[0]
-  console.log(ChosenDateConverted)
-  
-  // let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
 
-  // alert(opStatus)
+  let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
 
-  // SubmitFrmAddTask.reset()
+  alert(opStatus)
+
+  SubmitFrmAddTask.reset()
 })
 
 //#endregion
 
-// Programa.
 let chosenDate = new Date()
 DateForTask.textContent = chosenDate.toISOString().split('T')[0]
 let currentDay = chosenDate.getDate()
