@@ -13,7 +13,11 @@ export const ManageTasks = (_req, res) => {
 
 export const ViewTasks = (_req, res) => {
   try {
-    res.render('viewTasks')
+    let tasks = ReturnTasks()
+
+    res.render('viewTasks', {
+      tasks
+    })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

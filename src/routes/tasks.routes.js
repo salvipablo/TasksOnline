@@ -10,8 +10,8 @@ import {
 
 const TasksRouter = Router()
 
-TasksRouter.get('/', ManageTasks)
-TasksRouter.get('/viewTasks', ViewTasks)
+TasksRouter.get('/newTasksPage', ManageTasks)
+TasksRouter.get('/', ViewTasks)
 
 
 TasksRouter.post('/', CreateTask)

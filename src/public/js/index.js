@@ -4,6 +4,7 @@ const TitleCalendar = document.getElementById('titleCalendar')
 const BtnPrev = document.getElementById('btnPrev')
 const BtnNext = document.getElementById('btnNext')
 const SubmitFrmAddTask = document.getElementById('submitFrmAddTask')
+const DateForTask = document.getElementById('dateForTask')
 
 // Elementos Form
 const Affair = document.getElementById('affair')
@@ -16,8 +17,7 @@ const NumbRepet = document.getElementById('numbRepet')
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-/* Funciones */
-
+// #region Funciones
 const daysSinceMonday = (day) => {
   const daysOfTheWeek = {
     'Monday': 1,
@@ -58,6 +58,7 @@ const getElementDay = (day, currentDay) => {
     e.target.classList.add('active')
 
     chosenDate = new Date(currentYear, currentMonth, e.target.textContent)
+    DateForTask.textContent = chosenDate.toISOString().split('T')[0]
   })
 
   if (day === currentDay) createPlace.classList.add('active')
@@ -136,15 +137,16 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
   return Response.message
 }
 
-/* Funciones */
+//#endregion
 
-/* Eventos */
-
+//#region Eventos
 BtnNext.addEventListener('click', () => {
   let nextMonth = currentMonth + 1 === 12 ? 0 : currentMonth + 1
   let nextYear = currentMonth + 1 === 12 ? currentYear + 1 : currentYear
   currentMonth = nextMonth
   currentYear = nextYear
+  chosenDate = new Date(currentYear, currentMonth, 1)
+  DateForTask.textContent = chosenDate.toISOString().split('T')[0]
   renderMonth(currentYear, currentMonth, 1)
 })
 
@@ -153,6 +155,8 @@ BtnPrev.addEventListener('click', () => {
   let nextYear = currentMonth - 1 === -1 ? currentYear - 1 : currentYear
   currentMonth = nextMonth
   currentYear = nextYear
+  chosenDate = new Date(currentYear, currentMonth, 1)
+  DateForTask.textContent = chosenDate.toISOString().split('T')[0]
   renderMonth(currentYear, currentMonth, 1)
 })
 
@@ -160,18 +164,20 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
   e.preventDefault()
 
   let ChosenDateConverted = chosenDate.toISOString().split('T')[0]
+  console.log(ChosenDateConverted)
+  
+  // let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
 
-  let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
+  // alert(opStatus)
 
-  alert(opStatus)
-
-  SubmitFrmAddTask.reset()
+  // SubmitFrmAddTask.reset()
 })
 
-/* Eventos */
+//#endregion
 
 // Programa.
 let chosenDate = new Date()
+DateForTask.textContent = chosenDate.toISOString().split('T')[0]
 let currentDay = chosenDate.getDate()
 let currentMonth = new Date().getMonth()
 let currentYear = new Date().getFullYear()

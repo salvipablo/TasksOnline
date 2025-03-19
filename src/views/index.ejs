@@ -6,6 +6,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./styles/general.css">
+    <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/index.css">
 
   <!-- Favicon -->
@@ -14,7 +15,12 @@
   <title>Tasks Online</title>
 </head>
 <body>
-  <h1 class="mainTitle">Administrar Tasks.</h1>
+  <header>
+    <div class="cntHeader mb-1">
+      <h1 class="mainTitle">Agregar tareas.</h1>
+      <a href="./" class="btnHeader">Home</a>
+    </div>
+  </header>
 
   <main>
     <section>
@@ -35,17 +41,26 @@
               <option class="opMails" value="salvipablo@gmail.com">salvipablo@gmail.com</option>
             </select>
 
-            <p class="lblFrmAddTask">Repeticion:</p>
-            <input type="number" id="numbRepet" class="inpTimeRepet" value="0">
-            <select class="selTime" id="times" name="times">
-              <option class="opTimes" value="dias">dias</option>
-              <option class="opTimes" value="meses">meses</option>
-              <option class="opTimes" value="anios">años</option>
-            </select>
+            <div class="cntDateAndTime">
+              <p class="lblFrmAddTask">Repeticion:</p>
+              <p class="lblFrmAddTask">Fecha:</p>
+              <div>
+                <input type="number" id="numbRepet" class="inpTimeRepet" value="0">
+                  <select class="selTime" id="times" name="times">
+                    <option class="opTimes" value="dias">dias</option>
+                    <option class="opTimes" value="meses">meses</option>
+                    <option class="opTimes" value="anios">años</option>
+                  </select>
+                </div>
+                <div>
+                  <p id="dateForTask">-</p>
+                </div>
+            </div>
 
             <input class="submitFrmAddTask" type="submit" value="Cargar tarea">
           </form>
         </div>
+
         <div class="cntCalendar">
           <div class="calendar">
             <div class="header-calendar">

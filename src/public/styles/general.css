@@ -6,15 +6,25 @@
 
 body {
   font-family: Verdana, sans-serif;
-  padding: 0 0.5em;
-  background-color: #264653;
+  padding: 0.5em 4em 0 4em;
+  background-color: #1F2430;
   color: #e9c46a;
 }
 
-.mt-1 {
-  margin-top: 1em;
+a {
+  text-decoration: none;
 }
 
-.ml-05 {
-  margin-left: 0.5em;
-}
+/* margin top */
+.mt-1 { margin-top: 1em; }
+/* margin top */
+
+/* margin bottom */
+.mb-1 { margin-bottom: 1em; }
+/* margin bottom */
+
+/* margin left */
+.ml-05 { margin-left: 0.5em; }
+.ml-1 { margin-left: 1em; }
+.ml-15 { margin-left: 1.5em; }
+/* margin left */

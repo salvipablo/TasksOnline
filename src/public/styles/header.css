@@ -1,0 +1,15 @@
+.cntHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnHeader {
+  background: transparent;
+  border: solid 2px #0d864a;
+  color: inherit;
+  padding: 1.5em 2em;
+  border-radius: 0.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -1,8 +1,9 @@
 [
   {
-    "affair": "Tarea prueba 1.",
-    "description": "Descripcion tarea prueba 1.",
-    "noticeDate": "2025-01-13",
+    "id": 1,
+    "affair": "Limpieza taller.",
+    "description": "Limpieza general de taller y revision de elementos de medicion.",
+    "noticeDate": "2025-04-15",
     "mails": [
       "albertoaranda48@hotmail.com",
       "bonicamboriu@gmail.com"
@@ -11,8 +12,9 @@
     "timeRepetTask": "2 meses"
   },
   {
-    "affair": "Tarea prueba 2.",
-    "description": "Descripcion tarea prueba 2.",
+    "id": 2,
+    "affair": "Control de valvulas.",
+    "description": "Limpieza general, verificacion de asiento y estancamiento.",
     "noticeDate": "2025-01-13",
     "mails": [
       "albertoaranda48@hotmail.com",
@@ -22,13 +24,79 @@
     "timeRepetTask": "3 meses"
   },
   {
-    "affair": "wewe",
-    "description": "loco",
+    "id": 3,
+    "affair": "Control de computadoras.",
+    "description": "Limpieza general, cambio de pasta termina y mantenimiento basico de software.",
     "noticeDate": "2025-01-13",
     "mails": [
       "andres_grappa@talleresati.com.ar"
     ],
     "emailsSent": false,
-    "timeRepetTask": "2 meses"
+    "timeRepetTask": "1 año"
+  },
+  {
+    "id": 4,
+    "affair": "Testing.",
+    "description": "Realizar pruebas unitarias, testing de funciones y integracion completa en produccion.",
+    "noticeDate": "2025-06-10",
+    "mails": [
+      "andres_grappa@talleresati.com.ar"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "6 meses"
+  },
+  {
+    "id": 5,
+    "affair": "Vehiculos.",
+    "description": "Revisar toda la documentacion, llevar a taller para escaneo y mantenimientos basicos.",
+    "noticeDate": "2025-06-10",
+    "mails": [
+      "andres_grappa@talleresati.com.ar",
+      "carlos_grappa@talleresati.com.ar",
+      "bonicamboriu@gmail.com",
+      "salvipablo@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "1 año"
+  },
+  {
+    "id": 6,
+    "affair": "Almacen.",
+    "description": "Revision general de stock, control de ubicacion de materiales.",
+    "noticeDate": "2025-08-19",
+    "mails": [
+      "andres_grappa@talleresati.com.ar",
+      "carlos_grappa@talleresati.com.ar",
+      "bonicamboriu@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "4 meses"
+  },
+  {
+    "id": 7,
+    "affair": "Vehiculos.",
+    "description": "Revisar toda la documentacion, llevar a taller para escaneo y mantenimientos basicos.",
+    "noticeDate": "2025-06-10",
+    "mails": [
+      "andres_grappa@talleresati.com.ar",
+      "carlos_grappa@talleresati.com.ar",
+      "bonicamboriu@gmail.com",
+      "salvipablo@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "1 año"
+  },
+  {
+    "id": 8,
+    "affair": "Almacen.",
+    "description": "Revision general de stock, control de ubicacion de materiales.",
+    "noticeDate": "2025-08-19",
+    "mails": [
+      "andres_grappa@talleresati.com.ar",
+      "carlos_grappa@talleresati.com.ar",
+      "bonicamboriu@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "4 meses"
   }
 ]

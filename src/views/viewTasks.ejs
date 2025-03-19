@@ -5,30 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/general.css">
+  <link rel="stylesheet" href="./styles/header.css">
   <link rel="stylesheet" href="./styles/viewTasks.css">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="./images/oiler.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
 
   <title>Tasks Online</title>
 </head>
 <body>
-  <h1>viewsTasks</h1>
+  <header>
+    <div class="cntHeader mb-1">
+      <h1 class="mainTitle">Tareas a desarrollar.</h1>
+      <a href="./newTasksPage" class="btnHeader">Nueva Tarea</a>
+    </div>
+  </header>
 
-  <div class="cntTareas">
-    <div class="tareasPendientes" id="tareasPendientes">
-    </div>
-    <div class="tareasEjecucion" id="tareasEjecucion">
-    </div>
-    <div class="tareasFinalizadas" id="tareasFinalizadas">
-    </div>
+  <div class="cntTasks">
+    <% tasks.forEach(element => { %>
+      <div class="cntTask">
+        <div class="cntTitleBtns">
+          <div>
+            <h2 class="mb-1 taskTitle"><%- element.affair %></h2>
+          </div>
+          <div>
+            <img class="iconTask btnEdit" name="<%- element.id %>" src="./images/edit.png" alt="edit">
+            <img class="iconTask btnDelete" name="<%- element.id %>" src="./images/delete.png" alt="delete">
+          </div>
+        </div>
+        <p><%- element.description %></p>
+        <p>Fecha: <%- element.noticeDate %></p>
+        <p>Mails: </p>
+        <ul class="ml-15">
+          <% element.mails.forEach(mail => { %>
+            <li><%- mail %></li>
+          <% }) %>
+        </ul>
+          <p><%- element.timeRepetTask %></p>
+      </div>
+    <% }) %>
   </div>
 
-  <div class="cntPagination" id="cntPagination">
-  </div>
-
-  <script src="./js/data.js"></script>
-  <script src="./js/functions.js"></script>
-  <script src="./js/viewsTasks.js"></script>
+  <script src="./js/viewTasks.js"></script>
 </body>
 </html>
