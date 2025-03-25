@@ -9,6 +9,17 @@ import {
 
 const emailSendingStatus = []
 
+export const SendTestEmail = async (task) => {
+  let emailToSend = {
+    affair: task.affair,
+    description: task.description,
+    mail: task.mails[0]
+  }
+
+  let opStatus = await ServiceSendingEmail(emailToSend)
+  return opStatus
+}
+
 const SendEmailForTask = (task) => {
   let affair = task.affair
   let description = task.description
