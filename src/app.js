@@ -56,9 +56,9 @@ const TestEmail = async (task) => {
   console.log(opStatus)
 }
 
-TestEmail()
+//TestEmail()
 
 // 120.000 -> 2 Minutos.
-setInterval(TestEmail, 60000) // 1 minuto.
+//setInterval(TestEmail, 60000) // 1 minuto.
 
 export default app

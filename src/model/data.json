@@ -1,8 +1,31 @@
 [
   {
+    "id": 1,
     "affair": "Test 1",
     "description": "Test 1",
     "noticeDate": "2025-03-20",
+    "mails": [
+      "salvipablo@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "3 meses"
+  },
+  {
+    "id": 2,
+    "affair": "prueba",
+    "description": "tyty",
+    "noticeDate": "2025-03-07",
+    "mails": [
+      "bonicamboriu@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "1 meses"
+  },
+  {
+    "id": 3,
+    "affair": "prueba 2",
+    "description": "tyty 2",
+    "noticeDate": "2025-06-05",
     "mails": [
       "salvipablo@gmail.com"
     ],

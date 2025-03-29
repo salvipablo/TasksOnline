@@ -123,7 +123,7 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
     timeRepetTask
   }
 
-  const Request = await fetch('./', {
+  const Request = await fetch('../tasks', {
     method: 'POST',
     headers: {
       Accept: 'application/json',

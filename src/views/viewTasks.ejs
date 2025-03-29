@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="./styles/general.css">
-  <link rel="stylesheet" href="./styles/header.css">
-  <link rel="stylesheet" href="./styles/viewTasks.css">
+  <link rel="stylesheet" href="../styles/general.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/viewTasks.css">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
 
   <title>Tasks Online</title>
 </head>
@@ -30,8 +30,8 @@
             <h2 class="mb-1 taskTitle"><%- element.affair %></h2>
           </div>
           <div>
-            <img class="iconTask btnEdit" name="<%- element.id %>" src="./images/edit.png" alt="edit">
-            <img class="iconTask btnDelete" name="<%- element.id %>" src="./images/delete.png" alt="delete">
+            <img class="iconTask btnEdit" name="<%- element.id %>" src="../images/edit.png" alt="edit">
+            <img class="iconTask btnDelete" name="<%- element.id %>" src="../images/delete.png" alt="delete">
           </div>
         </div>
         <p><%- element.description %></p>
@@ -47,6 +47,6 @@
     <% }) %>
   </div>
 
-  <script src="./js/viewTasks.js"></script>
+  <script src="../js/viewTasks.js"></script>
 </body>
 </html>
