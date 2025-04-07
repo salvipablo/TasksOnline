@@ -8,12 +8,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 let Tasks = []
 
-export const SaveTask = (task) => {
+const SaveTasksOnDisk = () => {
   const filePath = path.join(__dirname, 'data.json')
-
-  if (!task) throw new Error('You have not submitted a task to save')
-    
-  Tasks.push(task)
 
   try {
     // Escribir de nuevo el archivo JSON
@@ -22,11 +18,20 @@ export const SaveTask = (task) => {
         console.error('Error al escribir el archivo:', writeErr)
         return
       }
-      console.log('Tarea agregada con éxito.')
+      console.log('Tarea guardadas en disco con éxito.')
     })
   } catch (error) {
     console.log(error.message)
   }
+
+}
+
+export const SaveTask = (task) => {
+  if (!task) throw new Error('You have not submitted a task to save')
+
+  Tasks.push(task)
+
+  SaveTasksOnDisk()
 
   return {
     statusSaveBD: 10001,
@@ -53,6 +58,8 @@ export const CloseTaskNotice = (emailsStatus) => {
     let task = Tasks.find(e => e.id === element.id)
     if (task && element.shippingStatus) task.emailsSent = true
   })
+
+  SaveTasksOnDisk()
 }
 
 export const UpdateTasks = () => {

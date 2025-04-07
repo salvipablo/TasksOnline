@@ -1,35 +1,37 @@
 [
   {
     "id": 1,
-    "affair": "Test 1",
-    "description": "Test 1",
-    "noticeDate": "2025-03-20",
+    "affair": "Tarea 1 04-07",
+    "description": "Descripcion de Tarea 1 04-07",
+    "noticeDate": "2025-04-07",
     "mails": [
-      "salvipablo@gmail.com"
+      "psalvi@semapi.com",
+      "psalvi@semapi.com.ar"
     ],
-    "emailsSent": false,
+    "emailsSent": true,
     "timeRepetTask": "3 meses"
   },
   {
     "id": 2,
-    "affair": "prueba",
-    "description": "tyty",
-    "noticeDate": "2025-03-07",
+    "affair": "Tarea 2 04-07",
+    "description": "Descripcion de Tarea 2 04-07",
+    "noticeDate": "2025-04-07",
     "mails": [
+      "salvipablo@gmail.com",
       "bonicamboriu@gmail.com"
     ],
-    "emailsSent": false,
-    "timeRepetTask": "1 meses"
+    "emailsSent": true,
+    "timeRepetTask": "6 meses"
   },
   {
     "id": 3,
-    "affair": "prueba 2",
-    "description": "tyty 2",
-    "noticeDate": "2025-06-05",
+    "affair": "Limpieza taller",
+    "description": "Limpieza general de taller y revision de asientos de valvulas.",
+    "noticeDate": "2025-06-22",
     "mails": [
       "salvipablo@gmail.com"
     ],
     "emailsSent": false,
-    "timeRepetTask": "3 meses"
+    "timeRepetTask": "2 meses"
   }
 ]

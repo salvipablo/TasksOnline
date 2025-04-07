@@ -11,7 +11,7 @@ import TasksRouter from './routes/tasks.routes.js'
 import AuthRouter from './routes/auth.routes.js'
 
 // import services
-import { SendEmails, SendTestEmail } from './controller/emails.controller.js'
+import { startInterval } from './controller/emails.controller.js'
 
 // Define the system path.
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -35,30 +35,10 @@ app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }));
 app.use('/', AuthRouter)
 app.use('/tasks', TasksRouter)
 
-// Simulación de la verificación de tareas y envío de correos
-const checkTasksAndSendEmails = async () => {
-  try {
-    let opStatus = await SendEmails()
-    console.log(opStatus)
-  } catch (error) {
-    console.log(error.message)
-  }
-}
-
-const TestEmail = async (task) => {
-  let emailToSend = {
-    affair: 'Asunto de prueba',
-    description: 'Descripcion de prueba',
-    mails: [ 'salvipablo@gmail.com', 'albertoaranda48@hotmail.com', 'bonicamboriu@gmail.com' ]
-  }
-
-  let opStatus = await SendTestEmail(emailToSend)
-  console.log(opStatus)
-}
-
-//TestEmail()
+startInterval()
 
 // 120.000 -> 2 Minutos.
-//setInterval(TestEmail, 60000) // 1 minuto.
+//setInterval(SendEmails, 60000) // 1 minuto.
+//setInterval(SendTestEmail, 60000)  // 1 minuto.
 
 export default app

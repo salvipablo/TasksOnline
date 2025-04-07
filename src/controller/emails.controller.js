@@ -9,23 +9,41 @@ import {
 
 const emailSendingStatus = []
 
-export const SendTestEmail = async (task) => {
+let intervalId
+let intervalTime = 10000 // 10 segundos.
+
+const CambiarTiempoDeLlamadoEnvioMails = () => {
+  clearInterval(intervalId); // Limpiar el intervalo actual
+
+  const newIntervalTime = 300000; // 5 minutos.
+
+  intervalTime = newIntervalTime; // Actualizamos el intervalo a 3 horas
+
+  startInterval();
+}
+
+export const startInterval = () => {
+  intervalId = setInterval(SendEmails, intervalTime)
+}
+
+export const SendTestEmail = async () => {
   let emailToSend = {
-    affair: task.affair,
-    description: task.description,
-    mail: task.mails[0]
+    affair: 'Asunto de prueba',
+    description: 'Descripcion de prueba',
+    mails: [ 'salvipablo@gmail.com', 'albertoaranda48@hotmail.com', 'bonicamboriu@gmail.com' ]
   }
 
   let opStatus = await ServiceSendingEmail(emailToSend)
-  return opStatus
+  console.log(opStatus)
 }
 
-const SendEmailForTask = (task) => {
+const SendEmailForTask = async (task) => {
   let affair = task.affair
   let description = task.description
   let satisfactoryDelivery = true
 
-  task.mails.forEach(async mail => {
+  // Creamos un array de promesas
+  const emailPromises = task.mails.map(async mail => {
     let dataEmail = {
       affair,
       description,
@@ -34,29 +52,63 @@ const SendEmailForTask = (task) => {
 
     let opStatus = await ServiceSendingEmail(dataEmail)
 
-    if(opStatus.message === 'The email could not be sent correctly') satisfactoryDelivery = false
-    console.log(opStatus)
+    // Devolvemos el estado de la operación
+    return opStatus.message !== 'The email could not be sent correctly'
   })
 
-  let sendingEmailByTask = {
+  // Esperamos a que todas las promesas se resuelvan
+  const results = await Promise.all(emailPromises)
+  
+  // Si alguna operación falló, marcamos como no satisfactorio
+  satisfactoryDelivery = results.some(status => status === true)
+
+  emailSendingStatus.push({
     id: task.id,
     shippingStatus: satisfactoryDelivery
-  }
-
-  emailSendingStatus.push(sendingEmailByTask)
+  })
 }
 
 export const SendEmails = async () => {
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
   let tasksToSend = GetTasksByCondition(ChosenDateConverted)
-  
+
   if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
 
-  tasksToSend.forEach(task => {
-    SendEmailForTask(task)
+  const taskPromises = tasksToSend.map(async task => {
+    if (!task.emailsSent) {
+      console.log('Tarea enviada a proceso de envio de notificacion');
+      return await SendEmailForTask(task)
+    }
   })
+
+  await Promise.all(taskPromises)
+
+  console.log('Llegue al CloseTaskNotice')
+  console.log(emailSendingStatus)
 
   CloseTaskNotice(emailSendingStatus)
 
-  return "The email sending task completed successfully"
+  CambiarTiempoDeLlamadoEnvioMails()
+
+  return "Tasks sent to email notification"
+}
+
+export const testSetInterval = () => {
+  try {
+    // Aquí va tu lógica para enviar los correos
+    console.log("Emails enviados");
+
+    // Ahora cambiamos el intervalo después de la ejecución de SendEmails
+    clearInterval(intervalId); // Limpiar el intervalo actual
+
+    const newIntervalTime = 300000; // 5 minutos.
+
+    intervalTime = newIntervalTime; // Actualizamos el intervalo a 3 horas
+
+    // Iniciar un nuevo intervalo con el nuevo tiempo
+    startInterval();
+
+  } catch (error) {
+    console.error("Error al enviar los correos:", error);
+  }
 }

@@ -61,7 +61,7 @@ export const ServiceSendingEmail = async (dataForEmail) => {
 
     return { message: 'Email sent successfully' }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     return { message: 'The email could not be sent correctly' }
   }
 }
