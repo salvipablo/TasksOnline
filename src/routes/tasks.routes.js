@@ -4,7 +4,8 @@ import {
   ManageTasks,
   ViewTasks,
   CreateTask,
-  GetTasks
+  GetTasks,
+  DeleteTask
 } from "../controller/tasks.controller.js"
 
 
@@ -14,7 +15,14 @@ TasksRouter.get('/newTasksPage', ManageTasks)
 TasksRouter.get('/', ViewTasks)
 
 
+// Create.
 TasksRouter.post('/', CreateTask)
+
+// Read.
 TasksRouter.get('/tasks', GetTasks)
+
+// Update.
+// Delete.
+TasksRouter.delete('/:id', DeleteTask)
 
 export default TasksRouter

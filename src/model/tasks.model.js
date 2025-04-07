@@ -26,23 +26,42 @@ const SaveTasksOnDisk = () => {
 
 }
 
-export const SaveTask = (task) => {
-  if (!task) throw new Error('You have not submitted a task to save')
+/* CRUD */
 
-  Tasks.push(task)
+  // Create.
+  export const SaveTaskDB  = (task) => {
+    if (!task) throw new Error('You have not submitted a task to save')
 
-  SaveTasksOnDisk()
+    Tasks.push(task)
 
-  return {
-    statusSaveBD: 10001,
-    message: "The task was successfully saved to the database"
+    SaveTasksOnDisk()
+
+    return {
+      statusSaveBD: 10001,
+      message: "The task was successfully saved to the database"
+    }
   }
-}
 
-export const ReturnTasks = () => {
-  return Tasks
-}
+  // Read.
+  export const ReturnTasksDB = () => {
+    return Tasks
+  }
 
+  // Update.
+
+  // Delete.
+  export const DeleteTaskDB = (taskId) => {
+    Tasks = Tasks.filter(task => task.id !== taskId);
+
+    SaveTasksOnDisk()
+
+    return {
+      statusSaveBD: 10003,
+      message: "The task was successfully deleted from the database."
+    }
+  }
+
+/* CRUD */
 export const GetTasksByCondition = (currentDate) => {
   let tasksToBeSent = []
 
