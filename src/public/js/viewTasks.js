@@ -29,3 +29,16 @@ DeleteButtons.forEach(btnDelete => {
     location.reload(true);
   })
 })
+
+window.addEventListener('load', () => {
+  const widthBody = document.body.clientWidth
+  const h2Elements = document.querySelectorAll('.taskTitle')
+
+  if (widthBody < 768) {
+    h2Elements.forEach(function(element) {
+      const textoOriginal = element.textContent
+      const textoAcortado = textoOriginal.length > 20 ? textoOriginal.substring(0, 20) + '...' : textoOriginal
+      element.textContent = textoAcortado
+    })
+  }
+})

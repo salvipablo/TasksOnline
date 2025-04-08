@@ -1,15 +1,32 @@
 .cntHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .btnHeader {
   background: transparent;
   border: solid 2px #0d864a;
   color: inherit;
-  padding: 1.5em 2em;
+  padding: 1em;
   border-radius: 0.5em;
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
+}
+
+.mainTitle {
+  font-size: 1em;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .btnHeader {
+    padding: 1.5em 2em;
+  }
+
+  .mainTitle {
+    font-size: 1.5em;
+  }
 }

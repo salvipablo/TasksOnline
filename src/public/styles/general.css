@@ -6,7 +6,7 @@
 
 body {
   font-family: Verdana, sans-serif;
-  padding: 0.5em 4em 0 4em;
+  padding: 0.5em 1em 0 1em;
   background-color: #1F2430;
   color: #e9c46a;
 }
@@ -29,3 +29,9 @@ a {
 .ml-1 { margin-left: 1em; }
 .ml-15 { margin-left: 1.5em; }
 /* margin left */
+
+@media (min-width: 768px) {
+  body {
+    padding: 0.5em 2em 0 2em;
+  }
+}

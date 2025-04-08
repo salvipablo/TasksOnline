@@ -25,9 +25,9 @@
   <div class="cntTasks">
     <% tasks.forEach(element => { %>
       <div class="cntTask">
-        <div class="cntTitleBtns">
+        <div class="cntTitleBtns mb-1 <% if (element.emailsSent) { %>statusSent<% } %>">
           <div>
-            <h2 class="mb-1 taskTitle"><%- element.affair %></h2>
+            <h2 class="taskTitle"><%- element.affair %></h2>
           </div>
           <div>
             <img class="iconTask btnEdit" name="<%- element.id %>" src="../images/edit.png" alt="edit">
