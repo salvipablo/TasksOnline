@@ -12,14 +12,15 @@ import {
 const TasksRouter = Router()
 
 TasksRouter.get('/newTasksPage', ManageTasks)
-TasksRouter.get('/', ViewTasks)
+
+//TasksRouter.get('/', ViewTasks)
 
 
 // Create.
 TasksRouter.post('/', CreateTask)
 
 // Read.
-TasksRouter.get('/tasks', GetTasks)
+TasksRouter.get('/', GetTasks)
 
 // Update.
 // Delete.

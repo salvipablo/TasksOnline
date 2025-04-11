@@ -8,7 +8,7 @@
       "andres_grappa@hotmail.com"
     ],
     "emailsSent": false,
-    "timeRepetTask": "1 anios"
+    "timeRepeatTask": "1 anios"
   },
   {
     "id": "37418103-1dc0-4b17-a94f-877cb0a1ab0b",
@@ -20,7 +20,7 @@
       "andres_grappa@hotmail.com"
     ],
     "emailsSent": true,
-    "timeRepetTask": "3 meses"
+    "timeRepeatTask": "3 meses"
   },
   {
     "id": "25c05c31-e103-405a-a30c-c44d7fd579b3",
@@ -31,7 +31,7 @@
       "psalvi@semapi.com.ar"
     ],
     "emailsSent": false,
-    "timeRepetTask": "6 meses"
+    "timeRepeatTask": "6 meses"
   },
   {
     "id": "b75e6f9c-e842-4057-afd8-b5a9000cbdae",
@@ -42,7 +42,7 @@
       "psalvi@semapi.com.ar"
     ],
     "emailsSent": true,
-    "timeRepetTask": "0 dias"
+    "timeRepeatTask": "0 dias"
   },
   {
     "id": "885dc2cc-3b97-43c3-aeb8-59ab383fcf0d",
@@ -55,7 +55,7 @@
       "salvipablo@gmail.com"
     ],
     "emailsSent": true,
-    "timeRepetTask": "2 meses"
+    "timeRepeatTask": "2 meses"
   },
   {
     "id": "e8eea5e3-311f-4d23-9fe1-e00082059394",
@@ -67,7 +67,7 @@
       "psalvi@semapi.com"
     ],
     "emailsSent": false,
-    "timeRepetTask": "6 meses"
+    "timeRepeatTask": "6 meses"
   },
   {
     "id": "ee8d5971-c5e2-4af6-9875-aaa32afade38",
@@ -79,7 +79,7 @@
       "salvipablo@gmail.com"
     ],
     "emailsSent": false,
-    "timeRepetTask": "5 meses"
+    "timeRepeatTask": "5 meses"
   },
   {
     "id": "41e624f8-4871-4d6c-a6e8-90bb99f543fc",
@@ -90,6 +90,6 @@
       "bonicamboriu@gmail.com"
     ],
     "emailsSent": false,
-    "timeRepetTask": "2 meses"
+    "timeRepeatTask": "2 meses"
   }
 ]

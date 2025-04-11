@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/general.css">
+  <link rel="stylesheet" href="./styles/header.css">
+  <link rel="stylesheet" href="./styles/viewTasks.css">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <title>Tasks Online</title>
+</head>
+<body>
+  <header>
+    <div class="cntHeader mb-1">
+      <h1 class="mainTitle">Tareas a desarrollar.</h1>
+      <a href="./newTaskPage.html" class="btnHeader">Nueva Tarea</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="cntTools mb-1">
+      <select name="selViews" id="selViews" class="selViews">
+        <option value=1>Cards</option>
+        <option value=2>Calendar</option>
+      </select>
+    </div>
+
+    <div class="cntTasks" id="cntTasks">
+    </div>
+
+    <div id="calendar-container" class="no-visible"></div>
+  </main>
+
+  <script src="../js/viewTasks.js"></script>
+</body>
+</html>
