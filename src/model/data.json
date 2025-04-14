@@ -91,5 +91,17 @@
     ],
     "emailsSent": false,
     "timeRepeatTask": "2 meses"
+  },
+  {
+    "id": "3b5231a9-3f99-4f28-99da-0db51c7a1770",
+    "affair": "QWERTY",
+    "description": "Descripcion de QWERTY",
+    "noticeDate": "2025-07-25",
+    "mails": [
+      "albertoaranda48@hotmail.com",
+      "bonicamboriu@gmail.com"
+    ],
+    "emailsSent": false,
+    "timeRepetTask": "2 meses"
   }
 ]

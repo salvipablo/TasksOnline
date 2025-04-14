@@ -1,138 +1,156 @@
-.mainTitle {
-  font-size: 1.5em;
-  text-align: center;
+.cntTools {
+  display: flex;
+  justify-content: end;
+  padding: 0.5em 1em 0.5em;
+  border-radius: 0.5em;
 }
 
-.cntMain {
+.selViews {
+  background-color: transparent;
+  padding: 0.2em 2em;
+  border: 1px solid #ffffff;
+  border-radius: 0.5em;
+  color: inherit;
+}
+
+.cntTitleBtns {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 0.5em 0.5em 0.2em;
+  border-radius: 1em 1em 0 0;
+  background-color: #b93434;
+}
+
+.taskTitle {
+  font-size: 1em;
+}
+
+.iconTask {
+  width: 25px;
+  cursor: pointer;
+}
+
+
+.cntTasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
   justify-content: center;
 }
 
-.cntFormAddTask {
+.cntTask {
+  background-color: #3d372e;
   width: 100%;
-  
+  max-width: 420px;
+  max-height: 230px;
+  border-radius: 1em;
+  padding: 0 0 1em 0;
 }
 
-form {
-  width: 100%;
-  margin: auto;
-  max-width: 550px;
+.statusSent {
+  background-color: #43b934;
 }
 
-.lblFrmAddTask, .inpFrmAddTask, .selMails {
-  display: block;
-  width: 100%;
-}
 
-.selMails {
-  height: 120px;
-}
+/* Aqui los estilos de la vista calendario */
 
-.cntDateAndTime {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4px;
-}
-
-.lblFrmAddTask {
-  padding: 0.8em 0 0.8em 0;
-}
-
-.inpFrmAddTask {
-  padding: 0.8em 0 0.8em 0.5em;
-}
-
-.submitFrmAddTask {
-  width: 100%;
-  padding: 1em 0;
-  margin-top: 2em;
-  background: transparent;
-  background-color: #e76f51;
-  border: 1px solid #423b3b;
-  border-radius: 0.5em;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #e9c46a;
-  cursor: pointer;
-  transition: all 1s;
-}
-
-.submitFrmAddTask:hover {
-  background-color: #333333;
-}
-
-.cntCalendar {
-  margin-top: 1em;
-  width: 100%;
-}
-
-.calendar {
-  margin: auto;
-  max-width: 800px;
-}
-
-.header-calendar {
-  display: flex;
-  justify-content: space-between;
-  background: #2a9d8f;
-  padding: 70px 25px;
-  color: #e9c46a;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-weight: bold;
-}
-
-.prev, .next {
-  cursor: pointer;
-}
-
-.weekdays-calendar, .days-calendar {
+.calendar-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  gap: 5px;
+  max-width: 1200px;
 }
 
-.th-grid {
+.day-header {
+  font-weight: bold;
   text-align: center;
-  background-color: #497080;
-  color: #ffffff;
+  padding: 10px;
+  background-color: #a75656;
 }
 
-.td-grid {
-  text-align: center;
-  background-color: #b2babd;
-  color: #000000;
-  padding: 1em 0;
+.day {
+  min-height: 100px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.day-number {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-weight: bold;
+}
+
+.day.empty {
+  background-color: #dfdddd;
+  color: #aaa;
+}
+
+.day.today {
+  background-color: #23769c;
+}
+
+.task {
+  margin: 5px 0;
+  padding: 3px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
   cursor: pointer;
+  background-color: #f8f8f836;
+  border-left: 3px solid #ccc;
 }
 
-.active {
-  background-color: aquamarine;
-  color: #000000;
-  border: 1px solid #000000;
+.task.sent {
+  border-left: 3px solid #4CAF50;
 }
 
-.inpTimeRepet, .selTime {
-  padding: 0.5em 0;
+.task.pending {
+  border-left: 3px solid #d12a14;
 }
 
-@media (min-width: 1200px) {
-  .mainTitle {
-    font-size: 2em;
-    margin-bottom: 1em;
-  }
-  
-  .cntMain {
-    flex-direction: row;
-    gap: 1em;
-  }
-  
-  .cntCalendar {
-    margin-top: 0;
-    /* width: 60%; */
-  }
+.calendar-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  max-width: 1200px;
+}
+
+.calendar-controls button {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #a8a8a8;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  color: inherit;
+}
+
+.calendar-controls button:hover {
+  border-color: #999;
+  background-color: rgba(216, 5, 5, 0.219);
+}
+
+.calendar-controls button:active {
+  transform: translateY(1px);
+}
+
+/* Aqui los estilos de la vista calendario */
+
+.no-visible {
+  display: none;
+}
+
+.viewCalendar {
+  display: grid;
+  grid-template-columns: 70% 30% 
+}
+
+.directionColumn {
+  flex-direction: column;
+  align-items: center;
 }

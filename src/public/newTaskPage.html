@@ -3,9 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Task Page</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./styles/general.css">
+    <link rel="stylesheet" href="./styles/header.css">
+    <link rel="stylesheet" href="./styles/newTaskPage.css">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <title>Tasks Online</title>
 </head>
 <body>
-  <h1>Nueva tarea</h1>
+  <header>
+    <div class="cntHeader mb-1">
+      <h1 class="mainTitle">Agregar tareas.</h1>
+      <a href="./index.html" class="btnHeader">Home</a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="cntMain">
+        <div class="cntFormAddTask">
+          <form id="submitFrmAddTask">
+            <p class="lblFrmAddTask" for="affairTask">Asunto:</p>
+            <input class="inpFrmAddTask" type="text" name="affairTask" id="affair">
+            <p class="lblFrmAddTask" for="descriptionTask">Descripcion:</p>
+            <input class="inpFrmAddTask" type="text" name="descriptionTask" id="description">
+
+            <p class="lblFrmAddTask" for="mails">Mails:</p>
+            <select class="selMails" id="cars" name="mails" size="4" multiple>
+              <option class="opMails" value="albertoaranda48@hotmail.com">albertoaranda48@hotmail.com</option>
+              <option class="opMails" value="bonicamboriu@gmail.com">bonicamboriu@gmail.com</option>
+              <option class="opMails" value="andres_grappa@talleresati.com.ar">andres_grappa@talleresati.com.ar</option>
+              <option class="opMails" value="andres_grappa@hotmail.com">andres_grappa@hotmail.com</option>
+              <option class="opMails" value="salvipablo@gmail.com">salvipablo@gmail.com</option>
+              <option class="opMails" value="psalvi@semapi.com.ar">psalvi@semapi.com.ar</option>
+              <option class="opMails" value="psalvi@semapi.com">psalvi@semapi.com</option>
+            </select>
+
+            <div class="cntDateAndTime">
+              <p class="lblFrmAddTask">Repeticion:</p>
+              <p class="lblFrmAddTask">Fecha:</p>
+              <div>
+                <input type="number" id="numbRepet" class="inpTimeRepet" value="0">
+                  <select class="selTime" id="times" name="times">
+                    <option class="opTimes" value="dias">dias</option>
+                    <option class="opTimes" value="meses">meses</option>
+                    <option class="opTimes" value="anios">años</option>
+                  </select>
+                </div>
+                <div>
+                  <p id="dateForTask">-</p>
+                </div>
+            </div>
+
+            <input class="submitFrmAddTask" type="submit" value="Cargar tarea">
+          </form>
+        </div>
+
+        <div class="cntCalendar">
+          <div class="calendar">
+            <div class="header-calendar">
+              <p class="prev" id="btnPrev">&#10094;</p>
+              <p id="titleCalendar"></p>
+              <p class="next" id="btnNext">&#10095;</p>
+            </div>
+            <div class="weekdays-calendar">
+              <p class="th-grid">Mo</p>
+              <p class="th-grid">Tu</p>
+              <p class="th-grid">We</p>
+              <p class="th-grid">Th</p>
+              <p class="th-grid">Fr</p>
+              <p class="th-grid">Sa</p>
+              <p class="th-grid">Su</p>
+            </div>
+            <div class="days-calendar" id="daysCalendar">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/newTaskPage.js"></script>
 </body>
 </html>

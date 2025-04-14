@@ -1,182 +1,298 @@
-// Elementos
-const DaysCalendar = document.getElementById('daysCalendar')
-const TitleCalendar = document.getElementById('titleCalendar')
-const BtnPrev = document.getElementById('btnPrev')
-const BtnNext = document.getElementById('btnNext')
-const SubmitFrmAddTask = document.getElementById('submitFrmAddTask')
-const DateForTask = document.getElementById('dateForTask')
+const CntTasks = document.getElementById('cntTasks')
+const SelViews = document.getElementById('selViews')
+const calendarC = document.getElementById('calendar-container')
+const CntMain = document.getElementById('cntMain')
 
-// Elementos Form
-const Affair = document.getElementById('affair')
-const Description = document.getElementById('description')
-const OptionMails = document.getElementsByClassName('opMails')
-const Times = document.getElementById('times')
-const NumbRepet = document.getElementById('numbRepet')
+let TASKS = []
 
-// Arrays para calendario
-const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-// #region Funciones
-const daysSinceMonday = (day) => {
-  const daysOfTheWeek = {
-    'Monday': 1,
-    'Tuesday': 2,
-    'Wednesday': 3,
-    'Thursday': 4,
-    'Friday': 5,
-    'Saturday': 6,
-    'Sunday': 7
-  }
-
-  return daysOfTheWeek[day] - 1
-}
-
-const HowManyDaysOfWeek = (day) => {
-  const daysOfTheWeek = {
-    'Monday': 1,
-    'Tuesday': 2,
-    'Wednesday': 3,
-    'Thursday': 4,
-    'Friday': 5,
-    'Saturday': 6,
-    'Sunday': 7
-  }
-
-  return daysOfTheWeek[day]
-}
-
-const getElementDay = (day, currentDay) => {
-  let createPlace = document.createElement("p")
-  createPlace.textContent = `${day}` 
-  createPlace.classList.add("td-grid")
-
-  createPlace.addEventListener('click', (e) => {
-    const elementActive = document.getElementsByClassName('active')
-    elementActive[0].classList.remove("active")
-
-    e.target.classList.add('active')
-
-    chosenDate = new Date(currentYear, currentMonth, e.target.textContent)
-    DateForTask.textContent = chosenDate.toISOString().split('T')[0]
+const RequestTasks = async () => {
+  const request = await fetch(`./tasks`, {
+    method: 'GET',
   })
 
-  if (day === currentDay) createPlace.classList.add('active')
-  return createPlace
+  const response = await request.json()
+
+  TASKS = response.message
 }
 
-const renderMonth = (year, month, currentDay) => {
-  DaysCalendar.innerHTML = ''
-  TitleCalendar.innerHTML = `${Months[currentMonth]} - ${currentYear}`
+const RenderTasks = (filteredTasks) => {
+  let cards = ''
 
-  let daysMonth = new Date(year, month + 1, 0).getDate()
+  filteredTasks.forEach(task => {
+    let mails = ''
 
-  let index = new Date(year, month, 1).getDay()
-  let firstDay = daysOfTheWeek[index]
-  let HowManyDaysPassed = daysSinceMonday(firstDay)
+    task.mails.forEach(mail => {
+      mails = `
+        <li>${mail}</li>
+      `
+    });
 
-  // Agrego los vacios.
-  for (let i = 0; i < HowManyDaysPassed; i++) {
-    createPlace = document.createElement("p")
-    createPlace.textContent = ""
-    createPlace.classList.add("td-grid")
-    DaysCalendar.appendChild(createPlace)
-  }
+    let statusTask = task.emailsSent === true ? 'statusSent' : ''
+    
+    cards += `
+      <div class="cntTask">
+        <div class="cntTitleBtns mb-1 ${statusTask}">
+          <div>
+            <h2 class="taskTitle">${task.affair}</h2>
+          </div>
+          <div>
+            <img class="iconTask btnEdit" name="${task.id}" src="./images/edit.png" alt="edit">
+            <img class="iconTask btnDelete" name="${task.id}" src="./images/delete.png" alt="delete">
+          </div>
+        </div>
+        <p class="mb-05">Descripcion: ${task.description}</p>
+        <p class="mb-05">Fecha: ${task.noticeDate}</p>
+        <p>Mails: </p>
+        <ul class="ml-15 mb-05">
+          ${mails}
+        </ul>
+        <p>Repeticion: ${task.timeRepeatTask}</p>
+      </div>
+    `
+  });
 
-  // Agrego los numeros
-  for (var day = 1; day <= daysMonth; day++) {
-    DaysCalendar.appendChild(getElementDay(day, currentDay))
-  }
+  CntTasks.innerHTML = cards
+}
 
-  // Ultimo dia del mes
-  let indexLastDayJS = new Date(year, month + 1, 0).getDate()
+const ConfigureUi = () => {
+  const widthBody = document.body.clientWidth
+  const h2Elements = document.querySelectorAll('.taskTitle')
 
-  // Ultimo dia del mes en string
-  index = new Date(year, month, indexLastDayJS).getDay()
-  let lastDay = daysOfTheWeek[index]
-
-  let indexLastDay = HowManyDaysOfWeek(lastDay)
-  HowManyDaysAreLeft = 7 - indexLastDay
-
-  for (let i = 0; i < HowManyDaysAreLeft; i++) {
-    nuevoElemento = document.createElement("p")
-    nuevoElemento.textContent = ""
-    nuevoElemento.classList.add("td-grid")
-    DaysCalendar.appendChild(nuevoElemento)
+  if (widthBody < 768) {
+    h2Elements.forEach(function(element) {
+      const textoOriginal = element.textContent
+      const textoAcortado = textoOriginal.length > 20 ? textoOriginal.substring(0, 20) + '...' : textoOriginal
+      element.textContent = textoAcortado
+    })
   }
 }
 
-const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet, numRepet) => {
-  let timeRepetTask = `${numRepet} ${timeRepet}`
-  let mails = []
+function createCalendar(year, month) {
+  const firstDayOfMonth = new Date(year, month, 1)
+  const lastDayOfMonth = new Date(year, month + 1, 0)
 
-  for (let i = 0; i < mailsToSend.length; i++) {
-    if (mailsToSend[i].selected) mails.push(mailsToSend[i].value)
+  const totalDaysInMonth = lastDayOfMonth.getDate()
+
+  let firstDayWeek = firstDayOfMonth.getDay()
+
+  firstDayWeek = firstDayWeek === 0 ? 6 : firstDayWeek - 1
+
+  let lastDayWeek = lastDayOfMonth.getDay()
+
+  lastDayWeek = lastDayWeek === 0 ? 6 : lastDayWeek - 1
+
+  const missingDays = lastDayWeek === 6 ? 0 : 6 - lastDayWeek
+
+  const calendarContainer = document.createElement('div')
+  calendarContainer.className = 'calendar-container'
+
+  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  daysOfWeek.forEach(day => {
+    const dayHeader = document.createElement('div')
+    dayHeader.className = 'day-header'
+    dayHeader.textContent = day
+    calendarContainer.appendChild(dayHeader)
+  })
+
+  for (let i = 0; i < firstDayWeek; i++) {
+    const emptyDay = document.createElement('div')
+    emptyDay.className = 'day empty'
+
+    const dayFromPreviousMonth = new Date(year, month, 0).getDate() - firstDayWeek + i + 1
+    emptyDay.textContent = dayFromPreviousMonth
+
+    calendarContainer.appendChild(emptyDay)
   }
 
-  let newTask = {
-    affair,
-    description,
-    noticeDate,
-    mails,
-    emailsSent: false,
-    timeRepetTask
+  for (let day = 1; day <= totalDaysInMonth; day++) {
+    const dayElement = document.createElement('div')
+    dayElement.className = 'day'
+
+    const numberDiv = document.createElement('div')
+    numberDiv.className = 'day-number'
+    numberDiv.textContent = day
+    dayElement.appendChild(numberDiv)
+
+    const currentDate = new Date()
+    if (year === currentDate.getFullYear() && 
+        month === currentDate.getMonth() && 
+        day === currentDate.getDate()) {
+      dayElement.classList.add('today')
+    }
+
+    const tasksForDay = TASKS.filter(task => {
+      const taskDate = new Date(task.noticeDate)
+      return taskDate.getFullYear() === year && taskDate.getMonth() === month && taskDate.getDate() === day
+    })
+
+    tasksForDay.forEach(task => {
+      const taskElement = document.createElement('p')
+      taskElement.className = 'task'
+
+      const shortenedText = task.affair.length > 10 ? task.affair.substring(0, 20) + '...' : task.affair
+      taskElement.textContent = shortenedText
+
+      taskElement.title = task.affair
+
+      if (task.emailsSent) {
+        taskElement.classList.add('sent')
+      } else {
+        taskElement.classList.add('pending')
+      }
+
+      dayElement.appendChild(taskElement)
+    })
+
+    calendarContainer.appendChild(dayElement)
   }
 
-  const Request = await fetch('../tasks', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newTask)
+  for (let i = 1; i <= missingDays; i++) {
+    const emptyDay = document.createElement('div')
+    emptyDay.className = 'day empty'
+    emptyDay.textContent = i // Show the first days of the next month
+    calendarContainer.appendChild(emptyDay)
+  }
+
+  return calendarContainer
+}
+
+function filterTasksByYearMonth(tasks, dataFilterTasks) {
+  return tasks.filter(task => {
+    // Extraer solo el año y mes de la fecha de la tarea (primeros 7 caracteres: YYYY-MM)
+    const taskYearMonth = task.noticeDate.substring(0, 7)
+    
+    // Comparar con el filtro
+    return taskYearMonth === dataFilterTasks
+  })
+}
+
+function showCalendar(year, month) {
+  if (year === undefined || month === undefined) {
+    const currentDate = new Date()
+    year = currentDate.getFullYear()
+    month = currentDate.getMonth()
+  }
+
+  let monthFilter = month + 1 < 10 ? `0${month + 1}` : month + 1
+  let dataFilterTasks = `${year}-${monthFilter}`
+  const filteredTasks = filterTasksByYearMonth(TASKS, dataFilterTasks);
+
+  // Muestro las cards filtradas
+  if (parseInt(SelViews.value) === 2) {
+    RenderTasks(filteredTasks)
+    SetEventsToButtons()
+  }
+
+  // Creo el calendario
+  const calendar = createCalendar(year, month)
+
+  const container = document.getElementById('calendar-container')
+  container.innerHTML = ''
+  container.appendChild(calendar)
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+  const calendarTitle = document.createElement('h2')
+  calendarTitle.textContent = `${monthNames[month]} ${year}`
+  container.insertBefore(calendarTitle, calendar)
+
+  const controls = document.createElement('div')
+  controls.className = 'calendar-controls'
+
+  const previousButton = document.createElement('button')
+  previousButton.textContent = '← Previous Month'
+  previousButton.onclick = () => {
+    let newMonth = month - 1
+    let newYear = year
+    if (newMonth < 0) {
+      newMonth = 11
+      newYear--
+    }
+    showCalendar(newYear, newMonth, TASKS)
+  }
+
+  const nextButton = document.createElement('button')
+  nextButton.textContent = 'Next Month →'
+  nextButton.onclick = () => {
+    let newMonth = month + 1
+    let newYear = year
+    if (newMonth > 11) {
+      newMonth = 0
+      newYear++
+    }
+    showCalendar(newYear, newMonth, TASKS)
+  }
+
+  controls.appendChild(previousButton)
+  controls.appendChild(nextButton)
+
+  container.insertBefore(controls, calendarTitle)
+}
+
+const DeleteTask = async (idTaskToDelete) => {
+  const Request = await fetch(`./${idTaskToDelete}`, {
+    method: 'DELETE',
   })
 
   const Response = await Request.json()
 
-  return Response.message
+  return Response;
 }
-//#endregion
 
-//#region Eventos
-BtnNext.addEventListener('click', () => {
-  let nextMonth = currentMonth + 1 === 12 ? 0 : currentMonth + 1
-  let nextYear = currentMonth + 1 === 12 ? currentYear + 1 : currentYear
-  currentMonth = nextMonth
-  currentYear = nextYear
-  chosenDate = new Date(currentYear, currentMonth, 1)
-  DateForTask.textContent = chosenDate.toISOString().split('T')[0]
-  renderMonth(currentYear, currentMonth, 1)
+const SetEventsToButtons = () => {
+  const EditButtons = document.querySelectorAll('.btnEdit')
+  const DeleteButtons = document.querySelectorAll('.btnDelete')
+
+  EditButtons.forEach(btnEdit => {
+    btnEdit.addEventListener('click', function(event) {
+      const imageName = event.target.getAttribute('name');
+      alert(`El id a editar es: ${imageName}`)
+    })
+  })
+  
+  DeleteButtons.forEach(btnDelete => {
+    btnDelete.addEventListener('click', async function(event) {
+      const imageName = event.target.getAttribute('name');
+  
+      let opStatus = await DeleteTask(imageName)
+  
+      alert(`${opStatus.message}`)
+  
+      location.reload(true);
+    })
+  })
+}
+
+// Events //
+SelViews.addEventListener('change', () => {
+  calendarC.classList.add('no-visible')
+  CntMain.classList.remove('viewCalendar')
+  CntTasks.classList.remove('directionColumn')
+  
+  if (parseInt(SelViews.value) === 1) {
+    RenderTasks(TASKS)
+    SetEventsToButtons()
+  }
+
+  if (parseInt(SelViews.value) === 2) {
+    calendarC.classList.remove('no-visible')
+    CntMain.classList.add('viewCalendar')
+    CntTasks.classList.add('directionColumn')
+  }
+
+  showCalendar(undefined, undefined)
 })
+// Events //
 
-BtnPrev.addEventListener('click', () => {
-  let nextMonth = currentMonth - 1 === -1 ? 11 : currentMonth - 1
-  let nextYear = currentMonth - 1 === -1 ? currentYear - 1 : currentYear
-  currentMonth = nextMonth
-  currentYear = nextYear
-  chosenDate = new Date(currentYear, currentMonth, 1)
-  DateForTask.textContent = chosenDate.toISOString().split('T')[0]
-  renderMonth(currentYear, currentMonth, 1)
-})
+const main = async () => {
+  // Realizo la peticion para traer las tareas
+  await RequestTasks()
 
-SubmitFrmAddTask.addEventListener('submit', async (e) => {
-  e.preventDefault()
+  // Dibujo las tasks en pantalla
+  RenderTasks(TASKS)
 
-  let ChosenDateConverted = chosenDate.toISOString().split('T')[0]
+  // Una vez dibujadas las cards, genero los eventos para los botones.
+  SetEventsToButtons()
+}
 
-  let opStatus = await saveTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
-
-  alert(opStatus)
-
-  SubmitFrmAddTask.reset()
-})
-
-//#endregion
-
-let chosenDate = new Date()
-DateForTask.textContent = chosenDate.toISOString().split('T')[0]
-let currentDay = chosenDate.getDate()
-let currentMonth = new Date().getMonth()
-let currentYear = new Date().getFullYear()
-
-renderMonth(currentYear, currentMonth, currentDay)
+main()
