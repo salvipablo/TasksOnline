@@ -28,7 +28,7 @@ export const ViewTasks = (_req, res) => {
 
 export const CreateTask = (req, res) => {
   try {
-    const { affair, description, noticeDate, mails, emailsSent, timeRepetTask } = req.body
+    const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
     let id = uuidv4()
 
@@ -39,7 +39,7 @@ export const CreateTask = (req, res) => {
       noticeDate,
       mails,
       emailsSent,
-      timeRepetTask
+      timeRepeatTask
     }
 
     let opStatus = SaveTaskDB(newTaskToSave)

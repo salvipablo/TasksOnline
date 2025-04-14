@@ -5,6 +5,7 @@ const CntMain = document.getElementById('cntMain')
 
 let TASKS = []
 
+// Functions //
 const RequestTasks = async () => {
   const request = await fetch(`./tasks`, {
     method: 'GET',
@@ -22,7 +23,7 @@ const RenderTasks = (filteredTasks) => {
     let mails = ''
 
     task.mails.forEach(mail => {
-      mails = `
+      mails += `
         <li>${mail}</li>
       `
     });
@@ -262,6 +263,7 @@ const SetEventsToButtons = () => {
     })
   })
 }
+// Functions //
 
 // Events //
 SelViews.addEventListener('change', () => {
