@@ -99,5 +99,5 @@ export const UpdateTasks = () => {
     }
   })
 
-  console.log("** Tareas actualizadas **")
+  console.log("** Tasks updated from the database **")
 }

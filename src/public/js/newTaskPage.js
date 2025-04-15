@@ -1,4 +1,3 @@
-// Elementos
 const DaysCalendar = document.getElementById('daysCalendar')
 const TitleCalendar = document.getElementById('titleCalendar')
 const BtnPrev = document.getElementById('btnPrev')
@@ -6,18 +5,16 @@ const BtnNext = document.getElementById('btnNext')
 const SubmitFrmAddTask = document.getElementById('submitFrmAddTask')
 const DateForTask = document.getElementById('dateForTask')
 
-// Elementos Form
 const Affair = document.getElementById('affair')
 const Description = document.getElementById('description')
 const OptionMails = document.getElementsByClassName('opMails')
 const Times = document.getElementById('times')
 const NumbRepet = document.getElementById('numbRepet')
 
-// Arrays para calendario
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-// #region Funciones
+// #region Functions
 const daysSinceMonday = (day) => {
   const daysOfTheWeek = {
     'Monday': 1,
@@ -75,7 +72,6 @@ const renderMonth = (year, month, currentDay) => {
   let firstDay = daysOfTheWeek[index]
   let HowManyDaysPassed = daysSinceMonday(firstDay)
 
-  // Agrego los vacios.
   for (let i = 0; i < HowManyDaysPassed; i++) {
     createPlace = document.createElement("p")
     createPlace.textContent = ""
@@ -83,15 +79,12 @@ const renderMonth = (year, month, currentDay) => {
     DaysCalendar.appendChild(createPlace)
   }
 
-  // Agrego los numeros
   for (var day = 1; day <= daysMonth; day++) {
     DaysCalendar.appendChild(getElementDay(day, currentDay))
   }
 
-  // Ultimo dia del mes
   let indexLastDayJS = new Date(year, month + 1, 0).getDate()
 
-  // Ultimo dia del mes en string
   index = new Date(year, month, indexLastDayJS).getDay()
   let lastDay = daysOfTheWeek[index]
 

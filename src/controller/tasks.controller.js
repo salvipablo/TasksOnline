@@ -6,26 +6,6 @@ import {
   DeleteTaskDB
 } from "../model/tasks.model.js"
 
-export const ManageTasks = (_req, res) => {
-  try {
-    res.render('index')
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-}
-
-export const ViewTasks = (_req, res) => {
-  try {
-    let tasks = ReturnTasksDB()
-
-    res.render('viewTasks', {
-      tasks
-    })
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-}
-
 export const CreateTask = (req, res) => {
   try {
     const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body

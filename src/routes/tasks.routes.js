@@ -1,8 +1,6 @@
 import { Router } from "express"
 
 import {
-  ManageTasks,
-  ViewTasks,
   CreateTask,
   GetTasks,
   DeleteTask
@@ -11,11 +9,6 @@ import {
 
 const TasksRouter = Router()
 
-TasksRouter.get('/newTasksPage', ManageTasks)
-
-//TasksRouter.get('/', ViewTasks)
-
-
 // Create.
 TasksRouter.post('/', CreateTask)
 
@@ -23,6 +16,7 @@ TasksRouter.post('/', CreateTask)
 TasksRouter.get('/', GetTasks)
 
 // Update.
+
 // Delete.
 TasksRouter.delete('/:id', DeleteTask)
 

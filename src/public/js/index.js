@@ -5,7 +5,7 @@ const CntMain = document.getElementById('cntMain')
 
 let TASKS = []
 
-// Functions //
+//#region Functions
 const RequestTasks = async () => {
   const request = await fetch(`./tasks`, {
     method: 'GET',
@@ -26,7 +26,7 @@ const RenderTasks = (filteredTasks) => {
       mails += `
         <li>${mail}</li>
       `
-    });
+    })
 
     let statusTask = task.emailsSent === true ? 'statusSent' : ''
     
@@ -50,7 +50,7 @@ const RenderTasks = (filteredTasks) => {
         <p>Repeticion: ${task.timeRepeatTask}</p>
       </div>
     `
-  });
+  })
 
   CntTasks.innerHTML = cards
 }
@@ -68,7 +68,7 @@ const ConfigureUi = () => {
   }
 }
 
-function createCalendar(year, month) {
+const createCalendar = (year, month) => {
   const firstDayOfMonth = new Date(year, month, 1)
   const lastDayOfMonth = new Date(year, month + 1, 0)
 
@@ -123,7 +123,7 @@ function createCalendar(year, month) {
 
     const tasksForDay = TASKS.filter(task => {
       const taskDate = new Date(task.noticeDate)
-      return taskDate.getFullYear() === year && taskDate.getMonth() === month && taskDate.getDate() === day
+      return taskDate.getFullYear() === year && taskDate.getMonth() === month && taskDate.getDate() + 1 === day
     })
 
     tasksForDay.forEach(task => {
@@ -157,7 +157,7 @@ function createCalendar(year, month) {
   return calendarContainer
 }
 
-function filterTasksByYearMonth(tasks, dataFilterTasks) {
+const filterTasksByYearMonth = (tasks, dataFilterTasks) => {
   return tasks.filter(task => {
     // Extraer solo el año y mes de la fecha de la tarea (primeros 7 caracteres: YYYY-MM)
     const taskYearMonth = task.noticeDate.substring(0, 7)
@@ -167,7 +167,7 @@ function filterTasksByYearMonth(tasks, dataFilterTasks) {
   })
 }
 
-function showCalendar(year, month) {
+const showCalendar = (year, month) => {
   if (year === undefined || month === undefined) {
     const currentDate = new Date()
     year = currentDate.getFullYear()
@@ -176,7 +176,7 @@ function showCalendar(year, month) {
 
   let monthFilter = month + 1 < 10 ? `0${month + 1}` : month + 1
   let dataFilterTasks = `${year}-${monthFilter}`
-  const filteredTasks = filterTasksByYearMonth(TASKS, dataFilterTasks);
+  const filteredTasks = filterTasksByYearMonth(TASKS, dataFilterTasks)
 
   // Muestro las cards filtradas
   if (parseInt(SelViews.value) === 2) {
@@ -237,7 +237,7 @@ const DeleteTask = async (idTaskToDelete) => {
 
   const Response = await Request.json()
 
-  return Response;
+  return Response
 }
 
 const SetEventsToButtons = () => {
@@ -246,26 +246,26 @@ const SetEventsToButtons = () => {
 
   EditButtons.forEach(btnEdit => {
     btnEdit.addEventListener('click', function(event) {
-      const imageName = event.target.getAttribute('name');
+      const imageName = event.target.getAttribute('name')
       alert(`El id a editar es: ${imageName}`)
     })
   })
   
   DeleteButtons.forEach(btnDelete => {
     btnDelete.addEventListener('click', async function(event) {
-      const imageName = event.target.getAttribute('name');
+      const imageName = event.target.getAttribute('name')
   
       let opStatus = await DeleteTask(imageName)
   
       alert(`${opStatus.message}`)
   
-      location.reload(true);
+      location.reload(true)
     })
   })
 }
-// Functions //
+//#endregion
 
-// Events //
+//#region Events
 SelViews.addEventListener('change', () => {
   calendarC.classList.add('no-visible')
   CntMain.classList.remove('viewCalendar')
@@ -284,7 +284,7 @@ SelViews.addEventListener('change', () => {
 
   showCalendar(undefined, undefined)
 })
-// Events //
+//#endregion
 
 const main = async () => {
   // Realizo la peticion para traer las tareas

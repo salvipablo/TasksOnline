@@ -30,7 +30,7 @@ a {
 .ml-15 { margin-left: 1.5em; }
 /* margin left */
 
-@media (min-width: 768px) {
+@media (min-width: 1440px) {
   body {
     padding: 0.5em 2em 0 2em;
   }
