@@ -231,11 +231,13 @@ const showCalendar = (year, month) => {
 }
 
 const DeleteTask = async (idTaskToDelete) => {
-  const Request = await fetch(`./${idTaskToDelete}`, {
+  const Request = await fetch(`./tasks/${idTaskToDelete}`, {
     method: 'DELETE',
   })
 
   const Response = await Request.json()
+
+  console.log(Response)
 
   return Response
 }
@@ -254,11 +256,11 @@ const SetEventsToButtons = () => {
   DeleteButtons.forEach(btnDelete => {
     btnDelete.addEventListener('click', async function(event) {
       const imageName = event.target.getAttribute('name')
-  
+
       let opStatus = await DeleteTask(imageName)
-  
+
       alert(`${opStatus.message}`)
-  
+
       location.reload(true)
     })
   })
