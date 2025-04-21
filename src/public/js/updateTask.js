@@ -103,7 +103,7 @@ const renderMonth = (year, month, currentDay) => {
 }
 
 const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepet, numRepet) => {
-  let timeRepetTask = `${numRepet} ${timeRepet}`
+  let timeRepeatTask = `${numRepet} ${timeRepet}`
   let mails = []
 
   for (let i = 0; i < mailsToSend.length; i++) {
@@ -117,7 +117,7 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
     noticeDate,
     mails,
     emailsSent: false,
-    timeRepetTask
+    timeRepeatTask
   }
 
   const Request = await fetch('./tasks/', {

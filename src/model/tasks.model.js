@@ -56,6 +56,8 @@ const SaveTasksOnDisk = () => {
       Tasks[index] = { ...Tasks[index], ...task };
     }
 
+    SaveTasksOnDisk()
+
     return {
       statusSaveBD: 10002,
       message: "The task was successfully updated in the database"
