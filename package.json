@@ -1,6 +1,6 @@
 {
   "name": "tasks",
-  "version": "0.5.016.025",
+  "version": "0.5.017.026",
   "main": "index.js",
   "type": "module",
   "scripts": {

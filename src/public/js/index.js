@@ -37,7 +37,9 @@ const RenderTasks = (filteredTasks) => {
             <h2 class="taskTitle">${task.affair}</h2>
           </div>
           <div>
-            <img class="iconTask btnEdit" name="${task.id}" src="./images/edit.png" alt="edit">
+            <a href="./updateTask.html?id=${task.id}">
+              <img class="iconTask btnEdit" src="./images/edit.png" alt="edit">
+            </a>
             <img class="iconTask btnDelete" name="${task.id}" src="./images/delete.png" alt="delete">
           </div>
         </div>
@@ -237,22 +239,12 @@ const DeleteTask = async (idTaskToDelete) => {
 
   const Response = await Request.json()
 
-  console.log(Response)
-
   return Response
 }
 
 const SetEventsToButtons = () => {
-  const EditButtons = document.querySelectorAll('.btnEdit')
   const DeleteButtons = document.querySelectorAll('.btnDelete')
 
-  EditButtons.forEach(btnEdit => {
-    btnEdit.addEventListener('click', function(event) {
-      const imageName = event.target.getAttribute('name')
-      alert(`El id a editar es: ${imageName}`)
-    })
-  })
-  
   DeleteButtons.forEach(btnDelete => {
     btnDelete.addEventListener('click', async function(event) {
       const imageName = event.target.getAttribute('name')

@@ -23,7 +23,6 @@ const SaveTasksOnDisk = () => {
   } catch (error) {
     console.log(error.message)
   }
-
 }
 
 /* CRUD */
@@ -48,6 +47,21 @@ const SaveTasksOnDisk = () => {
   }
 
   // Update.
+  export const UpdateTaskDB = (task) => {
+    // Buscar el índice de la tarea a actualizar
+    const index = Tasks.findIndex(t => t.id === task.id);
+
+    // Si la tarea existe, la actualizamos
+    if (index !== -1) {
+      Tasks[index] = { ...Tasks[index], ...task };
+    }
+
+    return {
+      statusSaveBD: 10002,
+      message: "The task was successfully updated in the database"
+    }
+
+  }
 
   // Delete.
   export const DeleteTaskDB = (taskId) => {
@@ -62,6 +76,7 @@ const SaveTasksOnDisk = () => {
   }
 
 /* CRUD */
+
 export const GetTasksByCondition = (currentDate) => {
   let tasksToBeSent = []
 
@@ -100,4 +115,13 @@ export const UpdateTasks = () => {
   })
 
   console.log("** Tasks updated from the database **")
+}
+
+export const ReturnTask = (id) => {
+  try {
+    let taskFound = Tasks.find(task => task.id === id)
+    return taskFound
+  } catch (error) {
+    console.log(error.message)
+  }
 }

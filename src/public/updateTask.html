@@ -7,7 +7,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./styles/general.css">
     <link rel="stylesheet" href="./styles/header.css">
-    <link rel="stylesheet" href="./styles/newTaskPage.css">
+    <link rel="stylesheet" href="./styles/updateTask.css">
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
@@ -17,7 +17,7 @@
 <body>
   <header>
     <div class="cntHeader mb-1">
-      <h1 class="mainTitle">Agregar tareas.</h1>
+      <h1 class="mainTitle">Actualizar tarea.</h1>
       <a href="./index.html" class="btnHeader">Home</a>
     </div>
   </header>
@@ -26,14 +26,14 @@
     <section>
       <div class="cntMain">
         <div class="cntFormAddTask">
-          <form id="submitFrmAddTask">
+          <form id="submitFrmUpdateTask">
             <p class="lblFrmAddTask" for="affairTask">Asunto:</p>
             <input class="inpFrmAddTask" type="text" name="affairTask" id="affair">
             <p class="lblFrmAddTask" for="descriptionTask">Descripcion:</p>
             <input class="inpFrmAddTask" type="text" name="descriptionTask" id="description">
 
             <p class="lblFrmAddTask" for="mails">Mails:</p>
-            <select class="selMails" id="cars" name="mails" size="4" multiple>
+            <select class="selMails" id="selMails" name="mails" size="4" multiple>
               <option class="opMails" value="albertoaranda48@hotmail.com">albertoaranda48@hotmail.com</option>
               <option class="opMails" value="bonicamboriu@gmail.com">bonicamboriu@gmail.com</option>
               <option class="opMails" value="andres_grappa@talleresati.com.ar">andres_grappa@talleresati.com.ar</option>
@@ -44,8 +44,8 @@
             <div class="cntDateAndTime">
               <p class="lblFrmAddTask">Repeticion:</p>
               <p class="lblFrmAddTask">Fecha:</p>
-              <div>
-                <input type="number" id="numbRepet" class="inpTimeRepet" value="0">
+                <div>
+                  <input type="number" id="numbRepet" class="inpTimeRepet" value="0">
                   <select class="selTime" id="times" name="times">
                     <option class="opTimes" value="dias">dias</option>
                     <option class="opTimes" value="meses">meses</option>
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <input class="submitFrmAddTask" type="submit" value="Cargar tarea">
+            <input class="submitFrmAddTask" type="submit" value="Actualizar Tarea">
           </form>
         </div>
 
@@ -85,6 +85,6 @@
     </section>
   </main>
 
-  <script src="./js/newTaskPage.js"></script>
+  <script src="./js/updateTask.js"></script>
 </body>
 </html>

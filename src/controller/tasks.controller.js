@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   SaveTaskDB,
   ReturnTasksDB,
-  DeleteTaskDB
+  DeleteTaskDB,
+  ReturnTask,
+  UpdateTaskDB
 } from "../model/tasks.model.js"
 
 export const CreateTask = (req, res) => {
@@ -65,6 +67,52 @@ export const DeleteTask = (req, res) => {
 
     res.status(200).send({
       message: "The task was successfully deleted"
+    })  
+  } catch (error) {
+    //TODO: Aqui faltaria una logica para guardar error que se produce en log o algo asi
+
+    res.status(500).send({
+      message: error.message
+    })
+  }
+}
+
+export const UpdateTask = (req, res) => {
+  try {
+    const { id, affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
+
+    let taskToUpdate = {
+      id,
+      affair,
+      description,
+      noticeDate,
+      mails,
+      emailsSent,
+      timeRepeatTask
+    }
+
+    let opStatus = UpdateTaskDB(taskToUpdate)
+
+    res.status(201).send({
+      message: "The task was successfully updated in the database"
+    })  
+  } catch (error) {
+    res.status(500).send({
+      message: error.message
+    })
+  }
+}
+
+export const GetTask = (req, res) => {
+  try {
+    const { id } = req.params
+
+    let taskFound = ReturnTask(id)
+
+    // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
+
+    res.status(200).send({
+      message: taskFound
     })  
   } catch (error) {
     //TODO: Aqui faltaria una logica para guardar error que se produce en log o algo asi

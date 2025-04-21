@@ -3,21 +3,31 @@ import { Router } from "express"
 import {
   CreateTask,
   GetTasks,
-  DeleteTask
+  DeleteTask,
+  GetTask,
+  UpdateTask
 } from "../controller/tasks.controller.js"
 
 
 const TasksRouter = Router()
 
-// Create.
-TasksRouter.post('/', CreateTask)
+/* CRUD */
 
-// Read.
-TasksRouter.get('/', GetTasks)
+  // Create Task.
+  TasksRouter.post('/', CreateTask)
 
-// Update.
+  // Read all tasks.
+  TasksRouter.get('/', GetTasks)
 
-// Delete.
-TasksRouter.delete('/:id', DeleteTask)
+  // Update task.
+  TasksRouter.put('/', UpdateTask)
+
+  // Delete task.
+  TasksRouter.delete('/:id', DeleteTask)
+
+/* CRUD */
+
+// Get Task.
+TasksRouter.get('/:id', GetTask)
 
 export default TasksRouter

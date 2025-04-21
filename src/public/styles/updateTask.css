@@ -1,0 +1,137 @@
+.mainTitle {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.cntMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cntFormAddTask {
+  width: 100%;
+  
+}
+
+form {
+  width: 100%;
+  margin: auto;
+  max-width: 550px;
+}
+
+.lblFrmAddTask, .inpFrmAddTask, .selMails {
+  display: block;
+  width: 100%;
+}
+
+.selMails {
+  height: 120px;
+}
+
+.cntDateAndTime {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 4px;
+}
+
+.lblFrmAddTask {
+  padding: 0.8em 0 0.8em 0;
+}
+
+.inpFrmAddTask {
+  padding: 0.8em 0 0.8em 0.5em;
+}
+
+.submitFrmAddTask {
+  width: 100%;
+  padding: 1em 0;
+  margin-top: 2em;
+  background: transparent;
+  background-color: #e76f51;
+  border: 1px solid #423b3b;
+  border-radius: 0.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #e9c46a;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.submitFrmAddTask:hover {
+  background-color: #333333;
+}
+
+.cntCalendar {
+  margin-top: 1em;
+  width: 100%;
+}
+
+.calendar {
+  margin: auto;
+  max-width: 800px;
+}
+
+.header-calendar {
+  display: flex;
+  justify-content: space-between;
+  background: #2a9d8f;
+  padding: 70px 25px;
+  color: #e9c46a;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.prev, .next {
+  cursor: pointer;
+}
+
+.weekdays-calendar, .days-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.th-grid {
+  text-align: center;
+  background-color: #497080;
+  color: #ffffff;
+}
+
+.td-grid {
+  text-align: center;
+  background-color: #b2babd;
+  color: #000000;
+  padding: 1em 0;
+  cursor: pointer;
+}
+
+.active {
+  background-color: aquamarine;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+.inpTimeRepet, .selTime {
+  padding: 0.5em 0;
+}
+
+@media (min-width: 1200px) {
+  .mainTitle {
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+  
+  .cntMain {
+    flex-direction: row;
+    gap: 1em;
+  }
+  
+  .cntCalendar {
+    margin-top: 0;
+  }
+}
