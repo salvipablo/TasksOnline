@@ -102,8 +102,8 @@ const renderMonth = (year, month, currentDay) => {
   }
 }
 
-const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepet, numRepet) => {
-  let timeRepeatTask = `${numRepet} ${timeRepet}`
+const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepeat, numRepet) => {
+  let timeRepeatTask = `${numRepet} ${timeRepeat}`
   let mails = []
 
   for (let i = 0; i < mailsToSend.length; i++) {
@@ -119,6 +119,8 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
     emailsSent: false,
     timeRepeatTask
   }
+
+  console.log(updatedTask)
 
   const Request = await fetch('./tasks/', {
     method: 'PUT',
@@ -192,9 +194,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   DateForTask.textContent  = Response.message.noticeDate
 
-
-  let chosenDate = new Date(Response.message.noticeDate)
-  currentDay = chosenDate.getDate()
+  chosenDate = new Date(Response.message.noticeDate)
+  currentDay = chosenDate.getDate() + 1
   currentMonth = chosenDate.getMonth()
   currentYear = chosenDate.getFullYear()
   
@@ -203,7 +204,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 //#endregion
 
 let chosenDate = new Date()
-
 let currentDay = chosenDate.getDate()
 let currentMonth = new Date().getMonth()
 let currentYear = new Date().getFullYear()
