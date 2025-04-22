@@ -10,16 +10,13 @@ import {
 const emailSendingStatus = []
 
 let intervalId
-let intervalTime = 10000 // 10 segundos.
+let intervalTime = 10000
 
-const CambiarTiempoDeLlamadoEnvioMails = () => {
-  clearInterval(intervalId); // Limpiar el intervalo actual
-
-  const newIntervalTime = 300000; // 5 minutos.
-
-  intervalTime = newIntervalTime; // Actualizamos el intervalo a 3 horas
-
-  startInterval();
+const IntervalTimeSendingMails = () => {
+  clearInterval(intervalId)
+  const newIntervalTime = 300000
+  intervalTime = newIntervalTime
+  startInterval()
 }
 
 export const startInterval = () => {
@@ -34,7 +31,8 @@ export const SendTestEmail = async () => {
   }
 
   let opStatus = await ServiceSendingEmail(emailToSend)
-  console.log(opStatus)
+
+  return opStatus
 }
 
 const SendEmailForTask = async (task) => {
@@ -42,7 +40,6 @@ const SendEmailForTask = async (task) => {
   let description = task.description
   let satisfactoryDelivery = true
 
-  // Creamos un array de promesas
   const emailPromises = task.mails.map(async mail => {
     let dataEmail = {
       affair,
@@ -52,14 +49,11 @@ const SendEmailForTask = async (task) => {
 
     let opStatus = await ServiceSendingEmail(dataEmail)
 
-    // Devolvemos el estado de la operación
     return opStatus.message !== 'The email could not be sent correctly'
   })
 
-  // Esperamos a que todas las promesas se resuelvan
   const results = await Promise.all(emailPromises)
   
-  // Si alguna operación falló, marcamos como no satisfactorio
   satisfactoryDelivery = results.some(status => status === true)
 
   emailSendingStatus.push({
@@ -76,39 +70,29 @@ export const SendEmails = async () => {
 
   const taskPromises = tasksToSend.map(async task => {
     if (!task.emailsSent) {
-      console.log('Tarea enviada a proceso de envio de notificacion');
       return await SendEmailForTask(task)
     }
   })
 
   await Promise.all(taskPromises)
 
-  console.log('Llegue al CloseTaskNotice')
-  console.log(emailSendingStatus)
-
   CloseTaskNotice(emailSendingStatus)
 
-  CambiarTiempoDeLlamadoEnvioMails()
+  IntervalTimeSendingMails()
 
   return "Tasks sent to email notification"
 }
 
 export const testSetInterval = () => {
   try {
-    // Aquí va tu lógica para enviar los correos
-    console.log("Emails enviados");
+    clearInterval(intervalId)
 
-    // Ahora cambiamos el intervalo después de la ejecución de SendEmails
-    clearInterval(intervalId); // Limpiar el intervalo actual
+    const newIntervalTime = 300000
 
-    const newIntervalTime = 300000; // 5 minutos.
+    intervalTime = newIntervalTime
 
-    intervalTime = newIntervalTime; // Actualizamos el intervalo a 3 horas
-
-    // Iniciar un nuevo intervalo con el nuevo tiempo
-    startInterval();
-
+    startInterval()
   } catch (error) {
-    console.error("Error al enviar los correos:", error);
+    console.error("Error al enviar los correos:", error)
   }
 }

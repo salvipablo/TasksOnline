@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer'
 import { google } from "googleapis"
-import fs from 'fs/promises';
+import fs from 'fs/promises'
 
-async function cargarCredenciales() {
+const loadCredentials = async () => {
   try {
     const data = await fs.readFile('./credencials.json', 'utf8')
     return JSON.parse(data)
@@ -11,7 +11,7 @@ async function cargarCredenciales() {
     return null
   }
 }
-const CREDENCIALES = await cargarCredenciales()
+const CREDENCIALES = await loadCredentials()
 
 const oauth2Client = new google.auth.OAuth2(
   CREDENCIALES.web.client_id,
@@ -39,8 +39,8 @@ export const ServiceSendingEmail = async (dataForEmail) => {
 
     oauth2Client.setCredentials({
       refresh_token: tokens.refresh_token,
-    });
-    const accessToken = await oauth2Client.getAccessToken();
+    })
+    const accessToken = await oauth2Client.getAccessToken()
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -55,13 +55,13 @@ export const ServiceSendingEmail = async (dataForEmail) => {
       tls: {
         rejectUnauthorized: false,
       }
-    });
+    })
 
     await transporter.sendMail(mailOptions)
 
     return { message: 'Email sent successfully' }
   } catch (error) {
-    console.log(error);
+    console.error(error.message)
     return { message: 'The email could not be sent correctly' }
   }
 }

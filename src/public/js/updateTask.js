@@ -182,9 +182,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   Description.value = Response.message.description
 
   for (let option of SelMails.options) {
-    if (Response.message.mails.includes(option.value)) {
-      option.selected = true;
-    }
+    if (Response.message.mails.includes(option.value)) option.selected = true
   }
 
   const [numero, unidadRaw] = Response.message.timeRepeatTask.split(" ")

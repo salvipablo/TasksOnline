@@ -7,6 +7,3 @@ if (widthBody < 460 && affair.length > 30) shortenedText = affair.substring(0, 2
 if ((widthBody > 460 && widthBody < 768) && affair.length > 50) shortenedText = affair.substring(0, 47) + '...'
 
 if (widthBody > 768 && affair.length > 70) shortenedText = affair.substring(0, 67) + '...'
-
-console.log(shortenedText);
-console.log(shortenedText.length);

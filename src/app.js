@@ -27,7 +27,7 @@ const app = express()
 // Middlewares.
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }));
+app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
 
 // Routes.
 app.use('/', AuthRouter)

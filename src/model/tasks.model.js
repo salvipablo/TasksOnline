@@ -15,13 +15,13 @@ const SaveTasksOnDisk = () => {
     // Escribir de nuevo el archivo JSON
     fs.writeFile(filePath, JSON.stringify(Tasks, null, 2), (writeErr) => {
       if (writeErr) {
-        console.error('Error al escribir el archivo:', writeErr)
+        console.error('Error writing file:', writeErr)
         return
       }
-      console.log('Tarea guardadas en disco con éxito.')
+      console.info('Task saved to disk successfully.')
     })
   } catch (error) {
-    console.log(error.message)
+    console.error(error.message)
   }
 }
 
@@ -48,12 +48,10 @@ const SaveTasksOnDisk = () => {
 
   // Update.
   export const UpdateTaskDB = (task) => {
-    // Buscar el índice de la tarea a actualizar
-    const index = Tasks.findIndex(t => t.id === task.id);
+    const index = Tasks.findIndex(t => t.id === task.id)
 
-    // Si la tarea existe, la actualizamos
     if (index !== -1) {
-      Tasks[index] = { ...Tasks[index], ...task };
+      Tasks[index] = { ...Tasks[index], ...task }
     }
 
     SaveTasksOnDisk()
@@ -67,7 +65,7 @@ const SaveTasksOnDisk = () => {
 
   // Delete.
   export const DeleteTaskDB = (taskId) => {
-    Tasks = Tasks.filter(task => task.id !== taskId);
+    Tasks = Tasks.filter(task => task.id !== taskId)
 
     SaveTasksOnDisk()
 
@@ -116,7 +114,7 @@ export const UpdateTasks = () => {
     }
   })
 
-  console.log("** Tasks updated from the database **")
+  console.info("** Tasks updated from the database **")
 }
 
 export const ReturnTask = (id) => {
@@ -124,6 +122,6 @@ export const ReturnTask = (id) => {
     let taskFound = Tasks.find(task => task.id === id)
     return taskFound
   } catch (error) {
-    console.log(error.message)
+    console.error(error.message)
   }
 }
