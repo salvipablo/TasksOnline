@@ -3,6 +3,10 @@ import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import fs from 'fs'
 
+import {
+  ShowLog
+} from '../services/generals.service.js'
+
 // Define the system path.
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -18,10 +22,10 @@ const SaveTasksOnDisk = () => {
         console.error('Error writing file:', writeErr)
         return
       }
-      console.info('Task saved to disk successfully.')
+      ShowLog('Tasks saved to disk successfully', 1)
     })
   } catch (error) {
-    console.error(error.message)
+    ShowLog(error.message, 2)
   }
 }
 
@@ -125,3 +129,4 @@ export const ReturnTask = (id) => {
     console.error(error.message)
   }
 }
+

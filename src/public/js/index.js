@@ -70,7 +70,7 @@ const ConfigureUi = () => {
   }
 }
 
-const createCalendar = (year, month) => {
+const createCalendar = (year, month, filteredTasks) => {
   const firstDayOfMonth = new Date(year, month, 1)
   const lastDayOfMonth = new Date(year, month + 1, 0)
 
@@ -117,15 +117,21 @@ const createCalendar = (year, month) => {
     dayElement.appendChild(numberDiv)
 
     const currentDate = new Date()
-    if (year === currentDate.getFullYear() && 
-        month === currentDate.getMonth() && 
+    if (year === currentDate.getFullYear() &&
+        month === currentDate.getMonth() &&
         day === currentDate.getDate()) {
       dayElement.classList.add('today')
     }
 
-    const tasksForDay = TASKS.filter(task => {
-      const taskDate = new Date(task.noticeDate)
-      return taskDate.getFullYear() === year && taskDate.getMonth() === month && taskDate.getDate() + 1 === day
+    const tasksForDay = filteredTasks.filter(task => {
+      const dateString = task.noticeDate;
+      const parts = dateString.split('-');
+      const yearFilteredTask = parseInt(parts[0]);
+      const monthFilteredTask = parseInt(parts[1]) - 1; // Restar 1 porque en JS los meses van de 0-11
+      const dayFilteredTask = parseInt(parts[2]);
+      const taskDate = new Date(yearFilteredTask, monthFilteredTask, dayFilteredTask);
+
+      return taskDate.getFullYear() === year && taskDate.getMonth() === month && taskDate.getDate() === day
     })
 
     tasksForDay.forEach(task => {
@@ -178,16 +184,15 @@ const showCalendar = (year, month) => {
 
   let monthFilter = month + 1 < 10 ? `0${month + 1}` : month + 1
   let dataFilterTasks = `${year}-${monthFilter}`
+
   const filteredTasks = filterTasksByYearMonth(TASKS, dataFilterTasks)
 
-  // Muestro las cards filtradas
   if (parseInt(SelViews.value) === 2) {
     RenderTasks(filteredTasks)
     SetEventsToButtons()
   }
 
-  // Creo el calendario
-  const calendar = createCalendar(year, month)
+  const calendar = createCalendar(year, month, filteredTasks)
 
   const container = document.getElementById('calendar-container')
   container.innerHTML = ''

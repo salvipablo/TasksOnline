@@ -2,6 +2,10 @@ import nodemailer from 'nodemailer'
 import { google } from "googleapis"
 import fs from 'fs/promises'
 
+import {
+  ShowLog
+} from './generals.service.js'
+
 const loadCredentials = async () => {
   try {
     const data = await fs.readFile('./credencials.json', 'utf8')
@@ -11,6 +15,7 @@ const loadCredentials = async () => {
     return null
   }
 }
+
 const CREDENCIALES = await loadCredentials()
 
 const oauth2Client = new google.auth.OAuth2(
@@ -61,7 +66,7 @@ export const ServiceSendingEmail = async (dataForEmail) => {
 
     return { message: 'Email sent successfully' }
   } catch (error) {
-    console.error(error.message)
+    ShowLog(`ServiceSendingEmail-${error.message}`, 2)
     return { message: 'The email could not be sent correctly' }
   }
 }

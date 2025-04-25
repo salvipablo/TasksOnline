@@ -7,6 +7,10 @@ import {
   CloseTaskNotice
 } from "../model/tasks.model.js"
 
+import {
+  ShowLog
+} from "../services/generals.service.js"
+
 const emailSendingStatus = []
 
 let intervalId
@@ -14,7 +18,7 @@ let intervalTime = 10000
 
 const IntervalTimeSendingMails = () => {
   clearInterval(intervalId)
-  const newIntervalTime = 300000
+  const newIntervalTime = 18000000
   intervalTime = newIntervalTime
   startInterval()
 }
@@ -63,6 +67,10 @@ const SendEmailForTask = async (task) => {
 }
 
 export const SendEmails = async () => {
+  ShowLog("Executing the email sending routine", 1)
+
+  IntervalTimeSendingMails()
+
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
   let tasksToSend = GetTasksByCondition(ChosenDateConverted)
 
@@ -76,9 +84,9 @@ export const SendEmails = async () => {
 
   await Promise.all(taskPromises)
 
-  CloseTaskNotice(emailSendingStatus)
+  console.log(emailSendingStatus)
 
-  IntervalTimeSendingMails()
+  CloseTaskNotice(emailSendingStatus)
 
   return "Tasks sent to email notification"
 }
