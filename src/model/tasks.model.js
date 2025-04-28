@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 let Tasks = []
 
-const SaveTasksOnDisk = () => {
+const SaveTasksOnDisk = (fromWhereFunctionCalled = 'It is not known') => {
   const filePath = path.join(__dirname, 'data.json')
 
   try {
@@ -22,7 +22,7 @@ const SaveTasksOnDisk = () => {
         console.error('Error writing file:', writeErr)
         return
       }
-      ShowLog('Tasks saved to disk successfully', 1)
+      ShowLog(`Tasks saved to disk successfully - Function call: ${fromWhereFunctionCalled}`, 1)
     })
   } catch (error) {
     ShowLog(error.message, 2)
@@ -37,7 +37,7 @@ const SaveTasksOnDisk = () => {
 
     Tasks.push(task)
 
-    SaveTasksOnDisk()
+    SaveTasksOnDisk('SaveTaskDB')
 
     return {
       statusSaveBD: 10001,
@@ -58,7 +58,7 @@ const SaveTasksOnDisk = () => {
       Tasks[index] = { ...Tasks[index], ...task }
     }
 
-    SaveTasksOnDisk()
+    SaveTasksOnDisk('UpdateTaskDB')
 
     return {
       statusSaveBD: 10002,
@@ -71,7 +71,7 @@ const SaveTasksOnDisk = () => {
   export const DeleteTaskDB = (taskId) => {
     Tasks = Tasks.filter(task => task.id !== taskId)
 
-    SaveTasksOnDisk()
+    SaveTasksOnDisk('DeleteTaskDB')
 
     return {
       statusSaveBD: 10003,
@@ -87,7 +87,7 @@ export const CloseTaskNotice = (emailsStatus) => {
     if (task && element.shippingStatus) task.emailsSent = true
   })
 
-  SaveTasksOnDisk()
+  SaveTasksOnDisk('CloseTaskNotice')
 }
 
 export const UpdateTasks = () => {
