@@ -81,16 +81,6 @@ const SaveTasksOnDisk = () => {
 
 /* CRUD */
 
-export const GetTasksByCondition = (currentDate) => {
-  let tasksToBeSent = []
-
-  Tasks.forEach(element => {
-    if (element.noticeDate === currentDate && !element.emailsSent) tasksToBeSent.push(element)
-  })
-
-  return tasksToBeSent
-}
-
 export const CloseTaskNotice = (emailsStatus) => {
   emailsStatus.forEach(element => {
     let task = Tasks.find(e => e.id === element.id)
@@ -130,3 +120,43 @@ export const ReturnTask = (id) => {
   }
 }
 
+export const GetTasksByCondition = (currentDate) => {
+  let tasksToBeSent = []
+
+  try {
+    const [currentYear, currentMonth, currentDay] = currentDate.split('-').map(num => parseInt(num, 10))
+
+    if (isNaN(currentYear) || isNaN(currentMonth) || isNaN(currentDay)) {
+      console.error(`Invalid current date format: ${currentDate}`)
+      return tasksToBeSent
+    }
+
+    // Crear fecha comparable
+    const currentDateObj = new Date(currentYear, currentMonth - 1, currentDay)
+
+    Tasks.forEach(element => {
+      try {
+        const cleanTaskDate = element.noticeDate.toString().trim()
+        const [taskYear, taskMonth, taskDay] = cleanTaskDate.split('-').map(num => parseInt(num, 10))
+
+        // Validar componentes de fecha de tarea
+        if (isNaN(taskYear) || isNaN(taskMonth) || isNaN(taskDay)) {
+          console.error(`Invalid task date format for task ${element.id}: ${element.noticeDate}`)
+          return // Skip this task
+        }
+
+        const taskDateObj = new Date(taskYear, taskMonth - 1, taskDay)
+
+        if (taskDateObj.getTime() === currentDateObj.getTime() && !element.emailsSent) {
+          tasksToBeSent.push(element)
+        }
+      } catch (taskError) {
+        console.error(`Error processing task ${element.id}:`, taskError)
+      }
+    })
+  } catch (error) {
+    console.error('Error in GetTasksByCondition:', error)
+  }
+
+  return tasksToBeSent
+}
