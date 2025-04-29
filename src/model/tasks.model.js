@@ -147,7 +147,10 @@ export const GetTasksByCondition = (currentDate) => {
 
         const taskDateObj = new Date(taskYear, taskMonth - 1, taskDay)
 
-        if (taskDateObj.getTime() === currentDateObj.getTime() && !element.emailsSent) {
+        const taskDateStr = taskDateObj.toISOString().split('T')[0];
+        const currentDateStr = currentDateObj.toISOString().split('T')[0];
+
+        if (taskDateStr === currentDateStr && !element.emailsSent) {
           tasksToBeSent.push(element)
         }
       } catch (taskError) {
