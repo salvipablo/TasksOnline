@@ -120,8 +120,6 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
     timeRepeatTask
   }
 
-  console.log(updatedTask)
-
   const Request = await fetch('./tasks/', {
     method: 'PUT',
     headers: {
@@ -137,7 +135,7 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
 }
 //#endregion
 
-//#region Eventos
+//#region Eventss
 BtnNext.addEventListener('click', () => {
   let nextMonth = currentMonth + 1 === 12 ? 0 : currentMonth + 1
   let nextYear = currentMonth + 1 === 12 ? currentYear + 1 : currentYear

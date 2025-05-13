@@ -1,7 +1,7 @@
 import path from 'path'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import fs from 'fs'
+import fs from 'fs/promises'
 
 import {
   ShowLog
@@ -11,12 +11,12 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 let Tasks = []
+let LastTaskId = 0;
 
 const SaveTasksOnDisk = (fromWhereFunctionCalled = 'It is not known') => {
   const filePath = path.join(__dirname, 'data.json')
 
   try {
-    // Escribir de nuevo el archivo JSON
     fs.writeFile(filePath, JSON.stringify(Tasks, null, 2), (writeErr) => {
       if (writeErr) {
         console.error('Error writing file:', writeErr)
@@ -24,20 +24,50 @@ const SaveTasksOnDisk = (fromWhereFunctionCalled = 'It is not known') => {
       }
       ShowLog(`Tasks saved to disk successfully - Function call: ${fromWhereFunctionCalled}`, 1)
     })
-  } catch (error) {
-    ShowLog(error.message, 2)
+  } catch (error) { ShowLog(error.message, 2) }
+}
+
+const searchLastID = async () => {
+  const filePath = path.join(__dirname, 'system.json')
+
+  try {
+    const data = await fs.readFile(filePath, 'utf8')
+    const jsonData = JSON.parse(data)
+    return jsonData.lastTaskId + 1
+  } catch (err) {
+    console.error('Error al leer o parsear el archivo JSON:', err)
+    return 0
   }
+}
+
+const saveNewID = () => {
+  const filePath = path.join(__dirname, 'system.json')
+  const newJsonData = { lastTaskId: LastTaskId }
+  fs.writeFile(filePath, JSON.stringify(newJsonData, null, 2), (err) => {
+    if (err) console.error('Error al escribir el archivo:', err)
+    else ShowLog(`Last task ID saved to disk`, 1) 
+  })
 }
 
 /* CRUD */
 
   // Create.
-  export const SaveTaskDB  = (task) => {
+  export const SaveTaskDB  = async (task) => {
     if (!task) throw new Error('You have not submitted a task to save')
+
+    LastTaskId = await searchLastID()
+
+    task.id = LastTaskId
 
     Tasks.push(task)
 
+    ShowLog(`New task created successfully - SaveTaskDB`, 1)
+
     SaveTasksOnDisk('SaveTaskDB')
+
+    setTimeout(() => {
+      saveNewID()
+    }, 1000)
 
     return {
       statusSaveBD: 10001,
@@ -90,23 +120,15 @@ export const CloseTaskNotice = (emailsStatus) => {
   SaveTasksOnDisk('CloseTaskNotice')
 }
 
-export const UpdateTasks = () => {
+export const UpdateTasks = async () => {
   const filePath = path.join(__dirname, 'data.json')
 
-  // Lee el archivo JSON
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error al leer el archivo:', err)
-      return
-    }
-
-    // Parsea el contenido JSON
-    try {
-      Tasks = JSON.parse(data)
-    } catch (parseErr) {
-      console.error('Error al parsear el JSON:', parseErr)
-    }
-  })
+  try {
+    const data = await fs.readFile(filePath, 'utf8')
+    Tasks = JSON.parse(data)
+  } catch (parseErr) {
+    console.error('Error al parsear el JSON:', parseErr)
+  }
 
   console.info("** Tasks updated from the database **")
 }

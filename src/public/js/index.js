@@ -43,6 +43,7 @@ const RenderTasks = (filteredTasks) => {
             <img class="iconTask btnDelete" name="${task.id}" src="./images/delete.png" alt="delete">
           </div>
         </div>
+        <p class="mb-05">ID: ${task.id}</p>
         <p class="mb-05">Descripcion: ${task.description}</p>
         <p class="mb-05">Fecha: ${task.noticeDate}</p>
         <p>Mails: </p>
@@ -286,13 +287,10 @@ SelViews.addEventListener('change', () => {
 //#endregion
 
 const main = async () => {
-  // Realizo la peticion para traer las tareas
   await RequestTasks()
 
-  // Dibujo las tasks en pantalla
   RenderTasks(TASKS)
 
-  // Una vez dibujadas las cards, genero los eventos para los botones.
   SetEventsToButtons()
 }
 

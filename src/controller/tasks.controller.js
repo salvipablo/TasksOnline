@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
-
 import {
   SaveTaskDB,
   ReturnTasksDB,
@@ -12,10 +10,8 @@ export const CreateTask = (req, res) => {
   try {
     const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
-    let id = uuidv4()
-
     let newTaskToSave = {
-      id,
+      id: 0,
       affair,
       description,
       noticeDate,
@@ -61,7 +57,7 @@ export const DeleteTask = (req, res) => {
   try {
     const { id } = req.params
 
-    let opStatus = DeleteTaskDB(id)
+    let opStatus = DeleteTaskDB(parseInt(id))
 
     // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
 
@@ -77,12 +73,12 @@ export const DeleteTask = (req, res) => {
   }
 }
 
-export const UpdateTask = (req, res) => {
+export const UpdateTask = (req, res) => { 
   try {
     const { id, affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
     let taskToUpdate = {
-      id,
+      id: parseInt(id),
       affair,
       description,
       noticeDate,
@@ -91,7 +87,7 @@ export const UpdateTask = (req, res) => {
       timeRepeatTask
     }
 
-    let opStatus = UpdateTaskDB(taskToUpdate)
+    UpdateTaskDB(taskToUpdate)
 
     res.status(201).send({
       message: "The task was successfully updated in the database"
@@ -107,7 +103,7 @@ export const GetTask = (req, res) => {
   try {
     const { id } = req.params
 
-    let taskFound = ReturnTask(id)
+    let taskFound = ReturnTask(parseInt(id))
 
     // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
 

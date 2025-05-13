@@ -1,5 +1,5 @@
 node_modules/
-src/model/data.json
+src/model/*.json
 .env
 credencials.json
 src/public/js/testBorrar.js
