@@ -11,6 +11,7 @@ const OptionMails = document.getElementsByClassName('opMails')
 const SelMails = document.getElementById('selMails')
 const Times = document.getElementById('times')
 const NumbRepet = document.getElementById('numbRepet')
+let StatusTask = false
 
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -117,6 +118,7 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
     noticeDate,
     mails,
     emailsSent: false,
+    emailsSent: StatusTask,
     timeRepeatTask
   }
 
@@ -161,7 +163,7 @@ SubmitFrmUpdateTask.addEventListener('submit', async (e) => {
 
   let ChosenDateConverted = chosenDate.toISOString().split('T')[0]
 
-  let opStatus = await updateTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value)
+  let opStatus = await updateTask(Affair.value, Description.value, ChosenDateConverted, OptionMails, Times.value, NumbRepet.value, StatusTask)
 
   alert(opStatus)
 
@@ -191,6 +193,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   Times.value = unidad
 
   DateForTask.textContent  = Response.message.noticeDate
+
+  StatusTask = Response.message.emailsSent
 
   chosenDate = new Date(Response.message.noticeDate)
   currentDay = chosenDate.getDate() + 1

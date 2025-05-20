@@ -87,11 +87,13 @@ export const UpdateTask = (req, res) => {
       timeRepeatTask
     }
 
-    UpdateTaskDB(taskToUpdate)
+    console.log(taskToUpdate)
+
+    //UpdateTaskDB(taskToUpdate)
 
     res.status(201).send({
       message: "The task was successfully updated in the database"
-    })  
+    })
   } catch (error) {
     res.status(500).send({
       message: error.message

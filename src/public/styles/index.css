@@ -105,11 +105,11 @@
 }
 
 .task.sent {
-  border-left: 3px solid #4CAF50;
+  border-left: 12px solid #4CAF50;
 }
 
 .task.pending {
-  border-left: 3px solid #d12a14;
+  border-left: 12px solid #d12a14;
 }
 
 .calendar-controls {
@@ -154,4 +154,9 @@
 .directionColumn {
   flex-direction: column;
   align-items: center;
+}
+
+.mail {
+  font-size: 14px;
+  font-style: italic;
 }

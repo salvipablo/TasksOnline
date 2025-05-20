@@ -127,10 +127,10 @@ export const UpdateTasks = async () => {
     const data = await fs.readFile(filePath, 'utf8')
     Tasks = JSON.parse(data)
   } catch (parseErr) {
-    console.error('Error al parsear el JSON:', parseErr)
+    ShowLog(`Error al parsear el JSON: ${parseErr}`, 2)
   }
 
-  console.info("** Tasks updated from the database **")
+  ShowLog(`** Tasks updated from the database **`, 1)
 }
 
 export const ReturnTask = (id) => {

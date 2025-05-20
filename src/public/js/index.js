@@ -24,7 +24,7 @@ const RenderTasks = (filteredTasks) => {
 
     task.mails.forEach(mail => {
       mails += `
-        <li>${mail}</li>
+        <li class="mail">${mail}</li>
       `
     })
 
@@ -34,7 +34,7 @@ const RenderTasks = (filteredTasks) => {
       <div class="cntTask">
         <div class="cntTitleBtns mb-1 ${statusTask}">
           <div>
-            <h2 class="taskTitle">${task.affair}</h2>
+            <h2 class="taskTitle">${task.id} - ${task.affair}</h2>
           </div>
           <div>
             <a href="./updateTask.html?id=${task.id}">
@@ -142,7 +142,7 @@ const createCalendar = (year, month, filteredTasks) => {
       const shortenedText = task.affair.length > 10 ? task.affair.substring(0, 20) + '...' : task.affair
       taskElement.textContent = shortenedText
 
-      taskElement.title = task.affair
+      taskElement.title = `ID Task: ${task.id}`
 
       if (task.emailsSent) {
         taskElement.classList.add('sent')
