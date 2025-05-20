@@ -1,15 +1,12 @@
 import {
-  ServiceSendingEmail
+  ServiceSendingEmail,
+  ShowLog
 } from "../services/emails.service.js"
 
 import {
   GetTasksByCondition,
   CloseTaskNotice
 } from "../model/tasks.model.js"
-
-import {
-  ShowLog
-} from "../services/generals.service.js"
 
 const emailSendingStatus = []
 
@@ -84,8 +81,6 @@ export const SendEmails = async () => {
 
   await Promise.all(taskPromises)
 
-  console.log(emailSendingStatus)
-
   CloseTaskNotice(emailSendingStatus)
 
   return "Tasks sent to email notification"
@@ -101,6 +96,6 @@ export const testSetInterval = () => {
 
     startInterval()
   } catch (error) {
-    console.error("Error al enviar los correos:", error)
+    ShowLog(`Error sending emails: ${error.message}`, 2)
   }
 }

@@ -11,7 +11,7 @@ const loadCredentials = async () => {
     const data = await fs.readFile('./credencials.json', 'utf8')
     return JSON.parse(data)
   } catch (error) {
-    console.error('Error al cargar credenciales:', error)
+    ShowLog(`Error al cargar credenciales: ${error.message}`, 2)
     return null
   }
 }

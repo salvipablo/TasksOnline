@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { google } from "googleapis"
 import fs from 'fs/promises'
+import { ShowLog } from "../services/generals.service.js"
 
 const AuthRouter = Router()
 
@@ -9,7 +10,7 @@ const loadCredentials = async () => {
     const data = await fs.readFile('./credencials.json', 'utf8')
     return JSON.parse(data)
   } catch (error) {
-    console.error('Error loading credentials:', error)
+    ShowLog(`Error loading credentials: ${error.messege}`, 2)
     return null
   }
 }
@@ -40,8 +41,8 @@ AuthRouter.get('/oauth2callback', async (req, res) => {
 })
 
 oauth2Client.on('tokens', (tokens) => {
-  if (tokens.refresh_token) console.info("refresh token", tokens.refresh_token)
-  console.info("access token", tokens.access_token)
+  if (tokens.refresh_token) ShowLog(`refresh token: ${tokens.refresh_token}`, 1)
+  ShowLog(`Access token: ${tokens.access_token}`, 1)
 })
 
 export default AuthRouter

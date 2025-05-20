@@ -7,6 +7,7 @@ import {
   ShowLog
 } from '../services/generals.service.js'
 
+
 // Define the system path.
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -19,7 +20,7 @@ const SaveTasksOnDisk = (fromWhereFunctionCalled = 'It is not known') => {
   try {
     fs.writeFile(filePath, JSON.stringify(Tasks, null, 2), (writeErr) => {
       if (writeErr) {
-        console.error('Error writing file:', writeErr)
+        ShowLog(`Error writing file: ${writeErr}`, 2)
         return
       }
       ShowLog(`Tasks saved to disk successfully - Function call: ${fromWhereFunctionCalled}`, 1)
@@ -35,7 +36,7 @@ const searchLastID = async () => {
     const jsonData = JSON.parse(data)
     return jsonData.lastTaskId + 1
   } catch (err) {
-    console.error('Error al leer o parsear el archivo JSON:', err)
+    ShowLog(`Error reading or parsing JSON file: ${err.message}`, 2)
     return 0
   }
 }
@@ -43,8 +44,9 @@ const searchLastID = async () => {
 const saveNewID = () => {
   const filePath = path.join(__dirname, 'system.json')
   const newJsonData = { lastTaskId: LastTaskId }
+
   fs.writeFile(filePath, JSON.stringify(newJsonData, null, 2), (err) => {
-    if (err) console.error('Error al escribir el archivo:', err)
+    if (err) ShowLog(`Error writing file: ${err}`, 2)
     else ShowLog(`Last task ID saved to disk`, 1) 
   })
 }
@@ -138,7 +140,7 @@ export const ReturnTask = (id) => {
     let taskFound = Tasks.find(task => task.id === id)
     return taskFound
   } catch (error) {
-    console.error(error.message)
+    ShowLog(error.message, 2)
   }
 }
 
@@ -149,7 +151,7 @@ export const GetTasksByCondition = (currentDate) => {
     const [currentYear, currentMonth, currentDay] = currentDate.split('-').map(num => parseInt(num, 10))
 
     if (isNaN(currentYear) || isNaN(currentMonth) || isNaN(currentDay)) {
-      console.error(`Invalid current date format: ${currentDate}`)
+      ShowLog(`Invalid current date format: ${currentDate}`, 2)
       return tasksToBeSent
     }
 
@@ -163,7 +165,7 @@ export const GetTasksByCondition = (currentDate) => {
 
         // Validar componentes de fecha de tarea
         if (isNaN(taskYear) || isNaN(taskMonth) || isNaN(taskDay)) {
-          console.error(`Invalid task date format for task ${element.id}: ${element.noticeDate}`)
+          ShowLog(`Invalid task date format for task ${element.id}: ${element.noticeDate}`, 2)
           return // Skip this task
         }
 
@@ -176,11 +178,11 @@ export const GetTasksByCondition = (currentDate) => {
           tasksToBeSent.push(element)
         }
       } catch (taskError) {
-        console.error(`Error processing task ${element.id}:`, taskError)
+        ShowLog(`Error processing task ${element.id}: ${taskError.message}`, 2)
       }
     })
   } catch (error) {
-    console.error('Error in GetTasksByCondition:', error)
+    ShowLog(`Error in GetTasksByCondition: ${error.message}`)
   }
 
   return tasksToBeSent
