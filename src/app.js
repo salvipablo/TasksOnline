@@ -11,7 +11,7 @@ import TasksRouter from './routes/tasks.routes.js'
 import AuthRouter from './routes/auth.routes.js'
 
 // import services
-//import { startInterval } from './controller/emails.controller.js'
+import { startInterval } from './controller/emails.controller.js'
 
 // Define the system path.
 // Obtener la ruta del directorio actual
@@ -33,7 +33,7 @@ app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
 app.use('/', AuthRouter)
 app.use('/tasks', TasksRouter)
 
-//startInterval()
+startInterval()
 
 // 120.000 -> 2 Minutos.
 //setInterval(SendEmails, 60000) // 1 minuto.

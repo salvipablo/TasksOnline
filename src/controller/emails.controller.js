@@ -1,7 +1,5 @@
-import {
-  ServiceSendingEmail,
-  ShowLog
-} from "../services/emails.service.js"
+import { ServiceSendingEmail } from "../services/emails.service.js"
+import { ShowLog } from "../services/generals.service.js"
 
 import {
   GetTasksByCondition,
