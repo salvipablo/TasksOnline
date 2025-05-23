@@ -19,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // Actializar tareas.
-import { UpdateTasks } from './model/tasks.model.js'
+import { UpdateTasks } from './repository/tasks.repository.js'
 UpdateTasks()
 
 const app = express()
@@ -33,7 +33,7 @@ app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
 app.use('/', AuthRouter)
 app.use('/tasks', TasksRouter)
 
-startInterval()
+//startInterval()
 
 // 120.000 -> 2 Minutos.
 //setInterval(SendEmails, 60000) // 1 minuto.

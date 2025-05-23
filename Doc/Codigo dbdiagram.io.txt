@@ -1,0 +1,32 @@
+Table users {
+  id integer [primary key]
+  username varchar
+  password varchar
+  role varchar
+  created_at varchar
+}
+
+Table tasks {
+  id integer [primary key]
+  affair varchar
+  description varchar
+  user_id integer [not null]
+  noticeDate varchar 
+  emailsSent varchar
+  timeRepeatTask varchar
+}
+
+Table emails {
+  id integer [primary key]
+  user_id integer
+  mail varchar
+}
+
+Table emailsForTask {
+  task_id integer
+  mail varchar
+}
+
+Ref user_emails: emails.user_id > users.id
+Ref user_tasks: tasks.user_id > users.id
+Ref task_emails: emailsForTask.task_id > tasks.id

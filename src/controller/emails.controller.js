@@ -4,7 +4,7 @@ import { ShowLog } from "../services/generals.service.js"
 import {
   GetTasksByCondition,
   CloseTaskNotice
-} from "../model/tasks.model.js"
+} from "../repository/tasks.repository.js"
 
 const emailSendingStatus = []
 

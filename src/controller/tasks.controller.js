@@ -4,7 +4,7 @@ import {
   DeleteTaskDB,
   ReturnTask,
   UpdateTaskDB
-} from "../model/tasks.model.js"
+} from "../repository/tasks.repository.js"
 
 export const CreateTask = (req, res) => {
   try {
