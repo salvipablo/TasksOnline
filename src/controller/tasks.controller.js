@@ -1,17 +1,18 @@
 import {
   SaveTaskDB,
-  ReturnTasksDB,
-  DeleteTaskDB,
-  ReturnTask,
-  UpdateTaskDB
 } from "../repository/tasks.repository.js"
+
+  // ReturnTasksDB,
+  // DeleteTaskDB,
+  // ReturnTask,
+  // UpdateTaskDB
+
 
 export const CreateTask = (req, res) => {
   try {
     const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
     let newTaskToSave = {
-      id: 0,
       affair,
       description,
       noticeDate,
@@ -21,6 +22,7 @@ export const CreateTask = (req, res) => {
     }
 
     let opStatus = SaveTaskDB(newTaskToSave)
+
     // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
 
     res.status(201).send({

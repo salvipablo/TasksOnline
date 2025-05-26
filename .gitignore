@@ -4,3 +4,4 @@ src/model/*.json
 credencials.json
 src/public/js/testBorrar.js
 backups/
+tasks.sqlite
