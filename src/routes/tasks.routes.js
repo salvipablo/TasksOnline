@@ -19,15 +19,20 @@ const TasksRouter = Router()
   // Read all tasks.
   TasksRouter.get('/', GetTasks)
 
-  // Update task.
-  TasksRouter.put('/', UpdateTask)
+  /* -- Update task. -- */
+
+    // Get Task.
+    TasksRouter.get('/:id', GetTask) // Ejecucion.
+
+    // Update Task.
+    TasksRouter.put('/', UpdateTask)
+
+  /* -- Update task. -- */
 
   // Delete task.
   TasksRouter.delete('/:id', DeleteTask)
 
 /* CRUD */
 
-// Get Task.
-TasksRouter.get('/:id', GetTask)
 
 export default TasksRouter

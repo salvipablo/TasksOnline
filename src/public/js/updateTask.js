@@ -117,7 +117,6 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
     description,
     noticeDate,
     mails,
-    emailsSent: false,
     emailsSent: StatusTask,
     timeRepeatTask
   }
@@ -184,19 +183,19 @@ document.addEventListener('DOMContentLoaded', async function () {
   Description.value = Response.message.description
 
   for (let option of SelMails.options) {
-    if (Response.message.mails.includes(option.value)) option.selected = true
+    if (Response.message.emails.includes(option.value)) option.selected = true
   }
 
-  const [numero, unidadRaw] = Response.message.timeRepeatTask.split(" ")
+  const [numero, unidadRaw] = Response.message.time_repeat.split(" ")
   const unidad = unidadRaw.toLowerCase()
   NumbRepet.value = parseInt(numero)
   Times.value = unidad
 
-  DateForTask.textContent  = Response.message.noticeDate
+  DateForTask.textContent  = Response.message.notice_date
 
-  StatusTask = Response.message.emailsSent
+  StatusTask = Response.message.emails_sent
 
-  chosenDate = new Date(Response.message.noticeDate)
+  chosenDate = new Date(Response.message.notice_date)
   currentDay = chosenDate.getDate() + 1
   currentMonth = chosenDate.getMonth()
   currentYear = chosenDate.getFullYear()

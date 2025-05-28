@@ -1,10 +1,11 @@
 import {
   SaveTaskDB,
+  ReturnTasksDB,
+  DeleteTaskDB,
+  ReturnTask
 } from "../repository/tasks.repository.js"
 
-  // ReturnTasksDB,
-  // DeleteTaskDB,
-  // ReturnTask,
+  // 
   // UpdateTaskDB
 
 
@@ -37,9 +38,9 @@ export const CreateTask = (req, res) => {
   }
 }
 
-export const GetTasks = (_req, res) => {
+export const GetTasks = async (_req, res) => {
   try {
-    let tasks = ReturnTasksDB()
+    let tasks = await ReturnTasksDB()
 
     //TODO: Aqui podria ir una logica para guardar cuando el usuario pidio las tareas.
 
@@ -55,11 +56,15 @@ export const GetTasks = (_req, res) => {
   }
 }
 
-export const DeleteTask = (req, res) => {
+export const DeleteTask = async (req, res) => {
   try {
     const { id } = req.params
 
-    let opStatus = DeleteTaskDB(parseInt(id))
+    console.log(id)
+    console.log(typeof id)
+    
+
+    await DeleteTaskDB(parseInt(id))
 
     // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
 
@@ -101,11 +106,11 @@ export const UpdateTask = (req, res) => {
   }
 }
 
-export const GetTask = (req, res) => {
+export const GetTask = async (req, res) => {
   try {
     const { id } = req.params
 
-    let taskFound = ReturnTask(parseInt(id))
+    let taskFound = await ReturnTask(parseInt(id))
 
     // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
 

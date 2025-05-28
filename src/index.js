@@ -7,7 +7,7 @@ import { TasksSchema, EmailForTaskSchema } from "./models/index.js"
 const main = async () => {
   try {
     //La propiedad force: true es solo la primera vez para Iniciar base. O al querer empezar de 0.
-    await sequelize.sync({ force: true })
+    await sequelize.sync({ force: false })
     ShowLog('Database connection established successfully.', 1)
 
     app.listen(PORT)

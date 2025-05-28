@@ -22,7 +22,7 @@ const RenderTasks = (filteredTasks) => {
   filteredTasks.forEach(task => {
     let mails = ''
 
-    task.mails.forEach(mail => {
+    task.emails.forEach(mail => {
       mails += `
         <li class="mail">${mail}</li>
       `
@@ -45,12 +45,12 @@ const RenderTasks = (filteredTasks) => {
         </div>
         <p class="mb-05">ID: ${task.id}</p>
         <p class="mb-05">Descripcion: ${task.description}</p>
-        <p class="mb-05">Fecha: ${task.noticeDate}</p>
+        <p class="mb-05">Fecha: ${task.notice_date}</p>
         <p>Mails: </p>
         <ul class="ml-15 mb-05">
           ${mails}
         </ul>
-        <p>Repeticion: ${task.timeRepeatTask}</p>
+        <p>Repeticion: ${task.time_repeat}</p>
       </div>
     `
   })
@@ -125,7 +125,7 @@ const createCalendar = (year, month, filteredTasks) => {
     }
 
     const tasksForDay = filteredTasks.filter(task => {
-      const dateString = task.noticeDate;
+      const dateString = task.notice_date;
       const parts = dateString.split('-');
       const yearFilteredTask = parseInt(parts[0]);
       const monthFilteredTask = parseInt(parts[1]) - 1; // Restar 1 porque en JS los meses van de 0-11
@@ -169,7 +169,7 @@ const createCalendar = (year, month, filteredTasks) => {
 const filterTasksByYearMonth = (tasks, dataFilterTasks) => {
   return tasks.filter(task => {
     // Extraer solo el año y mes de la fecha de la tarea (primeros 7 caracteres: YYYY-MM)
-    const taskYearMonth = task.noticeDate.substring(0, 7)
+    const taskYearMonth = task.notice_date.substring(0, 7)
     
     // Comparar con el filtro
     return taskYearMonth === dataFilterTasks
