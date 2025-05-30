@@ -1,0 +1,64 @@
+.mainTitle {
+  color: #719663;
+}
+
+.cntBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 0;
+}
+
+.imgBack {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+.cntFrmLogin {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.FrmLogin {
+  width: 350px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+.lblFrmLogin {
+  display: block;
+}
+
+.inpFrmLogin, .btnLogin {
+  display: block;
+  width: 300px;
+}
+
+.inpFrmLogin {
+  padding: 0.5em 0;
+  border: 2px solid #2f382c;
+  border-radius: 0.3em;
+  background: transparent;
+}
+
+.btnLogin {
+  padding: 1.2em 0;
+  border: 2px solid #1d3557;
+  border-radius: 0.3em;
+  background: transparent;
+  color: #1d3557;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+}

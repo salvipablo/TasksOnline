@@ -1,0 +1,26 @@
+.colors {
+  display: flex;
+}
+
+.cntColor {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.internalText {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.firstDiv {
+  border-radius: 0.8em 0 0 0.8em;
+}
+
+.lastDiv {
+  border-radius: 0 0.8em 0.8em 0;
+}
+
+.mt-1 { margin-top: 1em; }
