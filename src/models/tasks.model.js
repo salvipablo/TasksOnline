@@ -21,7 +21,7 @@ export const TasksSchema = sequelize.define('tasks', {
     type: DataTypes.STRING
   },
   emails_sent: {
-    type: DataTypes.STRING
+    type: DataTypes.INTEGER
   },
   time_repeat: {
     type: DataTypes.STRING

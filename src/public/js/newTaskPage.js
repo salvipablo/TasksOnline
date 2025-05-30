@@ -112,7 +112,7 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
     description,
     noticeDate,
     mails,
-    emailsSent: false,
+    emailsSent: 0,
     timeRepeatTask
   }
 

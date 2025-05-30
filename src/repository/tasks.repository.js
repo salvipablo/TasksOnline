@@ -1,6 +1,7 @@
 import { TasksSchema } from '../models/tasks.model.js'
 import { EmailForTaskSchema } from '../models/emailsForTask.model.js'
 import { ShowLog } from '../services/generals.service.js'
+import { tasks } from 'googleapis/build/src/apis/tasks/index.js'
 
 /* CRUD */
 
@@ -55,6 +56,29 @@ import { ShowLog } from '../services/generals.service.js'
   }
 
   // Update.
+  export const UpdateTaskDB = async (task) => {
+    try {
+      let updateTask = {
+        id: task.id,
+        affair: task.affair,
+        description: task.description,
+        notice_date: task.noticeDate,
+        emails_sent: task.emailsSent,
+        time_repeat: task.timeRepeatTask
+      }
+
+      await TasksSchema.update(
+        updateTask,
+        { where: { id: updateTask.id } }
+      )
+
+      updateMails(task.id, task.mails)
+
+      return 10000
+    } catch (error) {
+      return 10001
+    }
+  }
 
   // Delete.
   export const DeleteTaskDB = async (taskId) => {
@@ -96,11 +120,20 @@ const saveEmails = async (taskID, mails) => {
 
 const deleteEmails = async (taskID) => {
   try {
-      await TasksSchema.destroy({
+      await EmailForTaskSchema.destroy({
         where: {
           task_id: taskID
         }
       })
+  } catch (error) {
+    ShowLog(error.message, 2)
+  }
+}
+
+const updateMails = async (tasksID, mails) => {
+  try {
+    deleteEmails(tasksID)
+    saveEmails(tasksID, mails)
   } catch (error) {
     ShowLog(error.message, 2)
   }

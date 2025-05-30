@@ -2,12 +2,9 @@ import {
   SaveTaskDB,
   ReturnTasksDB,
   DeleteTaskDB,
-  ReturnTask
+  ReturnTask,
+  UpdateTaskDB
 } from "../repository/tasks.repository.js"
-
-  // 
-  // UpdateTaskDB
-
 
 export const CreateTask = (req, res) => {
   try {
