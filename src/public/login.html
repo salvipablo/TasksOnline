@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="./styles/header.css">
   <link rel="stylesheet" href="./styles/login.css">
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
   <!-- Favicon -->
   <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
 
@@ -17,19 +22,17 @@
 <body>
   <header>
     <div class="cntHeader mb-1">
-      <div>
-        <h1 class="mainTitle">Ingreso al sistema.</h1>
-      </div>
+      <h1 class="mainTitle">Ingreso al sistema.</h1>
     </div>
   </header>
 
   <main>
     <div class="cntFrmLogin mt-6">
-      <form class="FrmLogin">
-        <label for="user" class="lblFrmLogin mb-05">Usuario:</label>
-        <input type="text" name="username" id="user" class="inpFrmLogin mb-1">
-        <label for="password" class="lblFrmLogin mb-05">Contraseña:</label>
-        <input type="password" name="password" id="password" class="inpFrmLogin mb-1">
+      <form class="FrmLogin" id="frmLogin">
+        <label for="txtUser" class="lblFrmLogin mb-05">Usuario:</label>
+        <input type="text" name="username" id="txtUser" class="inpFrmLogin mb-1">
+        <label for="txtPassword" class="lblFrmLogin mb-05">Contraseña:</label>
+        <input type="password" name="password" id="txtPassword" class="inpFrmLogin mb-2">
         <input type="submit" value="Iniciar Sesion" class="btnLogin">
       </form>
     </div>
@@ -41,6 +44,6 @@
     </div>
   </section>
 
-  <!-- <script src="../js/login.js"></script> -->
+  <script src="../js/login.js"></script>
 </body>
 </html>

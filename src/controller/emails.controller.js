@@ -18,8 +18,8 @@ const IntervalTimeSendingMails = () => {
   startInterval()
 }
 
-export const startInterval = () => {
-  intervalId = setInterval(SendEmails, intervalTime)
+export const startInterval = (active) => {
+  if (active) intervalId = setInterval(SendEmails, intervalTime)
 }
 
 export const SendTestEmail = async () => {

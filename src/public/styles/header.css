@@ -14,7 +14,7 @@
 .btnHeader {
   background: transparent;
   border: solid 2px #0d864a;
-  color: inherit;
+  color: #9a9fad;
   padding: 1em;
   border-radius: 0.5em;
   text-transform: uppercase;
@@ -30,17 +30,8 @@
   cursor: pointer;
 }
 
-.mainTitle {
-  font-size: 1em;
-  text-align: center;
-}
-
 @media (min-width: 768px) {
   .btnHeader {
     padding: 1.2em 2em;
-  }
-
-  .mainTitle {
-    font-size: 1.5em;
   }
 }

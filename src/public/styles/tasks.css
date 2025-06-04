@@ -1,3 +1,7 @@
+.mainTitle {
+  color: #719663;
+}
+
 .cntTools {
   display: flex;
   justify-content: end;
@@ -10,7 +14,7 @@
   padding: 0.2em 2em;
   border: 1px solid #ffffff;
   border-radius: 0.5em;
-  color: inherit;
+  color: #719663;
 }
 
 .cntTitleBtns {
@@ -19,11 +23,12 @@
   align-items: center;
   padding: 0.5em 0.5em 0.5em 0.2em;
   border-radius: 1em 1em 0 0;
-  background-color: #b93434;
+  background-color: #e63946;
+  color: #0c0f0b;
 }
 
 .taskTitle {
-  font-size: 1em;
+  font-size: 1.2em;
 }
 
 .iconTask {
@@ -40,12 +45,13 @@
 }
 
 .cntTask {
-  background-color: #3d372e;
+  background-color: #2f382c;
+  color: #9a9fad;
   width: 100%;
   max-width: 420px;
-  max-height: 280px;
   border-radius: 1em;
   padding: 0 0 1em 0;
+  font-size: 1.1em;
 }
 
 .statusSent {

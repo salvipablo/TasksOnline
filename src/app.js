@@ -9,6 +9,7 @@ import { SECRET } from './config.js'
 // import routes
 import TasksRouter from './routes/tasks.routes.js'
 import AuthRouter from './routes/auth.routes.js'
+import LoginRouter from './routes/login.routes.js'
 
 // import services
 import { startInterval } from './controller/emails.controller.js'
@@ -32,11 +33,9 @@ app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
 // Routes.
 app.use('/', AuthRouter)
 app.use('/tasks', TasksRouter)
+app.use('/login', LoginRouter)
 
-//startInterval()
-
-// 120.000 -> 2 Minutos.
-//setInterval(SendEmails, 60000) // 1 minuto.
-//setInterval(SendTestEmail, 60000)  // 1 minuto.
+// Email service.
+startInterval(false)
 
 export default app
