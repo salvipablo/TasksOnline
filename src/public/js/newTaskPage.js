@@ -164,12 +164,17 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
   SubmitFrmAddTask.reset()
 })
 
+document.addEventListener('DOMContentLoaded', function () {
+  // Enviar al backend credenciales para verificar autorizacion
+  
+
+  // Inicia el programa.
+  let chosenDate = new Date()
+  DateForTask.textContent = chosenDate.toISOString().split('T')[0]
+  let currentDay = chosenDate.getDate()
+  let currentMonth = new Date().getMonth()
+  let currentYear = new Date().getFullYear()
+
+  renderMonth(currentYear, currentMonth, currentDay)
+})
 //#endregion
-
-let chosenDate = new Date()
-DateForTask.textContent = chosenDate.toISOString().split('T')[0]
-let currentDay = chosenDate.getDate()
-let currentMonth = new Date().getMonth()
-let currentYear = new Date().getFullYear()
-
-renderMonth(currentYear, currentMonth, currentDay)

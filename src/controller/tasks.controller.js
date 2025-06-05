@@ -6,9 +6,29 @@ import {
   UpdateTaskDB
 } from "../repository/tasks.repository.js"
 
+import {
+  UserAuthorizedDB
+} from "../repository/auth.repository.js"
+
+import { ShowLog } from "../services/generals.service.js"
+
+const isTheUserAuthorized = (userInfo) => {
+  try {
+    let status = UserAuthorizedDB(userInfo)
+
+    if (status === 10600) throw new Error('Unauthorized user')
+
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 export const CreateTask = (req, res) => {
   try {
-    const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
+    const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask, user } = req.body
+
+    if (!isTheUserAuthorized(user)) throw new Error('You are not authorized to perform this action.')
 
     let newTaskToSave = {
       affair,
@@ -19,19 +39,19 @@ export const CreateTask = (req, res) => {
       timeRepeatTask
     }
 
-    let opStatus = SaveTaskDB(newTaskToSave)
+    SaveTaskDB(newTaskToSave)
 
-    // TODO: Aqui podria ir una logica para guardar con log con operacion exitosa.
+    ShowLog('Successful task creation', 1)
 
     res.status(201).send({
       message: "The task was saved successfully"
-    })  
+    })
   } catch (error) {
-    //TODO: Aqui faltaria una logica para guardar error que se produce en log o algo asi
+    ShowLog(`Task creation failed: ${error.message}`, 2)
 
-    res.status(404).send({
+    res.status(401).send({
       message: error.message
-    })  
+    })
   }
 }
 
@@ -77,7 +97,7 @@ export const DeleteTask = async (req, res) => {
   }
 }
 
-export const UpdateTask = (req, res) => { 
+export const UpdateTask = (req, res) => {
   try {
     const { id, affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
