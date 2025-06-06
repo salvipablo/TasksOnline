@@ -6,29 +6,11 @@ import {
   UpdateTaskDB
 } from "../repository/tasks.repository.js"
 
-import {
-  UserAuthorizedDB
-} from "../repository/auth.repository.js"
-
 import { ShowLog } from "../services/generals.service.js"
-
-const isTheUserAuthorized = (userInfo) => {
-  try {
-    let status = UserAuthorizedDB(userInfo)
-
-    if (status === 10600) throw new Error('Unauthorized user')
-
-    return true
-  } catch (error) {
-    return false
-  }
-}
 
 export const CreateTask = (req, res) => {
   try {
-    const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask, user } = req.body
-
-    if (!isTheUserAuthorized(user)) throw new Error('You are not authorized to perform this action.')
+    const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
     let newTaskToSave = {
       affair,

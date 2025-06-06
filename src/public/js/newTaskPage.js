@@ -14,6 +14,10 @@ const NumbRepet = document.getElementById('numbRepet')
 const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+let currentDay
+let currentMonth
+let currentYear
+
 // #region Functions
 const daysSinceMonday = (day) => {
   const daysOfTheWeek = {
@@ -129,6 +133,31 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
 
   return Response.message
 }
+
+const auth = async () => {
+  // Leer el dato de sessionStorage
+  const data = sessionStorage.getItem("LoggedInUser")
+
+  // Convertir de texto a objeto
+  const user = JSON.parse(data)
+
+  let Response
+
+  if (user) {
+    const Request = await fetch('./auth', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+
+    Response = await Request.json()
+  }
+
+  if (Response.message !== 'User is authorized'|| !user) window.location.href = './login.html'
+}
 //#endregion
 
 //#region Eventos
@@ -164,16 +193,16 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
   SubmitFrmAddTask.reset()
 })
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Enviar al backend credenciales para verificar autorizacion
-  
+document.addEventListener('DOMContentLoaded', () => {
+  // Verificar autorizacion
+  auth()
 
   // Inicia el programa.
   let chosenDate = new Date()
   DateForTask.textContent = chosenDate.toISOString().split('T')[0]
-  let currentDay = chosenDate.getDate()
-  let currentMonth = new Date().getMonth()
-  let currentYear = new Date().getFullYear()
+  currentDay = chosenDate.getDate()
+  currentMonth = new Date().getMonth()
+  currentYear = new Date().getFullYear()
 
   renderMonth(currentYear, currentMonth, currentDay)
 })

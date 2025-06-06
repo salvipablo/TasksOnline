@@ -1,7 +1,9 @@
 import { Router } from "express"
 import { google } from "googleapis"
 import fs from 'fs/promises'
+
 import { ShowLog } from "../services/generals.service.js"
+import { AuthorizedUser } from "../controller/auth.controller.js"
 
 const AuthRouter = Router()
 
@@ -35,8 +37,10 @@ AuthRouter.get('/oauth2', (_req, res) => {
 AuthRouter.get('/oauth2callback', async (req, res) => {
   const { code } = req.query
   const { tokens } = await oauth2Client.getToken(code)
+
   oauth2Client.setCredentials(tokens)
   req.session.tokens = tokens
+
   res.send('Authorization completed')
 })
 
@@ -44,5 +48,7 @@ oauth2Client.on('tokens', (tokens) => {
   if (tokens.refresh_token) ShowLog(`refresh token: ${tokens.refresh_token}`, 1)
   ShowLog(`Access token: ${tokens.access_token}`, 1)
 })
+
+AuthRouter.post('/auth', AuthorizedUser)
 
 export default AuthRouter
