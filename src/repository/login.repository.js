@@ -1,17 +1,23 @@
-export const SearchUserDB = (UserTryingToLogin) => {
-  try {
-    if (UserTryingToLogin.user !== 'psalvi') throw new Error('The submitted user does not exist.')
-    if (UserTryingToLogin.password !== 'semapi419') throw new Error('The login password does not match.')
+import { UserSchema } from "../models/users.model.js"
 
-    let userFound = {
-      user: UserTryingToLogin.user,
-      idUser: 1
+export const SearchUserDB = async (UserTryingToLogin) => {
+  try {
+    const userFound = await UserSchema.findOne({ where: { username: UserTryingToLogin.user } })
+    
+    if (!userFound) throw new Error('The submitted user does not exist.')
+
+    let user = {
+      id: userFound.id,
+      username: userFound.username,
+      password: userFound.password
     }
 
-    return userFound
+    return {
+      statusCodeDB: 10004,
+      user
+    }
   } catch (error) {
-    if (error.message === 'The submitted user does not exist.') return 10005
-    if (error.message === 'The login password does not match.') return 10006
-    else return 19999
+    if (error.message === 'The submitted user does not exist.') return { statusCodeDB: 10005}
+    else return { statusCodeDB: 19999 }
   }
 }

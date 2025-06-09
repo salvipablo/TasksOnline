@@ -2,7 +2,7 @@ import { SearchUserDB } from "../repository/login.repository.js"
 import { ShowLog } from '../services/generals.service.js'
 import { UserAuthorizedDB  } from '../repository/auth.repository.js'
 
-export const Login = (req, res) => {
+export const Login = async (req, res) => {
   try {
     const {user, password} = req.body
 
@@ -11,17 +11,27 @@ export const Login = (req, res) => {
       password
     }
 
-    let status = SearchUserDB(userToSearch)
+    let infoDB = await SearchUserDB(userToSearch)
 
-    if (status === 10005) throw new Error('Unauthorized user due to credential error.')
-    if (status === 10006) throw new Error('Unauthorized user due to credential error.')
-    if (status === 19999) throw new Error('An unknown error occurred while searching the database.')
+    // Si se cumple esta condicion el usuario no existe.
+    if (infoDB.statusCodeDB === 10005) throw new Error('Unauthorized user due to credential error.')
+
+    // Si se cumple esta condicion algo pase en la base de datos y no llego la informacion.
+    if (infoDB.statusCodeDB === 19999) throw new Error('An unknown error occurred while searching the database.')
+
+    // Comparar la contraseña.
+    if (infoDB.user.password !== password) throw new Error('Unauthorized user due to credential error.')
+
+    let userToFront = {
+      id: infoDB.user.id,
+      username: infoDB.user.username
+    }
 
     ShowLog("Successful login attempt", 1)
 
     res.status(200).send({
       message: "user successfully logged in",
-      user: status
+      user: userToFront
     })
   } catch (error) {
     ShowLog("Error trying to log in", 2)

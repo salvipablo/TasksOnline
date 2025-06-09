@@ -19,10 +19,6 @@ import { startInterval } from './controller/emails.controller.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Actializar tareas.
-// import { UpdateTasks } from './repository/tasks.repository.js'
-// UpdateTasks()
-
 const app = express()
 
 // Middlewares.

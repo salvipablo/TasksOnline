@@ -2,7 +2,7 @@ import app from "./app.js"
 import { ShowLog } from "./services/generals.service.js"
 import { PORT } from "./config.js"
 import { sequelize } from "./database/database.js"
-import { TasksSchema, EmailForTaskSchema } from "./models/index.js"
+import { TasksSchema, EmailForTaskSchema, UserSchema } from "./models/index.js"
 
 const main = async () => {
   try {

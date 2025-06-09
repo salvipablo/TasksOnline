@@ -15,7 +15,12 @@ export const TasksSchema = sequelize.define('tasks', {
     type: DataTypes.STRING
   },
   user_id: {
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   },
   notice_date: {
     type: DataTypes.STRING
