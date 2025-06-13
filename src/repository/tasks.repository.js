@@ -10,7 +10,7 @@ import { ShowLog } from '../services/generals.service.js'
       let taskDB = {
         affair: task.affair,
         description: task.description,
-        user_id: 1,
+        user_id: task.userID,
         notice_date: task.noticeDate,
         emails_sent: task.emailsSent,
         time_repeat: task.timeRepeatTask
@@ -34,9 +34,12 @@ import { ShowLog } from '../services/generals.service.js'
   }
 
   // Read.
-  export const ReturnTasksDB = async () => {
+  export const ReturnTasksDB = async (idUser) => {
     try {
       const tasks = await TasksSchema.findAll({
+        where: {
+          user_id: idUser,
+        },
         include: [{
           model: EmailForTaskSchema,
           attributes: ['mail']

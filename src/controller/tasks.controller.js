@@ -10,9 +10,10 @@ import { ShowLog } from "../services/generals.service.js"
 
 export const CreateTask = (req, res) => {
   try {
-    const { affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
+    const { userID, affair, description, noticeDate, mails, emailsSent, timeRepeatTask } = req.body
 
     let newTaskToSave = {
+      userID,
       affair,
       description,
       noticeDate,
@@ -37,9 +38,13 @@ export const CreateTask = (req, res) => {
   }
 }
 
-export const GetTasks = async (_req, res) => {
+export const GetTasks = async (req, res) => {
   try {
-    let tasks = await ReturnTasksDB()
+    const { id } = req.params
+
+    console.log(id)
+
+    let tasks = await ReturnTasksDB(id)
 
     //TODO: Aqui podria ir una logica para guardar cuando el usuario pidio las tareas.
 

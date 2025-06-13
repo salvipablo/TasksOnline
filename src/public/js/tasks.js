@@ -7,12 +7,9 @@ let TASKS = []
 
 //#region Functions
 const RequestTasks = async () => {
-  const request = await fetch(`./tasks`, {
-    method: 'GET',
-  })
-
+  const { id } = JSON.parse(returnUserSession())
+  const request = await fetch(`./tasks/${id}`, { method: 'GET' })
   const response = await request.json()
-
   TASKS = response.message
 }
 
@@ -263,6 +260,34 @@ const SetEventsToButtons = () => {
     })
   })
 }
+
+const auth = async () => {
+  const user = JSON.parse(returnUserSession())
+
+  let Response
+
+  if (user) {
+    const Request = await fetch('./auth', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+
+    Response = await Request.json()
+  }
+
+  if (Response.message !== 'User is authorized'|| !user) {
+    alert('Usted no esta autorizado para realizar esta accion')
+    window.location.href = './login.html'
+  }
+}
+
+const returnUserSession = () => {
+  return sessionStorage.getItem("LoggedInUser")
+}
 //#endregion
 
 //#region Events
@@ -287,6 +312,8 @@ SelViews.addEventListener('change', () => {
 //#endregion
 
 const main = async () => {
+  await auth()
+
   await RequestTasks()
 
   RenderTasks(TASKS)

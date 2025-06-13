@@ -1,4 +1,4 @@
-import { SearchUserDB } from "../repository/login.repository.js"
+import { SearchUserDB } from "../repository/auth.repository.js"
 import { ShowLog } from '../services/generals.service.js'
 import { UserAuthorizedDB  } from '../repository/auth.repository.js'
 
@@ -52,10 +52,13 @@ export const AuthorizedUser = (req, res) => {
 
     if (status === 10600) throw new Error('Unauthorized user')
 
+    ShowLog('The user has been authorized for an operation', 1)
+
     res.status(200).send({
       message: "User is authorized",
     })
   } catch (error) {
+    ShowLog(error.message, 2)
     res.status(401).send({
       message: error.message,
     })

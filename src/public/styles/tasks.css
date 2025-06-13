@@ -1,6 +1,10 @@
-.mainTitle {
+body {
   color: #719663;
 }
+
+/* .mainTitle {
+  color: #719663;
+} */
 
 .cntTools {
   display: flex;
@@ -14,7 +18,7 @@
   padding: 0.2em 2em;
   border: 1px solid #ffffff;
   border-radius: 0.5em;
-  color: #719663;
+  color: inherit;
 }
 
 .cntTitleBtns {
@@ -24,7 +28,7 @@
   padding: 0.5em 0.5em 0.5em 0.2em;
   border-radius: 1em 1em 0 0;
   background-color: #e63946;
-  color: #0c0f0b;
+  color: inherit;
 }
 
 .taskTitle {
@@ -46,7 +50,7 @@
 
 .cntTask {
   background-color: #2f382c;
-  color: #9a9fad;
+  /* color: #9a9fad; */
   width: 100%;
   max-width: 420px;
   border-radius: 1em;

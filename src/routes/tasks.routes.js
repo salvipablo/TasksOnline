@@ -17,7 +17,7 @@ const TasksRouter = Router()
   TasksRouter.post('/', CreateTask)
 
   // Read all tasks.
-  TasksRouter.get('/', GetTasks)
+  TasksRouter.get('/:id', GetTasks)
 
   /* -- Update task. -- */
 

@@ -18,6 +18,8 @@ let currentDay
 let currentMonth
 let currentYear
 
+let chosenDate = new Date()
+
 // #region Functions
 const daysSinceMonday = (day) => {
   const daysOfTheWeek = {
@@ -111,7 +113,10 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
     if (mailsToSend[i].selected) mails.push(mailsToSend[i].value)
   }
 
+  const { id } = JSON.parse(returnUserSession())
+
   let newTask = {
+    userID: id,
     affair,
     description,
     noticeDate,
@@ -135,11 +140,7 @@ const saveTask = async (affair, description, noticeDate, mailsToSend, timeRepet,
 }
 
 const auth = async () => {
-  // Leer el dato de sessionStorage
-  const data = sessionStorage.getItem("LoggedInUser")
-
-  // Convertir de texto a objeto
-  const user = JSON.parse(data)
+  const user = JSON.parse(returnUserSession())
 
   let Response
 
@@ -156,7 +157,14 @@ const auth = async () => {
     Response = await Request.json()
   }
 
-  if (Response.message !== 'User is authorized'|| !user) window.location.href = './login.html'
+  if (Response.message !== 'User is authorized'|| !user) {
+    alert('Usted no esta autorizado para realizar esta accion')
+    window.location.href = './login.html'
+  }
+}
+
+const returnUserSession = () => {
+  return sessionStorage.getItem("LoggedInUser")
 }
 //#endregion
 
@@ -198,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
   auth()
 
   // Inicia el programa.
-  let chosenDate = new Date()
   DateForTask.textContent = chosenDate.toISOString().split('T')[0]
   currentDay = chosenDate.getDate()
   currentMonth = new Date().getMonth()
