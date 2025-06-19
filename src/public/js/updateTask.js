@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const params = new URLSearchParams(window.location.search)
   id = params.get('id')
 
-  const Request = await fetch(`./tasks/${id}`, {
+  const Request = await fetch(`./tasks/update/${id}`, {
     method: 'GET',
   })
 

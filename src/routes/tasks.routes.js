@@ -22,7 +22,7 @@ const TasksRouter = Router()
   /* -- Update task. -- */
 
     // Get Task.
-    TasksRouter.get('/:id', GetTask)  // OK.
+    TasksRouter.get('/update/:id', GetTask)  // OK.
 
     // Update Task.
     TasksRouter.put('/', UpdateTask)  // Ejecucion.
