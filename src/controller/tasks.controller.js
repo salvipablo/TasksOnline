@@ -42,8 +42,6 @@ export const GetTasks = async (req, res) => {
   try {
     const { id } = req.params
 
-    console.log(id)
-
     let tasks = await ReturnTasksDB(id)
 
     //TODO: Aqui podria ir una logica para guardar cuando el usuario pidio las tareas.
@@ -63,10 +61,6 @@ export const GetTasks = async (req, res) => {
 export const DeleteTask = async (req, res) => {
   try {
     const { id } = req.params
-
-    console.log(id)
-    console.log(typeof id)
-    
 
     await DeleteTaskDB(parseInt(id))
 

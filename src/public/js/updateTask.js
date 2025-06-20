@@ -134,6 +134,40 @@ const updateTask = async (affair, description, noticeDate, mailsToSend, timeRepe
 
   return Response.message
 }
+
+const auth = async () => {
+  const user = JSON.parse(returnUserSession())
+  let isAuthorized = false
+
+  if (user) {
+    try {
+      const request = await fetch('./auth', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+
+      const response = await request.json()
+      if (response.message === 'User is authorized') {
+        isAuthorized = true
+      }
+    } catch (error) {
+      console.error('Error al verificar la autorización:', error)
+    }
+  }
+
+  if (!isAuthorized) {
+    alert('Usted no está autorizado para realizar esta acción')
+    window.location.href = './login.html'
+  }
+}
+
+const returnUserSession = () => {
+  return sessionStorage.getItem("LoggedInUser")
+}
 //#endregion
 
 //#region Eventss
@@ -166,10 +200,12 @@ SubmitFrmUpdateTask.addEventListener('submit', async (e) => {
 
   alert(opStatus)
 
-  window.location.href = './index.html'
+  window.location.href = './tasks.html'
 })
 
 document.addEventListener('DOMContentLoaded', async function () {
+  await auth()
+
   const params = new URLSearchParams(window.location.search)
   id = params.get('id')
 

@@ -16,6 +16,7 @@ const loadCredentials = async () => {
     return null
   }
 }
+
 const CREDENCIALES = await loadCredentials()
 
 const oauth2Client = new google.auth.OAuth2(

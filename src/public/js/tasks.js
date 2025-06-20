@@ -263,24 +263,30 @@ const SetEventsToButtons = () => {
 
 const auth = async () => {
   const user = JSON.parse(returnUserSession())
-
-  let Response
+  let isAuthorized = false
 
   if (user) {
-    const Request = await fetch('./auth', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
+    try {
+      const request = await fetch('./auth', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
 
-    Response = await Request.json()
+      const response = await request.json()
+      if (response.message === 'User is authorized') {
+        isAuthorized = true
+      }
+    } catch (error) {
+      console.error('Error al verificar la autorización:', error)
+    }
   }
 
-  if (Response.message !== 'User is authorized'|| !user) {
-    alert('Usted no esta autorizado para realizar esta accion')
+  if (!isAuthorized) {
+    alert('Usted no está autorizado para realizar esta acción')
     window.location.href = './login.html'
   }
 }

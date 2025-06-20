@@ -28,7 +28,7 @@ body {
   padding: 0.5em 0.5em 0.5em 0.2em;
   border-radius: 1em 1em 0 0;
   background-color: #e63946;
-  color: inherit;
+  color: #000000;
 }
 
 .taskTitle {
