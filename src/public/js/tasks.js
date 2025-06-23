@@ -14,6 +14,8 @@ const RequestTasks = async () => {
 }
 
 const RenderTasks = (filteredTasks) => {
+  console.log(filteredTasks)
+
   let cards = ''
 
   filteredTasks.forEach(task => {
@@ -25,7 +27,7 @@ const RenderTasks = (filteredTasks) => {
       `
     })
 
-    let statusTask = task.emailsSent === true ? 'statusSent' : ''
+    let statusTask = task.emails_sent === 1 ? 'statusSent' : ''
     
     cards += `
       <div class="cntTask">
@@ -141,7 +143,7 @@ const createCalendar = (year, month, filteredTasks) => {
 
       taskElement.title = `ID Task: ${task.id}`
 
-      if (task.emailsSent) {
+      if (task.emails_sent === 1) {
         taskElement.classList.add('sent')
       } else {
         taskElement.classList.add('pending')
