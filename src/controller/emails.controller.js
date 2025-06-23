@@ -69,19 +69,19 @@ export const SendEmails = async () => {
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
   let tasksToSend = GetTasksByCondition(ChosenDateConverted)
 
-  if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
+  // if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
 
-  const taskPromises = tasksToSend.map(async task => {
-    if (!task.emailsSent) {
-      return await SendEmailForTask(task)
-    }
-  })
+  // const taskPromises = tasksToSend.map(async task => {
+  //   if (!task.emailsSent) {
+  //     return await SendEmailForTask(task)
+  //   }
+  // })
 
-  await Promise.all(taskPromises)
+  // await Promise.all(taskPromises)
 
-  CloseTaskNotice(emailSendingStatus)
+  // CloseTaskNotice(emailSendingStatus)
 
-  return "Tasks sent to email notification"
+  // return "Tasks sent to email notification"
 }
 
 export const testSetInterval = () => {

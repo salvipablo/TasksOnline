@@ -156,3 +156,31 @@ export const ReturnTask = async (taskId) => {
   delete taskJSON.emailsForTasks
   return taskJSON
 }
+
+export const GetTasksByCondition = async (idUser, currentDate) => {
+    try {
+      const tasks = await TasksSchema.findAll({
+        where: {
+          user_id: idUser,
+          notice_date: {
+            [Sequelize.Op.eq]: currentDate, // Filtra tareas donde notice_date sea igual a currentDate
+          },
+        },
+        include: [{
+          model: EmailForTaskSchema,
+          attributes: ['mail'],
+        }],
+      })
+
+      console.log(tasks)
+
+      return tasks.map(task => {
+        const taskJSON = task.toJSON()
+        taskJSON.emails = taskJSON.emailsForTasks.map(email => email.mail)
+        delete taskJSON.emailsForTasks
+        return taskJSON
+      })
+    } catch (error) {
+      ShowLog(error.message, 2)
+    }
+}
