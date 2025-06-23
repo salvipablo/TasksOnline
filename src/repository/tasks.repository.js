@@ -1,3 +1,5 @@
+import { Sequelize } from 'sequelize'
+
 import { TasksSchema } from '../models/tasks.model.js'
 import { EmailForTaskSchema } from '../models/emailsForTask.model.js'
 import { ShowLog } from '../services/generals.service.js'
@@ -157,30 +159,43 @@ export const ReturnTask = async (taskId) => {
   return taskJSON
 }
 
-export const GetTasksByCondition = async (idUser, currentDate) => {
-    try {
-      const tasks = await TasksSchema.findAll({
-        where: {
-          user_id: idUser,
-          notice_date: {
-            [Sequelize.Op.eq]: currentDate, // Filtra tareas donde notice_date sea igual a currentDate
-          },
+export const GetTasksByCondition = async (currentDate) => {
+  try {
+    const tasks = await TasksSchema.findAll({
+      where: {
+        notice_date: {
+          [Sequelize.Op.eq]: currentDate, // Filtra tareas donde notice_date sea igual a currentDate
         },
-        include: [{
-          model: EmailForTaskSchema,
-          attributes: ['mail'],
-        }],
-      })
+        emails_sent: 0
+      },
+      include: [{
+        model: EmailForTaskSchema,
+        attributes: ['mail'],
+      }],
+    })
 
-      console.log(tasks)
+    return tasks.map(task => {
+      const taskJSON = task.toJSON()
+      taskJSON.emails = taskJSON.emailsForTasks.map(email => email.mail)
+      delete taskJSON.emailsForTasks
+      return taskJSON
+    })
+  } catch (error) {
+    ShowLog(error.message, 2)
+  }
+}
 
-      return tasks.map(task => {
-        const taskJSON = task.toJSON()
-        taskJSON.emails = taskJSON.emailsForTasks.map(email => email.mail)
-        delete taskJSON.emailsForTasks
-        return taskJSON
-      })
-    } catch (error) {
-      ShowLog(error.message, 2)
-    }
+export const CloseTaskNotice = async (emailsStatus) => {
+  emailsStatus.forEach(async element => {
+    let sendStatus = element.shippingStatus === true ? 1 : 0
+
+    await TasksSchema.update(
+      { emails_sent: sendStatus },
+      {
+        where: {
+          id: element.id,
+        }
+      }
+    )
+  })
 }

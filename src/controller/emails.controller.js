@@ -1,10 +1,10 @@
 import { ServiceSendingEmail } from "../services/emails.service.js"
 import { ShowLog } from "../services/generals.service.js"
 
-// import {
-//   GetTasksByCondition,
-//   CloseTaskNotice
-// } from "../repository/tasks.repository.js"
+import {
+  GetTasksByCondition,
+  CloseTaskNotice
+} from "../repository/tasks.repository.js"
 
 const emailSendingStatus = []
 
@@ -39,7 +39,11 @@ const SendEmailForTask = async (task) => {
   let description = task.description
   let satisfactoryDelivery = true
 
-  const emailPromises = task.mails.map(async mail => {
+  console.log('**** SendEmailForTask ****')
+  console.log(task)
+
+
+  const emailPromises = task.emails.map(async mail => {
     let dataEmail = {
       affair,
       description,
@@ -67,21 +71,26 @@ export const SendEmails = async () => {
   IntervalTimeSendingMails()
 
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
-  let tasksToSend = GetTasksByCondition(ChosenDateConverted)
+  let tasksToSend = await GetTasksByCondition(ChosenDateConverted)
 
-  // if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
+  console.log('** Tareas encontradas segun fecha y emails_sent = 0 **')
+  console.log(tasksToSend)
 
-  // const taskPromises = tasksToSend.map(async task => {
-  //   if (!task.emailsSent) {
-  //     return await SendEmailForTask(task)
-  //   }
-  // })
+  if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
 
-  // await Promise.all(taskPromises)
+  const taskPromises = tasksToSend.map(async task => {
+    if (task.emails_sent === 0) {
+      return await SendEmailForTask(task)
+    }
+  })
 
-  // CloseTaskNotice(emailSendingStatus)
+  await Promise.all(taskPromises)
 
-  // return "Tasks sent to email notification"
+  console.log(emailSendingStatus)
+
+  CloseTaskNotice(emailSendingStatus)
+
+  return "Tasks sent to email notification"
 }
 
 export const testSetInterval = () => {
