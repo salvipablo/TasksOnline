@@ -14,8 +14,6 @@ const RequestTasks = async () => {
 }
 
 const RenderTasks = (filteredTasks) => {
-  console.log(filteredTasks)
-
   let cards = ''
 
   filteredTasks.forEach(task => {

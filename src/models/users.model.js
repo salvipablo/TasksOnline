@@ -13,6 +13,9 @@ export const UserSchema = sequelize.define('users', {
   },
   password: {
     type: DataTypes.STRING
+  },
+  emails: {
+    type: DataTypes.STRING
   }
 }, {
   timestamps: false

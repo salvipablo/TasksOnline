@@ -32,6 +32,6 @@ app.use('/tasks', TasksRouter)
 app.use('/login', LoginRouter)
 
 // Email service.
-startInterval(true)
+startInterval(false)
 
 export default app

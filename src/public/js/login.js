@@ -27,6 +27,8 @@ FrmLogin.addEventListener('submit', async (e) => {
 
   const Response = await Request.json()
 
+  console.log(Response)
+
   if (Response.message === 'user successfully logged in') Login(Response.user)
   else alert(Response.message)
 })

@@ -172,6 +172,19 @@ const auth = async () => {
 const returnUserSession = () => {
   return sessionStorage.getItem("LoggedInUser")
 }
+
+const showEmails = () => {
+  const sessionEmails = sessionStorage.getItem("LoggedInUser")
+  let objectUser = JSON.parse(sessionEmails)
+  let emails = objectUser.emails.split(',').map(email => email.trim())
+
+  const selectEmails = document.getElementById('cars')
+
+  emails.forEach(element => {
+    let html = `<option class="opMails" value="${element.replace(/'/g, '')}">${element.replace(/'/g, '')}</option>`
+    selectEmails.innerHTML += html
+  });
+}
 //#endregion
 
 //#region Eventos
@@ -209,6 +222,8 @@ SubmitFrmAddTask.addEventListener('submit', async (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   auth()
+
+  showEmails()
 
   DateForTask.textContent = chosenDate.toISOString().split('T')[0]
   currentDay = chosenDate.getDate()

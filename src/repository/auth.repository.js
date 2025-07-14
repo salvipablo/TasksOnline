@@ -4,13 +4,14 @@ import { ShowLog } from "../services/generals.service.js"
 export const SearchUserDB = async (UserTryingToLogin) => {
   try {
     const userFound = await UserSchema.findOne({ where: { username: UserTryingToLogin.user } })
-    
+
     if (!userFound) throw new Error('The submitted user does not exist.')
 
     let user = {
       id: userFound.id,
       username: userFound.username,
-      password: userFound.password
+      password: userFound.password,
+      emails: userFound.emails
     }
 
     return {

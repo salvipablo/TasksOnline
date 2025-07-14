@@ -24,7 +24,8 @@ export const Login = async (req, res) => {
 
     let userToFront = {
       id: infoDB.user.id,
-      username: infoDB.user.username
+      username: infoDB.user.username,
+      emails: infoDB.user.emails
     }
 
     ShowLog("Successful login attempt", 1)
