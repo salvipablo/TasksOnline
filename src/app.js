@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'path'
+import cors from 'cors'
 import { fileURLToPath } from 'url'
 import session from 'express-session'
 
@@ -10,6 +11,7 @@ import { SECRET } from './config.js'
 import TasksRouter from './routes/tasks.routes.js'
 import AuthRouter from './routes/auth.routes.js'
 import LoginRouter from './routes/login.routes.js'
+import LubriRouter from './routes/lubri.routes.js'
 
 // import services
 import { startInterval } from './controller/emails.controller.js'
@@ -22,6 +24,7 @@ const __dirname = path.dirname(__filename)
 const app = express()
 
 // Middlewares.
+app.use(cors())  // Habilita CORS para todas las rutas y orígenes
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
@@ -30,6 +33,7 @@ app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
 app.use('/', AuthRouter)
 app.use('/tasks', TasksRouter)
 app.use('/login', LoginRouter)
+app.use('/lubricentro', LubriRouter)
 
 // Email service.
 startInterval(false)

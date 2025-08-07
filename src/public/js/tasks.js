@@ -280,9 +280,7 @@ const auth = async () => {
       if (response.message === 'User is authorized') {
         isAuthorized = true
       }
-    } catch (error) {
-      console.error('Error al verificar la autorización:', error)
-    }
+    } catch (error) {}
   }
 
   if (!isAuthorized) {

@@ -22,11 +22,12 @@ export const startInterval = (active) => {
   if (active) intervalId = setInterval(SendEmails, intervalTime)
 }
 
-export const SendTestEmail = async () => {
+export const SendTestEmail = async (contentFileToSend) => {
   let emailToSend = {
-    affair: 'Asunto de prueba',
-    description: 'Descripcion de prueba',
-    mails: [ 'salvipablo@gmail.com', 'albertoaranda48@hotmail.com', 'bonicamboriu@gmail.com' ]
+    affair: 'Venta del dia',
+    description: 'Esta es una casilla de envio automatico de email, no responder a este......',
+    mail: 'luciana.n.salvi@gmail.com',
+    dynamicFileContent: contentFileToSend
   }
 
   let opStatus = await ServiceSendingEmail(emailToSend)
@@ -38,10 +39,6 @@ const SendEmailForTask = async (task) => {
   let affair = task.affair
   let description = task.description
   let satisfactoryDelivery = true
-
-  console.log('**** SendEmailForTask ****')
-  console.log(task)
-
 
   const emailPromises = task.emails.map(async mail => {
     let dataEmail = {
@@ -73,9 +70,6 @@ export const SendEmails = async () => {
   let ChosenDateConverted = new Date().toISOString().split('T')[0]
   let tasksToSend = await GetTasksByCondition(ChosenDateConverted)
 
-  console.log('** Tareas encontradas segun fecha y emails_sent = 0 **')
-  console.log(tasksToSend)
-
   if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
 
   const taskPromises = tasksToSend.map(async task => {
@@ -85,8 +79,6 @@ export const SendEmails = async () => {
   })
 
   await Promise.all(taskPromises)
-
-  console.log(emailSendingStatus)
 
   CloseTaskNotice(emailSendingStatus)
 

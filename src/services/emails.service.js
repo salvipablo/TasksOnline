@@ -28,13 +28,20 @@ import { MAIL_TOKEN, REFRESH_TOKEN, EMAIL } from '../config.js'
 
 export const ServiceSendingEmail = async (dataForEmail) => {
   try {
-    const { affair, description, mail } = dataForEmail
+    const { affair, description, mail, dynamicFileContent } = dataForEmail
 
     const mailOptions = {
       from: EMAIL,
       to: mail,
       subject: affair,
-      text: description
+      text: description,
+      attachments: [
+        {
+          filename: 'salesOfTheDay.html',
+          content: dynamicFileContent,
+          contentType: 'text/html'
+        }
+      ]
     }
 
     let tokens = {
