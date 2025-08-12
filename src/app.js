@@ -2,10 +2,6 @@ import express from 'express'
 import path from 'path'
 import cors from 'cors'
 import { fileURLToPath } from 'url'
-import session from 'express-session'
-
-// import variables
-import { SECRET } from './config.js'
 
 // import routes
 import TasksRouter from './routes/tasks.routes.js'
@@ -23,11 +19,12 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 
+// TODO: Ver el temas de los CORS, como habilitar solo la aplicacion de Luciana y no todos los origenes.
+
 // Middlewares.
-app.use(cors())  // Habilita CORS para todas las rutas y orígenes
+app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({ secret: SECRET, resave: false, saveUninitialized: true }))
 
 // Routes.
 app.use('/', AuthRouter)

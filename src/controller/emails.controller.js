@@ -1,4 +1,5 @@
-import { ServiceSendingEmail } from "../services/emails.service.js"
+import { SendEmail } from "../services/emails.service.js"
+
 import { ShowLog } from "../services/generals.service.js"
 
 import {
@@ -30,7 +31,7 @@ export const SendTestEmail = async (contentFileToSend) => {
     dynamicFileContent: contentFileToSend
   }
 
-  let opStatus = await ServiceSendingEmail(emailToSend)
+  let opStatus = await SendEmail(emailToSend)
 
   return opStatus
 }
@@ -47,7 +48,7 @@ const SendEmailForTask = async (task) => {
       mail
     }
 
-    let opStatus = await ServiceSendingEmail(dataEmail)
+    let opStatus = await SendEmail(dataEmail)
 
     return opStatus.message !== 'The email could not be sent correctly'
   })

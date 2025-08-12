@@ -20,9 +20,9 @@ const loadCredentials = async () => {
 const CREDENCIALES = await loadCredentials()
 
 const oauth2Client = new google.auth.OAuth2(
-  CREDENCIALES.web.client_id,
-  CREDENCIALES.web.client_secret,
-  CREDENCIALES.web.redirect_uris[0]
+  CREDENCIALES.client_id,
+  CREDENCIALES.client_secret,
+  CREDENCIALES.redirect_uris[0]
 )
 
 const scopes = ['https://mail.google.com/']
@@ -31,13 +31,14 @@ AuthRouter.get('/oauth2', (_req, res) => {
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes,
+    prompt: 'consent'
   })
   res.redirect(url)
 })
 
-AuthRouter.get('/oauth2callback', async (req, res) => {
+AuthRouter.get('/oauth2callback', (req, res) => {
   const { code } = req.query
-  const { tokens } = await oauth2Client.getToken(code)
+  const { tokens } = oauth2Client.getToken(code)
 
   oauth2Client.setCredentials(tokens)
   req.session.tokens = tokens

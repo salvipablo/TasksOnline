@@ -1,10 +1,8 @@
 import nodemailer from 'nodemailer'
-import { google } from "googleapis"
 import fs from 'fs/promises'
+import axios from 'axios'
 
-import {
-  ShowLog
-} from './generals.service.js'
+import { ShowLog } from './generals.service.js'
 
 const loadCredentials = async () => {
   try {
@@ -18,62 +16,68 @@ const loadCredentials = async () => {
 
 const CREDENCIALES = await loadCredentials()
 
-const oauth2Client = new google.auth.OAuth2(
-  CREDENCIALES.web.client_id,
-  CREDENCIALES.web.client_secret,
-  CREDENCIALES.web.redirect_uris[0]
-)
+const getAccessToken = async (refreshToken, clientId, clientSecret) => {
+  const response = await axios.post('https://oauth2.googleapis.com/token', {
+    client_id: clientId,
+    client_secret: clientSecret,
+    refresh_token: refreshToken,
+    grant_type: 'refresh_token',
+  });
 
-import { MAIL_TOKEN, REFRESH_TOKEN, EMAIL } from '../config.js'
+  return response.data.access_token;
+}
 
-export const ServiceSendingEmail = async (dataForEmail) => {
+const returnMailOptions = (dataForEmail) => {
+  const { affair, description, mail, dynamicFileContent } = dataForEmail
+
+  let options = {
+    to: mail,
+    subject: affair,
+    text: description
+  }
+
+  if (!dataForEmail.dynamicFileContent) {
+    return options
+  } else {
+    options.attachments = [
+      {
+        filename: 'salesOfTheDay.html',
+        content: dynamicFileContent,
+        contentType: 'text/html'
+      }
+    ];
+    return options
+  }
+}
+
+export const SendEmail = async (dataForEmail) => {
   try {
-    const { affair, description, mail, dynamicFileContent } = dataForEmail
+    const mailOptions = returnMailOptions(dataForEmail)
 
-    const mailOptions = {
-      from: EMAIL,
-      to: mail,
-      subject: affair,
-      text: description,
-      attachments: [
-        {
-          filename: 'salesOfTheDay.html',
-          content: dynamicFileContent,
-          contentType: 'text/html'
-        }
-      ]
-    }
+    const accessToken = await getAccessToken(CREDENCIALES.refresh_token, CREDENCIALES.client_id, CREDENCIALES.client_secret)
 
-    let tokens = {
-      mail_token: MAIL_TOKEN,
-      refresh_token: REFRESH_TOKEN
-    }
-
-    oauth2Client.setCredentials({
-      refresh_token: tokens.refresh_token,
-    })
-    const accessToken = await oauth2Client.getAccessToken()
-
+    //TODO: Probar eliminar tls para subirlo al servidor de produccion, ya que esto es mas para desarrollo
+    // e ingnorar los certificados https.
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          type: 'OAuth2',
-          user: 'task.system.notification@gmail.com',
-          clientId: CREDENCIALES.web.client_id,
-          clientSecret: CREDENCIALES.web.client_secret,
-          refreshToken: tokens.refresh_token,
-          accessToken: accessToken,
+        type: 'OAuth2',
+        user: 'task.system.notification@gmail.com',
+        clientId: CREDENCIALES.client_id,
+        clientSecret: CREDENCIALES.client_secret,
+        refreshToken: CREDENCIALES.refresh_token,
+        accessToken: accessToken,
       },
       tls: {
         rejectUnauthorized: false,
-      }
-    })
+      },
+    });
 
     await transporter.sendMail(mailOptions)
 
     return { message: 'Email sent successfully' }
   } catch (error) {
-    ShowLog(`ServiceSendingEmail : ${error.message}`, 2)
+    ShowLog(`SendEmail : ${error.message}`, 2)
     return { message: 'The email could not be sent correctly' }
   }
 }
