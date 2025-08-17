@@ -56,8 +56,6 @@ export const SendEmail = async (dataForEmail) => {
 
     const accessToken = await getAccessToken(CREDENCIALES.refresh_token, CREDENCIALES.client_id, CREDENCIALES.client_secret)
 
-    //TODO: Probar eliminar tls para subirlo al servidor de produccion, ya que esto es mas para desarrollo
-    // e ingnorar los certificados https.
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -67,10 +65,7 @@ export const SendEmail = async (dataForEmail) => {
         clientSecret: CREDENCIALES.client_secret,
         refreshToken: CREDENCIALES.refresh_token,
         accessToken: accessToken,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
+      }
     });
 
     await transporter.sendMail(mailOptions)
