@@ -68,7 +68,13 @@ export const SendEmails = async () => {
 
   IntervalTimeSendingMails()
 
-  let ChosenDateConverted = new Date().toISOString().split('T')[0]
+  /*
+  * In this sentence, to take the date, which will be sent to the task search function for the current
+  * day, toLocaleString() must be used, since on the server there are two time zones, one international
+  * and one national, otherwise from 10 PM in Argentina on the server it is another day with 
+  * the international time zone.
+  */
+  let ChosenDateConverted = new Date().toLocaleString().split('T')[0]
   let tasksToSend = await GetTasksByCondition(ChosenDateConverted)
 
   if (tasksToSend.length === 0)  return "There are no assignments to submit on this date"
