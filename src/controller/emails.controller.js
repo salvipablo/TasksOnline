@@ -16,7 +16,7 @@ const IntervalTimeSendingMails = () => {
   clearInterval(intervalId)
   const newIntervalTime = 18000000
   intervalTime = newIntervalTime
-  startInterval()
+  startInterval(true)
 }
 
 export const startInterval = (active) => {

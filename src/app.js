@@ -12,6 +12,9 @@ import LubriRouter from './routes/lubri.routes.js'
 // import services
 import { startInterval } from './controller/emails.controller.js'
 
+// Environment variable for email function.
+import { ENVIRONMENT } from './config.js'
+
 // Define the system path.
 // Obtener la ruta del directorio actual
 const __filename = fileURLToPath(import.meta.url)
@@ -33,6 +36,6 @@ app.use('/login', LoginRouter)
 app.use('/lubricentro', LubriRouter)
 
 // Email service.
-startInterval(false)
+startInterval(ENVIRONMENT === 'production')
 
 export default app
