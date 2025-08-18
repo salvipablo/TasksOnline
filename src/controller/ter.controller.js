@@ -1,10 +1,10 @@
 import { SendEmail } from "../services/emails.service.js"
 
-export const TestEmailFunction = (req, res) => {
+export const TestEmailFunction = async (req, res) => {
   try {
     const { testTask } = req.body
     
-    let opStatus = SendEmail(testTask)
+    let opStatus = await SendEmail(testTask)
 
     res.status(200).send({ message: opStatus.message })
   } catch (error) {
