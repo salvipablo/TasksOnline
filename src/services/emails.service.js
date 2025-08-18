@@ -22,9 +22,12 @@ const getAccessToken = async (refreshToken, clientId, clientSecret) => {
     client_secret: clientSecret,
     refresh_token: refreshToken,
     grant_type: 'refresh_token',
-  });
+  })
 
-  return response.data.access_token;
+  // TODO: Borrar este console, por el momento lo dejo para revisar el tema del token.
+  console.log(response)
+
+  return response.data.access_token
 }
 
 const returnMailOptions = (dataForEmail) => {

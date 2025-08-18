@@ -8,6 +8,7 @@ import TasksRouter from './routes/tasks.routes.js'
 import AuthRouter from './routes/auth.routes.js'
 import LoginRouter from './routes/login.routes.js'
 import LubriRouter from './routes/lubri.routes.js'
+import TerRouter from './routes/ter.routes.js'
 
 // import services
 import { startInterval } from './controller/emails.controller.js'
@@ -34,6 +35,7 @@ app.use('/', AuthRouter)
 app.use('/tasks', TasksRouter)
 app.use('/login', LoginRouter)
 app.use('/lubricentro', LubriRouter)
+app.use('/pjs', TerRouter)
 
 // Email service.
 startInterval(ENVIRONMENT === 'production')
